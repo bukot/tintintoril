@@ -93,7 +93,7 @@
 }
 {5}
 
-#ACTION {~%i{(.*(?:says?|tells?|group-says?|OOC|GCC|NHC|LFG|shouts?|group-projects?).*)}}
+#ACTION {~%i{(.*(?:says?|tells?|group-says?|OOC|GCC|NHC|LFG|shouts?|(?:group-)?projects?).*)}}
 {
 	#format timestamp {%t} {{%H:%M:%S}};
 	#line log chatlog.txt {%0 :: $timestamp};
