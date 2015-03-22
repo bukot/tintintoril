@@ -1,0 +1,135 @@
+#CLASS {mapport} OPEN
+
+#ACTION {^A Forgotten Burial Chamber}
+{
+	goto smskull
+}
+{5}
+
+#ACTION {^A Small Platform Overlooking the Elder Brain}
+{
+	goto psiix
+}
+{5}
+
+#ACTION {^At a Pillar of Stone Embedded with Skulls}
+{
+	goto skullport
+}
+{5}
+
+#ACTION {^Inn of the Golden God}
+{
+	goto gnomeinn
+}
+{5}
+
+#ACTION {^The Inn of Restful Contemplation}
+{
+	goto ixinn
+}
+{5}
+
+#ACTION {^The Reception of the Dead Orc Inn}
+{
+	goto wdinn
+}
+{5}
+
+#ACTION {^The Receptionist's Chambers in the Inn of the First Home}
+{
+	goto halflinginn
+}
+{5}
+
+#ACTION {^The Upstairs of the Wayward House Inn{(?: \(Shadowed\))?}}
+{
+	goto smrent
+}
+{5}
+
+#ACTION {^Thethla's Inn}
+{
+	goto mhinn
+}
+{5}
+
+#ACTION {^{A Cobblestone Path}}
+{
+	#class trans open;
+	#action {^A grinning skull rests here.} {goto bgskull;#class trans kill}{5};
+	#action {^< %dh/%dH} {#class trans kill}{1};
+	#class trans close
+}
+{5}
+
+#ACTION {^{Before the Great Library$(?: \(Shadowed\))?}}
+{
+	goto bgport
+}
+{5}
+
+#ACTION {^{Ferry Dock on the Southern Bank of the Chionthar River(?: \(Shadowed\))?}}
+{
+	goto 7161
+}
+{5}
+
+#ACTION {^{The Common Room of the Burning Troll Inn(?: \(Shadowed\))?}}
+{
+	goto skullinn
+}
+{5}
+
+#ACTION {^{The Fountain of Commerce(?: \(Shadowed\))?}}
+{
+	goto ghport
+}
+{5}
+
+#ACTION {^{The Great Fountain of Waterdeep(?: \(Shadowed\))?}}
+{
+	goto wdfountain
+}
+{5}
+
+#ACTION {^{The Reception Desk of the Notched Axe Inn$(?: \(Shadowed\))?}}
+{
+	goto ghinn
+}
+{5}
+
+#ACTION {^{The Reception of the Purple Rothe Inn(?: \(Shadowed\))?}}
+{
+	goto dkinn
+}
+{5}
+
+#ACTION {^{The Square of the Djinn(?: \(Shadowed\))?}}
+{
+	goto cpport
+}
+{5}
+
+#ACTION {^{The Viperstongue Tavern(?: \(Shadowed\))?}}
+{
+	goto vtport
+}
+{5}
+
+#ACTION {^{Ust Circle - North(?: \(Shadowed\))?}}
+{
+	#class trans open;
+	#action {^Exits: - North - East  - South - West  - Down} {goto dkport;#class trans kill}{3};
+	#action {^Exits: %*} {#class trans kill}{5};
+	#class trans close
+}
+{5}
+
+#ACTION {^{Wayward House Inn(?: \(Shadowed\))?}$}
+{
+	goto sminn
+}
+{5}
+
+#CLASS {mapport} CLOSE

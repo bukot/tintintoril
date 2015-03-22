@@ -1,0 +1,437 @@
+#CLASS {general} OPEN
+
+#ACTION {%* ceases to move.. still and lifeless.}
+{
+	#showme you say %1 is para
+}
+{5}
+
+#ACTION {%w has just given you %w consent.}
+{
+	group %1 Let's go get ded!
+}
+{5}
+
+#ACTION {You are stunned by the horrific visions!}
+{
+	#showme {you say I am stunned!}
+}
+{5}
+
+#ACTION {You have learned something new about %*!}
+{
+	say %1 up!;
+	#line log chatlog.txt {%1 up!}
+}
+{5}
+
+#ACTION {You stop floating.}
+{
+	#showme {You say levitate out};
+	gsay lev out
+}
+{5}
+
+#ACTION {^%w is stunned}
+{
+	#showme {you say %1 is stunned!}
+}
+{5}
+
+#ACTION {^Retrieving rented items from storage...}
+{
+	#class Rogue kill;
+	#class Cleric kill;
+	#class Psionicist kill;
+	#class Warrior kill;
+	load classset;
+	score
+}
+{5}
+
+#ACTION {^You raise a level!$}
+{
+	gsay Level UP!;
+	#showme {You say Level UP}
+}
+{5}
+
+#ACTION {^You receive %* XP (%*) experience.}
+{
+	#unvariable enemy;
+	#if {&loot}
+	{
+		#if {$loot}
+		{
+			loot
+		}
+	}
+}
+{5}
+
+#ACTION {{< (\d{1,4})h/(\d{1,4})H (\d{1,4})v/(\d{1,4})V (.*) ?>}}
+{
+	#variable {pextra} {%6};
+	#unvariable enemy;
+	#if {&etarg}
+	{
+		#class etarg kill
+	};
+	#regexp {$pextra} {{E:\s*(\w*)}} {#variable {enemy} {&2};};
+	#if {$groupcheck}
+	{
+		#class groupcheck kill;
+		#unvariable stattarg;
+		statfix
+	};
+	#if {$stateffects}
+	{
+		#class kill stateffects
+	};
+	#class glistadd kill;
+	#unvariable pextra
+}
+{5}
+
+#ACTION {~%i{(.*(?:says?|tells?|group-says?|OOC|GCC|NHC|LFG|shouts?|group-projects?).*)}}
+{
+	#format timestamp {%t} {{%H:%M:%S}};
+	#line log chatlog.txt {%0 :: $timestamp};
+	#unvariable timestamp;
+	#variable {saytxt} {%1};
+	#replace {saytxt} {{\x1B.*?[m|K]}}{};
+	#replace {saytxt}{'}{};
+	#replace {saytxt}{"}{};
+	#if {$speechon}
+	{
+		#nop
+	};
+	#else
+	{
+		#variable {speechon}{1};
+		#run speech espeak;
+		#speech #kill;
+		#session -
+	};
+	#regexp {$saytxt} {%i{(katumi tells.*|notice: the lfg ch)}} {#NOP;};
+	#else
+	{
+		#speech {$saytxt}
+	};
+	#if {&statuses}
+	{
+		#foreach {$stats} {thisstat}
+		{
+			#regexp {$saytxt} {%i{^($statuses) .*(?:$statreg[$thisstat]) .*?(?:out|off|expired|down|faded|bu-bye!)}} {statset @btarg{&2} $thisstat out;statfix;}
+		};
+		#unvariable thisstat
+	};
+	#line {gag};
+	#unvariable {saytxt}
+}
+{5}
+
+#ALIAS {astat %1}
+{
+	tell katumi astat %1
+}
+{5}
+
+#ALIAS {drg %w %w}
+{
+	drag %1 %2;
+	#map move %2
+}
+{5}
+
+#ALIAS {killclass %w}
+{
+	#class %1 kill
+}
+{5}
+
+#ALIAS {load %w}
+{
+	#read %1.tt
+}
+{5}
+
+#ALIAS {loadmap}
+{
+	#if {&mapname}
+	{
+		#map write $mapname;
+		#map destroy
+	};
+	#class mapkil open;
+	#class mapkil write mapdisp.txt;
+	#class mapkil kill;
+	#unvariable mapname;
+	#variable mapname %1;
+	#map read $mapname;
+	load mapping;
+	load mapport
+}
+{5}
+
+#ALIAS {logon %w}
+{
+	#session %1 50.57.109.188 9999
+}
+{5}
+
+#ALIAS {loop %w}
+{
+	#foreach {488;1069} {room}
+	{
+		#map at $room #MAP get roomflag lavoid;
+		#if {($lavoid && "%1" == "off") || ($lavoid == "0"  && "%1" =="on")}
+		{
+			#map at $room #MAP roomflag avoid
+		}
+	}
+}
+{5}
+
+#ALIAS {oepn}
+{
+	open
+}
+{5}
+
+#ALIAS {opne}
+{
+	open
+}
+{5}
+
+#ALIAS {resetclass %w}
+{
+	#class %1 kill;
+	load %1
+}
+{5}
+
+#ALIAS {saveclass %w}
+{
+	#class %1 write %1.tt
+}
+{5}
+
+#ALIAS {setme %w}
+{
+	#variable {me} {%1}
+}
+{5}
+
+#ALIAS {speechoff}
+{
+	#speech #zap;
+	#unvariable speechon
+}
+{5}
+
+#ALIAS {stat %1}
+{
+	tell katumi stat %1
+}
+{5}
+
+#ALIAS {tloot}
+{
+	#switch {"%1"}
+	{
+		#case {"off"}
+		{
+			#variable loot 0;
+			tloot
+		};
+		#case {"on"}
+		{
+			#variable loot 1;
+			tloot
+		};
+		#case {"group"}
+		{
+			#variable loot 2;
+			tloot
+		};
+		#default
+		{
+			#switch {$loot}
+			{
+				#case {1}
+				{
+					say loot is on
+				};
+				#case {2}
+				{
+					say loot is for group (and thats good enough for me)
+				};
+				#default
+				{
+					say loot is off
+				}
+			}
+		}
+	}
+}
+{5}
+
+#ALIAS {t{[1-9]} %*}
+{
+	#variable {ttest1} {%1};
+	#variable {ttest2} {@btarg{%2}};
+	#if {&ttest1}
+	{
+		#if {&ttest2}
+		{
+			#if {&t[%1]}
+			{
+				#unsubstitute {~%i%%1$t[%1]%%2}
+			};
+			#if {"$ttest2" != "none"}
+			{
+				#if {%1 == 1}
+				{
+					#substitute {~%i%%1%2%%2} {%%1<134>(t1)%2<088>%%2}
+				};
+				#else
+				{
+					#substitute {~%i%%1%2%%2} {%%1<134>(t%1)<088>%2%%2}
+				}
+			};
+			#else
+			{
+				#showme <168>Target %1 ($t[%1]) is now: %2
+			};
+			#if {"%2" == "none"}
+			{
+				#unvariable t[%1]
+			};
+			#else
+			{
+				#variable {t[%1]} {$ttest2}
+			}
+		};
+		#else
+		{
+			#showme target%1 is $t[%1]
+		}
+	};
+	#unvariable ttest1;
+	#unvariable ttest2
+}
+{5}
+
+#ALIAS {{loot(?: (.*))?}}
+{
+	#variable {ltarg} {corpse};
+	#showme %2;
+	#regexp {%2} {{([0-9]+)}} {#var ltarg &1.corpse};
+	#regexp {%2} {%i{([0-9]*[a-zA-Z\.]+)}} {#var ltarg &1};
+	#if {$loot == 2}
+	{
+		gget all $ltarg
+	};
+	#else
+	{
+		get all $ltarg
+	};
+	#unvariable ltarg
+}
+{5}
+
+#EVENT {PROGRAM START}
+{
+	#split
+}
+
+#EVENT {SESSION CONNECTED}
+{
+	load combat;
+	load spellout;
+	load statwin
+}
+
+#FUNCTION {btarg}
+{
+	#if {"%1" != ""}
+	{
+		#format {btname} {%l} {%1};
+		#regexp {"$btname"} {{[1-9]}} {#IF {&t[%1]}{#RETURN $t[%1]};#ELSE {#VAR {result} {$me}}};
+		#else
+		{
+			#if {"$btname" == "me"}
+			{
+				#variable {result} {$me}
+			};
+			#else
+			{
+				#variable {result} {$btname}
+			}
+		};
+		#unvariable btname
+	};
+	#else
+	{
+		#if {&t[1]}
+		{
+			#variable {result} {$t[1]}
+		};
+		#else
+		{
+			#variable {result} {$me}
+		}
+	}
+}
+
+#MACRO {\eOk}
+{
+	d
+}
+
+#MACRO {\eOm}
+{
+	u
+}
+
+#MACRO {\eOr}
+{
+	s
+}
+
+#MACRO {\eOt}
+{
+	w
+}
+
+#MACRO {\eOu}
+{
+	l
+}
+
+#MACRO {\eOv}
+{
+	e
+}
+
+#MACRO {\eOx}
+{
+	n
+}
+
+#TAB              {@delkor}
+#TAB              {@gormal}
+#TAB              {@iamtux}
+#TAB              {@lilithelle}
+#TAB              {@lilmeshay}
+#TAB              {bukot}
+#TAB              {lilabipple}
+#TAB              {lilebeple}
+#TAB              {lilithelle}
+#TAB              {mixxillezissiy}
+#TAB              {nilebbeple}
+#TAB              {zenpegeble}
+
+#CLASS {general} CLOSE

@@ -1,0 +1,314 @@
+#CLASS {mapping} OPEN
+
+#ACTION {%* humiliates you, and blocks your way.}
+{
+	mapundo
+}
+{5}
+
+#ACTION {Alas, you cannot go that way. . . .}
+{
+	mapundo
+}
+{5}
+
+#ACTION {Nah... You feel too relaxed to do that...}
+{
+	mapundo
+}
+{5}
+
+#ACTION {Oof!  It seems that %* is in your way.}
+{
+	mapundo
+}
+{5}
+
+#ACTION {Perhaps you should get on your feet first?}
+{
+	mapundo
+}
+{5}
+
+#ACTION {Sorry, you aren't allowed to do that in combat.}
+{
+	mapundo
+}
+{5}
+
+#ACTION {Stepping off %* at this height might not be such a good idea.}
+{
+	mapundo
+}
+{5}
+
+#ACTION {The %* seems to be closed.}
+{
+	mapundo
+}
+{5}
+
+#ACTION {Try flapping your arms!  (Couldn't hurt)}
+{
+	mapundo
+}
+{5}
+
+#ACTION {You are too exhausted.}
+{
+	mapundo
+}
+{5}
+
+#ACTION {You couldn't even begin to fit through that narrow opening!}
+{
+	mapundo
+}
+{5}
+
+#ACTION {You need a boat to go there.}
+{
+	mapundo
+}
+{5}
+
+#ACTION {You need to board a ship to travel the oceans.}
+{
+	mapundo
+}
+{5}
+
+#ACTION {You try to tell yourself something}
+{
+	#variable mapsave 1
+}
+{5}
+
+#ACTION {You would bash your brains out on the roof, better dismount.}
+{
+	mapundo
+}
+{5}
+
+#ACTION {You'd surely drown!}
+{
+	mapundo
+}
+{5}
+
+#ACTION {^You find yourself unwilling to pass through a chill, invisible wall}
+{
+	mapundo
+}
+{5}
+
+#ACTION {^{You find traces of tracks leading (\w)\w*\.}}
+{
+	#map move %2
+}
+{5}
+
+#ACTION {{You (?:escape|flee) (\w*)!}}
+{
+	#switch {"%2"}
+	{
+		#case {"westward"}
+		{
+			#map move w;
+			#variable backflee e
+		};
+		#case {"eastward"}
+		{
+			#map move e;
+			#variable backflee w
+		};
+		#case {"southward"}
+		{
+			#map move s;
+			#variable backflee n
+		};
+		#case {"northward"}
+		{
+			#map move n;
+			#variable backflee s
+		};
+		#case {"upward"}
+		{
+			#map move u;
+			#variable backflee d
+		};
+		#case {"downward"}
+		{
+			#map move d;
+			#variable backflee u
+		}
+	};
+	#if {&slamit[1]}
+	{
+		#if {$slamit[1]}
+		{
+			$backflee;
+			bodyslam $slamit[2];
+			#variable slamit 0
+		}
+	};
+	#else
+	{
+		#if {&pracflee}
+		{
+			#if {"$pracflee" == "flame"}
+			{
+				spellup;
+				a
+			}
+		}
+	}
+}
+{5}
+
+#ACTION {{You follow \w* (\w)\w*}}
+{
+	#map move %2
+}
+{5}
+
+#ALIAS {%idoor {[n|s|e|w|u|d]} %w}
+{
+	#map dig %1;
+	#map exit %1 command {open %2 %1;%1}
+}
+{5}
+
+#ALIAS {%ijump {[n|s|e|w|u|d]}}
+{
+	jum %1;
+	#map move %1
+}
+{5}
+
+#ALIAS {%imaphide {[n|s|e|w|u|d]}}
+{
+	#map exitflag %1 hide
+}
+{5}
+
+#ALIAS {disembark}
+{
+	#variable landing {The Unloading Dock|The Loading Dock|You better not leave the ship until it's docked.};
+	#action {^{$landing}}{#switch {"%%1"}{#case {"The Unloading Dock"}{goto 11978};#case {"The Loading Dock"}{goto 12417};#default {#nop}};#unact {^{$landing}};#unvar landing};
+	disemba
+}
+{5}
+
+#ALIAS {goto}
+{
+	#map goto %1
+}
+{5}
+
+#ALIAS {makeport}
+{
+	#map dig {en %1} %2
+}
+{5}
+
+#ALIAS {makerd}
+{
+	#map set roomcolor <230>
+}
+{5}
+
+#ALIAS {mapundo}
+{
+	#map undo;
+	mapupdate
+}
+{5}
+
+#ALIAS {mapupdate}
+{
+	#map map 110x24 mapdisp.txt a
+}
+{5}
+
+#ALIAS {mfind %w %2}
+{
+	#switch {"%1"}
+	{
+		#case {"no"}
+		{
+			#map list {roomnote}{%*%2%*}
+		};
+		#case {"n"}
+		{
+			#map list {%*%2%*}
+		}
+	}
+}
+{5}
+
+#ALIAS {runto %1}
+{
+	#variable mapsave 0;
+	#map run %1;
+	t $me hello;
+	#map map 110x24 mapdisp.txt a;
+	#map write $mapname
+}
+{5}
+
+#EVENT {MAP ENTER ROOM}
+{
+	mapupdate;
+	#if {$mapsave}
+	{
+		#if {$mapcount < 30}
+		{
+			#math mapcount {$mapcount + 1}
+		};
+		#else
+		{
+			#unvariable mapcount;
+			updatemap
+		}
+	}
+}
+
+#ALIAS {setname %1}
+{
+	#map set roomname {%1}
+}
+{5}
+
+#ALIAS {updatemap}
+{
+	#map write $mapname
+}
+{5}
+
+#VARIABLE         {mapsave}  {1}
+
+#ALIAS {setnote %1}
+{
+	#map set roomnote {%1}
+}
+{5}
+
+#ALIAS {strmap}
+{
+	#map insert %1 void
+}
+{5}
+
+#EVENT {SESSION DISCONNECTED}
+{
+	updatemap
+}
+
+#MACRO {\e[19~}
+{
+	load mapport
+}
+
+
+#CLASS {mapping} CLOSE
