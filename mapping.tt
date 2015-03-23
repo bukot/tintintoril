@@ -1,5 +1,12 @@
 #CLASS {mapping} OPEN
 
+#ACTION {Suddenly the darkness falls revealing different surroundings.}
+{
+	#nop/*	this is the trigger for shifting to activate mapport /*;
+	load mapport
+}
+{5}
+
 #ACTION {You try to tell yourself something}
 {
 	#variable mapsave 1

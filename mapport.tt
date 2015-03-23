@@ -1,42 +1,48 @@
 #CLASS {mapport} OPEN
 
-#ACTION {^A Forgotten Burial Chamber(?: \(Shadowed\))?}
+#ACTION {^A Forgotten Burial Chamber{(?: \(Shadowed\))?}}
 {
-	portto smskull
+	portto wdskull
 }
 {5}
 
-#ACTION {^A Small Platform Overlooking the Elder Brain(?: \(Shadowed\))?}
+#ACTION {^A Small Platform Overlooking the Elder Brain{(?: \(Shadowed\))?}}
 {
 	portto psiix
 }
 {5}
 
-#ACTION {^At a Pillar of Stone Embedded with Skulls(?: \(Shadowed\))?}
+#ACTION {^At a Pillar of Stone Embedded with Skulls{(?: \(Shadowed\))?}}
 {
 	portto skullport
 }
 {5}
 
-#ACTION {^Inn of the Golden God(?: \(Shadowed\))?}
+#ACTION {^Beginning of the Main Complex{(?: \(Shadowed\))?}}
+{
+	portto smskull
+}
+{5}
+
+#ACTION {^Inn of the Golden God{(?: \(Shadowed\))?}}
 {
 	portto gnomeinn
 }
 {5}
 
-#ACTION {^The Inn of Restful Contemplation(?: \(Shadowed\))?}
+#ACTION {^The Inn of Restful Contemplation{(?: \(Shadowed\))?}}
 {
 	portto ixinn
 }
 {5}
 
-#ACTION {^The Reception of the Dead Orc Inn(?: \(Shadowed\))?}
+#ACTION {^The Reception of the Dead Orc Inn{(?: \(Shadowed\))?}}
 {
 	portto wdinn
 }
 {5}
 
-#ACTION {^The Receptionist's Chambers in the Inn of the First Home(?: \(Shadowed\))?}
+#ACTION {^The Receptionist's Chambers in the Inn of the First Home{(?: \(Shadowed\))?}}
 {
 	portto halflinginn
 }
@@ -48,7 +54,7 @@
 }
 {5}
 
-#ACTION {^Thethla's Inn(?: \(Shadowed\))?}
+#ACTION {^Thethla's Inn{(?: \(Shadowed\))?}}
 {
 	portto mhinn
 }
@@ -56,9 +62,9 @@
 
 #ACTION {^{A Cobblestone Path(?: \(Shadowed\))?}}
 {
-	/*	create a temporary class for this port since there are several rooms*/ #nop;
-	/*	with this name in the zone this way we can be sure we don't trigger with*/ #nop;
-	/*	the wrong room. */ #nop;
+	#nop/*	create a temporary class for this port since there are several rooms/*;
+	#nop/*	with this name in the zone this way we can be sure we don't trigger with*/;
+	#nop/*	the wrong room. */;
 	#class trans open;
 	#action {^A grinning skull rests here.} {portto bgskull;#class trans kill}{5};
 	#action {^< %dh/%dH} {#class trans kill}{1};
@@ -134,9 +140,9 @@
 
 #ACTION {^{Ust Circle - North(?: \(Shadowed\))?}}
 {
-	/*	create a temporary class for this port since there are several rooms*/ #nop;
-	/*	with this name in the zone this way we can be sure we don't trigger with*/ #nop;
-	/*	the wrong room. */ #nop;
+	#nop/*	create a temporary class for this port since there are several rooms*/;
+	#nop/*	with this name in the zone this way we can be sure we don't trigger with*/;
+	#nop/*	the wrong room. */;
 	#class trans open;
 	#action {^Exits: - North - East  - South - West  - Down} {portto dkport;#class trans kill}{3};
 	#action {^Exits: %*} {#class trans kill}{5};
