@@ -1,0 +1,99 @@
+#class mapmistake open
+
+#ACTION {%* humiliates you, and blocks your way.}
+{
+	mundo
+}
+{5}
+
+#ACTION {Alas, you cannot go that way. . . .}
+{
+	mundo
+}
+{5}
+
+#ACTION {Nah... You feel too relaxed to do that...}
+{
+	mundo
+}
+{5}
+
+#ACTION {Oof!  It seems that %* is in your way.}
+{
+	mundo
+}
+{5}
+
+#ACTION {Perhaps you should get on your feet first?}
+{
+	mundo
+}
+{5}
+
+#ACTION {Sorry, you aren't allowed to do that in combat.}
+{
+	mundo
+}
+{5}
+
+#ACTION {Stepping off %* at this height might not be such a good idea.}
+{
+	mundo
+}
+{5}
+
+#ACTION {The %* seems to be closed.}
+{
+	mundo
+}
+{5}
+
+#ACTION {Try flapping your arms!  (Couldn't hurt)}
+{
+	mundo
+}
+{5}
+
+#ACTION {You are too exhausted.}
+{
+	mundo
+}
+{5}
+
+#ACTION {You couldn't even begin to fit through that narrow opening!}
+{
+	mundo
+}
+{5}
+
+#ACTION {You need a boat to go there.}
+{
+	mundo
+}
+{5}
+
+#ACTION {You need to board a ship to travel the oceans.}
+{
+	mundo
+}
+{5}
+
+#ACTION {You would bash your brains out on the roof, better dismount.}
+{
+	mundo
+}
+{5}
+
+#ACTION {You'd surely drown!}
+{
+	mundo
+}
+{5}
+
+#ACTION {^You find yourself unwilling to pass through a chill, invisible wall}
+{
+	mundo
+}
+{5}
+
+#class mapmistake close
