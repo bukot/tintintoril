@@ -1,0 +1,56 @@
+#CLASS {combat} OPEN
+
+#ACTION {%* sends you sprawling.$}
+{
+	st
+}
+{5}
+
+#ACTION {^You manage to, with complete incompetence, throw yourself head first directly into the ground!}
+{
+	st
+}
+{5}
+
+#ACTION {^%w is stunned}
+{
+	#showme {you say %1 is stunned!}
+}
+{5}
+
+#ACTION {You are stunned by the horrific visions!}
+{
+	#showme {you say I am stunned!}
+}
+{5}
+
+#ACTION {%* ceases to move.. still and lifeless.}
+{
+	#showme you say %1 is para
+}
+{5}
+
+#ali {{asst(?: (\w*))?}}
+{
+	#if {%1} 
+	{
+		ass $t[%1]
+	}
+	{
+		ass $t.1
+	}
+}
+
+#ACTION {%* tripping you.$}
+{
+	st
+}
+{5}
+
+#act {You stagger, and fall to your knees!}
+{
+	st;
+}
+
+
+#CLASS {combat} CLOSE
