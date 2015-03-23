@@ -93,7 +93,7 @@
 }
 {5}
 
-#ACTION {~%i{(.*(?:says?|tells?|group-says?|OOC|GCC|NHC|LFG|shouts?|(?:group-)?projects?).*)}}
+#ACTION {~%i{^((?:\x1B\[\d{1,2}(?:;\d{1,3})*(?:m|h|l)? *)*( *?:\x1B\[\d{1,2}(?:;\d{1,3})*(?:m|h|l)? *)*\w* *(?:\x1B\[\d{1,2}(?:;\d{1,3})*(?:m|h|l)? *)*(?:says?|tells?|group-says?|OOC|GCC|NHC|LFG|shouts?|(?:group-)?projects?|(?:responds to your petition)|(?:responds to your group)).*)}}
 {
 	#format timestamp {%t} {{%H:%M:%S}};
 	#line log chatlog.txt {%0 :: $timestamp};
@@ -126,7 +126,6 @@
 		};
 		#unvariable thisstat
 	};
-	#line {gag};
 	#unvariable {saytxt}
 }
 {5}
@@ -134,13 +133,6 @@
 #ALIAS {astat %1}
 {
 	tell katumi astat %1
-}
-{5}
-
-#ALIAS {drg %w %w}
-{
-	drag %1 %2;
-	#map move %2
 }
 {5}
 
@@ -218,9 +210,10 @@
 }
 {5}
 
+
 #ALIAS {setme %w}
 {
-	#variable {me} {%1}
+	#format {me} {%l} {%1}
 }
 {5}
 
