@@ -144,7 +144,8 @@
 	#variable mapname %1;
 	#map read $mapname;
 	load mapping;
-	load mapport
+	load mapport;
+	load mapmistake
 }
 {5}
 

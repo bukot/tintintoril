@@ -1,63 +1,66 @@
 #CLASS {mapport} OPEN
 
-#ACTION {^A Forgotten Burial Chamber}
+#ACTION {^A Forgotten Burial Chamber(?: \(Shadowed\))?}
 {
-	goto smskull
+	portto smskull
 }
 {5}
 
-#ACTION {^A Small Platform Overlooking the Elder Brain}
+#ACTION {^A Small Platform Overlooking the Elder Brain(?: \(Shadowed\))?}
 {
-	goto psiix
+	portto psiix
 }
 {5}
 
-#ACTION {^At a Pillar of Stone Embedded with Skulls}
+#ACTION {^At a Pillar of Stone Embedded with Skulls(?: \(Shadowed\))?}
 {
-	goto skullport
+	portto skullport
 }
 {5}
 
-#ACTION {^Inn of the Golden God}
+#ACTION {^Inn of the Golden God(?: \(Shadowed\))?}
 {
-	goto gnomeinn
+	portto gnomeinn
 }
 {5}
 
-#ACTION {^The Inn of Restful Contemplation}
+#ACTION {^The Inn of Restful Contemplation(?: \(Shadowed\))?}
 {
-	goto ixinn
+	portto ixinn
 }
 {5}
 
-#ACTION {^The Reception of the Dead Orc Inn}
+#ACTION {^The Reception of the Dead Orc Inn(?: \(Shadowed\))?}
 {
-	goto wdinn
+	portto wdinn
 }
 {5}
 
-#ACTION {^The Receptionist's Chambers in the Inn of the First Home}
+#ACTION {^The Receptionist's Chambers in the Inn of the First Home(?: \(Shadowed\))?}
 {
-	goto halflinginn
+	portto halflinginn
 }
 {5}
 
 #ACTION {^The Upstairs of the Wayward House Inn{(?: \(Shadowed\))?}}
 {
-	goto smrent
+	portto smrent
 }
 {5}
 
-#ACTION {^Thethla's Inn}
+#ACTION {^Thethla's Inn(?: \(Shadowed\))?}
 {
-	goto mhinn
+	portto mhinn
 }
 {5}
 
-#ACTION {^{A Cobblestone Path}}
+#ACTION {^{A Cobblestone Path(?: \(Shadowed\))?}}
 {
+	/*	create a temporary class for this port since there are several rooms*/ #nop;
+	/*	with this name in the zone this way we can be sure we don't trigger with*/ #nop;
+	/*	the wrong room. */ #nop;
 	#class trans open;
-	#action {^A grinning skull rests here.} {goto bgskull;#class trans kill}{5};
+	#action {^A grinning skull rests here.} {portto bgskull;#class trans kill}{5};
 	#action {^< %dh/%dH} {#class trans kill}{1};
 	#class trans close
 }
@@ -65,62 +68,77 @@
 
 #ACTION {^{Before the Great Library$(?: \(Shadowed\))?}}
 {
-	goto bgport
+	portto bgport
 }
 {5}
 
 #ACTION {^{Ferry Dock on the Southern Bank of the Chionthar River(?: \(Shadowed\))?}}
 {
-	goto 7161
+	portto 7161
 }
 {5}
 
 #ACTION {^{The Common Room of the Burning Troll Inn(?: \(Shadowed\))?}}
 {
-	goto skullinn
+	portto skullinn
 }
 {5}
 
 #ACTION {^{The Fountain of Commerce(?: \(Shadowed\))?}}
 {
-	goto ghport
+	portto ghport
 }
 {5}
 
 #ACTION {^{The Great Fountain of Waterdeep(?: \(Shadowed\))?}}
 {
-	goto wdfountain
+	portto wdfountain
+}
+{5}
+
+#ACTION {^{The Loading Dock(?: \(Shadowed\))?}}
+{
+	portto 12417
 }
 {5}
 
 #ACTION {^{The Reception Desk of the Notched Axe Inn$(?: \(Shadowed\))?}}
 {
-	goto ghinn
+	portto ghinn
 }
 {5}
 
 #ACTION {^{The Reception of the Purple Rothe Inn(?: \(Shadowed\))?}}
 {
-	goto dkinn
+	portto dkinn
 }
 {5}
 
 #ACTION {^{The Square of the Djinn(?: \(Shadowed\))?}}
 {
-	goto cpport
+	portto cpport
+}
+{5}
+
+#ACTION {^{The Unloading Dock(?: \(Shadowed\))?}}
+{
+	portto 11978
 }
 {5}
 
 #ACTION {^{The Viperstongue Tavern(?: \(Shadowed\))?}}
 {
-	goto vtport
+	portto vtport
 }
 {5}
 
 #ACTION {^{Ust Circle - North(?: \(Shadowed\))?}}
 {
+	/*	create a temporary class for this port since there are several rooms*/ #nop;
+	/*	with this name in the zone this way we can be sure we don't trigger with*/ #nop;
+	/*	the wrong room. */ #nop;
 	#class trans open;
-	#action {^Exits: - North - East  - South - West  - Down} {goto dkport;#class trans kill}{3};
+	#action {^Exits: - North - East  - South - West  - Down} {portto dkport;#class trans kill}{3};
 	#action {^Exits: %*} {#class trans kill}{5};
 	#class trans close
 }
@@ -128,8 +146,22 @@
 
 #ACTION {^{Wayward House Inn(?: \(Shadowed\))?}$}
 {
-	goto sminn
+	portto sminn
 }
 {5}
+
+#ALIAS {portnoact}
+{
+	killclass mapport
+}
+{5}
+
+#ALIAS {portto %1}
+{
+	mgoto %1;
+	killclass mapport
+}
+{5}
+
 
 #CLASS {mapport} CLOSE
