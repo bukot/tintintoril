@@ -2,7 +2,7 @@
 
 #ACTION {Suddenly the darkness falls revealing different surroundings.}
 {
-	#nop/*	this is the trigger for shifting to activate mapport /*;
+	#nop /*	this is the trigger for shifting to activate mapport /*;
 	load mapport
 }
 {5}
@@ -85,13 +85,15 @@
 
 #ALIAS {disembark}
 {
-	load mapport
+	load mapport;
+	disemb
 }
 {5}
 
 #ALIAS {en hole}
 {
-	load mapport
+	load mapport;
+	ent hole
 }
 {5}
 
@@ -110,15 +112,15 @@
 
 #ALIAS {mcolor %w}
 {
-	#switch {%1}
+	#switch {"%1"}
 	{
-		#case {rd}
+		#case {"rd"}
 		{
 			#variable {rmcolr} {230}
 		};
-		#case {norm}
+		#case {"norm"}
 		{
-			#variable {rmcolr} {270}
+			#variable {rmcolr} {170}
 		}
 	};
 	#map set roomcolor <$rmcolr>;

@@ -62,9 +62,9 @@
 
 #ACTION {^{A Cobblestone Path(?: \(Shadowed\))?}}
 {
-	#nop/*	create a temporary class for this port since there are several rooms/*;
-	#nop/*	with this name in the zone this way we can be sure we don't trigger with*/;
-	#nop/*	the wrong room. */;
+	#nop /*	create a temporary class for this port since there are several rooms/*;
+	#nop /*	with this name in the zone this way we can be sure we don't trigger with*/;
+	#nop /*	the wrong room. */;
 	#class trans open;
 	#action {^A grinning skull rests here.} {portto bgskull;#class trans kill}{5};
 	#action {^< %dh/%dH} {#class trans kill}{1};
@@ -140,9 +140,9 @@
 
 #ACTION {^{Ust Circle - North(?: \(Shadowed\))?}}
 {
-	#nop/*	create a temporary class for this port since there are several rooms*/;
-	#nop/*	with this name in the zone this way we can be sure we don't trigger with*/;
-	#nop/*	the wrong room. */;
+	#nop /*	create a temporary class for this port since there are several rooms*/;
+	#nop /*	with this name in the zone this way we can be sure we don't trigger with*/;
+	#nop /*	the wrong room. */;
 	#class trans open;
 	#action {^Exits: - North - East  - South - West  - Down} {portto dkport;#class trans kill}{3};
 	#action {^Exits: %*} {#class trans kill}{5};
