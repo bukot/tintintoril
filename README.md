@@ -23,5 +23,5 @@ recent changes
 -	rearanged the locations of some of mapping commands so that mapport.tt could be turned
 	off and on to reduce mapper latency and errors when walking through port rooms.
 
--	added a stat tracker to general.tt control through tracker <on/off>.
+-	added a cond tracker/caller to general.tt control through tracker <on/off>.
 	will only trig on ph and above
