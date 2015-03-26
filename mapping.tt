@@ -3,6 +3,7 @@
 #ACTION {Suddenly the darkness falls revealing different surroundings.}
 {
 	#nop /*	this is the trigger for shifting to activate mapport /*;
+	#map leave;
 	load mapport
 }
 {5}
@@ -90,13 +91,6 @@
 }
 {5}
 
-#ALIAS {en hole}
-{
-	load mapport;
-	ent hole
-}
-{5}
-
 #ALIAS {jump {[N|S|E|W|D|U|n|s|e|w|u|d]}}
 {
 	jum %1;
@@ -118,7 +112,11 @@
 		{
 			#variable {rmcolr} {230}
 		};
-		#case {"norm"}
+		#case {"shop"}
+		{
+			#variable {rmcolr} {160}
+		};
+		#default
 		{
 			#variable {rmcolr} {170}
 		}
@@ -207,6 +205,14 @@
 #ALIAS {updatemap}
 {
 	#map write $mapname
+}
+{5}
+
+#ALIAS {{en (hole|rift)}}
+{
+	load mapport;
+	#map leave;
+	ent %2
 }
 {5}
 

@@ -30,6 +30,23 @@
 }
 {5}
 
+#ACTION {^The Elemental Plane of Earth{(?:\(Shadowed\))?}}
+{
+	#nop /*	create a temporary class for this port since there are several rooms/*;
+	#nop /*	with this name in the zone this way we can be sure we don't trigger with*/;
+	#nop /*	the wrong room. */;
+	#class {trans} OPEN;
+	#action {{^A large bucket and clockwork mechanism hangs over a mineshaft.}}{portto earthbucket}{5};
+	#action {{^Exits: - E(?:ast)? $}}{portto 13754}{5};
+	#action {{^Exits: - W(?:est)? $}}{portto 13791}{5};
+	#action {{^Exits: - W(?:est)?  - Up? $}}{portto 13812}{5};
+	#action {{^Exits: - N(?:orth)? - E(?:ast)?  - S(?:outh)? - Up? $}}{portto 13743}{5};
+	#action {{^Exits: - N(?:orth)? - W(?:est)?  - S(?:outh)? - Up? $}}{portto 13749}{5};
+	#action {{^Exits: - S(?:outh)? - Up?    - D(:?own)? $}}{portto 13739}{5};
+	#class {trans} CLOSE
+}
+{5}
+
 #ACTION {^The Inn of Restful Contemplation{(?: \(Shadowed\))?}}
 {
 	portto ixinn
@@ -66,7 +83,7 @@
 	#nop /*	with this name in the zone this way we can be sure we don't trigger with*/;
 	#nop /*	the wrong room. */;
 	#class trans open;
-	#action {^A grinning skull rests here.} {portto bgskull;#class trans kill}{5};
+	#action {^A grinning skull rests here.}{portto bgskull;#class trans kill}{5};
 	#action {^< %dh/%dH} {#class trans kill}{1};
 	#class trans close
 }
@@ -144,8 +161,7 @@
 	#nop /*	with this name in the zone this way we can be sure we don't trigger with*/;
 	#nop /*	the wrong room. */;
 	#class trans open;
-	#action {^Exits: - North - East  - South - West  - Down} {portto dkport;#class trans kill}{3};
-	#action {^Exits: %*} {#class trans kill}{5};
+	#action {{^Exits: - N(?:orth)? - E(:?ast)?  - S(:?outh)? - W(?:est)  - D(?:own)?$}} {portto dkport}{3};
 	#class trans close
 }
 {5}
@@ -158,14 +174,16 @@
 
 #ALIAS {portnoact}
 {
-	killclass mapport
+	killclass mapport;
+	killclass trans
 }
 {5}
 
 #ALIAS {portto %1}
 {
 	mgoto %1;
-	killclass mapport
+	killclass mapport;
+	killclass trans
 }
 {5}
 

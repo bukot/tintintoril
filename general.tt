@@ -20,14 +20,14 @@
 }
 {5}
 
-#ACTION {^Retrieving rented items from storage...}
+#ACTION {^Type the # or name of a character above to login or choose an action below.}
 {
 	#class Rogue kill;
 	#class Cleric kill;
 	#class Psionicist kill;
 	#class Warrior kill;
+	#var {classcheck} {1};
 	load classset;
-	score
 }
 {5}
 
@@ -51,7 +51,7 @@
 }
 {5}
 
-#ACTION {{< (\d{1,4})h/(\d{1,4})H(?: \d{1,3}p/\d{1,3}P) (\d{1,4})v/(\d{1,4})V (.*)>}}
+#ACTION {{< (\d{1,4})h/(\d{1,4})H(?: \d{1,3}p/\d{1,3}P)? (\d{1,4})v/(\d{1,4})V (.*)>}}
 {
 	#variable {pextra} {%6};
 	#variable enemy {};
@@ -79,11 +79,16 @@
 		#class kill stateffects
 	};
 	#class glistadd kill;
+	#if {$classcheck}
+	{
+		#var classcheck 0;
+		score
+	};
 	#unvariable pextra
 }
 {5}
 
-#ACTION {~%i{^((?:\x1B\[\d{1,2}(?:;\d{1,3})*(?:m|K))*\w+(?:\x1B\[\d{1,2}(?:;\d{1,3})*(?:m|K))* (?:(?:\x1B\[\d{1,2}(?:;\d{1,3})*(?:m|K))*\(H\)(?:\x1B\[\d{1,2}(?:;\d{1,3})*(?:m|K))* )?(?:\x1B\[\d{1,2}(?:;\d{1,3})*(?:m|K))*(?:says?|tells?|group-says?|OOC|GCC|NHC|LFG|shouts?|(?:(?:group-)?projects? ')|(?:responds to your petition)|(?:responds to your group)).*)}}
+#ACTION {~%i{^((?:\x1B\[(?:;?\d{1,3})+(?:m|K))*\w+(?:\x1B\[(?:;?\d{1,3})+(?:m|K))* (?:(?:\x1B\[(?:;?\d{1,3})+(?:m|K))*\(H\)(?:\x1B\[(?:;?\d{1,3})+(?:m|K))* )?(?:\x1B\[(?:;?\d{1,3})+(?:m|K))*(?:says?|tells?|group-says?|OOC|GCC|NHC|LFG|shouts?|(?:(?:group-)?projects? ')|(?:responds to your petition)|(?:responds to your group)).*)}}
 {
 	#format timestamp {%t} {{%H:%M:%S}};
 	#line log chatlog.txt {%0 :: $timestamp};
@@ -433,5 +438,6 @@
 #TAB              {nilebbeple}
 #TAB              {zenpegeble}
 #VARIABLE         {caller}  {0}
+#var classcheck 0
 
 #CLASS {general} CLOSE
