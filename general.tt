@@ -83,7 +83,7 @@
 }
 {5}
 
-#ACTION {~%i{^((?:\x1B\[\d{1,2}(?:;\d{1,3})*(?:m|h|l|K)? *)*( *?:\x1B\[\d{1,2}(?:;\d{1,3})*(?:m|h|l|K)? *)*\w* *(?:\x1B\[\d{1,2}(?:;\d{1,3})*(?:m|h|l|K)? *)*(?:\(H\))* *(?:\x1B\[\d{1,2}(?:;\d{1,3})*(?:m|h|l|K)? *)* *(?:says?|tells?|group-says?|OOC|GCC|NHC|LFG|shouts?|(?:(?:group-)?projects? ')|(?:responds to your petition)|(?:responds to your group)).*)}}
+#ACTION {~%i{^((?:\x1B\[\d{1,2}(?:;\d{1,3})*(?:m|K))*\w+(?:\x1B\[\d{1,2}(?:;\d{1,3})*(?:m|K))* (?:(?:\x1B\[\d{1,2}(?:;\d{1,3})*(?:m|K))*\(H\)(?:\x1B\[\d{1,2}(?:;\d{1,3})*(?:m|K))* )?(?:\x1B\[\d{1,2}(?:;\d{1,3})*(?:m|K))*(?:says?|tells?|group-says?|OOC|GCC|NHC|LFG|shouts?|(?:(?:group-)?projects? ')|(?:responds to your petition)|(?:responds to your group)).*)}}
 {
 	#format timestamp {%t} {{%H:%M:%S}};
 	#line log chatlog.txt {%0 :: $timestamp};

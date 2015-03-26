@@ -11,6 +11,10 @@ and there are refrences to files and methods that don't exist yet.
 As those files are made stable they will appear here.
 
 recent changes
+2015-3-26 - 	refined regex for chat capture again.  should not cap room or other info
+					where the com type isn't the second word on the line.  also got rid of lag
+					in certain circumstances when ansi was involved.  hopefully this is the
+					last time I will have to visit this line of script.
 
 -	made all map functions start with m<command> for ease of tracking and use
 
