@@ -9,7 +9,7 @@ do a who @justmefjs to find me.
 this is still a beta build.  Many changes may happen sporadically,
 and there are refrences to files and methods that don't exist yet.
 As those files are made stable they will appear here.
-
+<pre>
 recent changes
 2015-3-26 - 	refined regex for chat capture again.  should not cap room or other info
 					where the com type isn't the second word on the line.  also got rid of lag
@@ -29,3 +29,4 @@ recent changes
 
 -	added a cond tracker/caller to general.tt control through tracker (on/off).
 	will only trig on ph and above
+</pre>
