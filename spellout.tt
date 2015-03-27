@@ -1,0 +1,163 @@
+#CLASS {spellout} OPEN
+
+#ACTION {^A wave of exhaustion washes over you as your divine power fades.$}
+{
+	repout divine power,
+}
+{5}
+
+#ACTION {^Earthbound again.$}
+{
+	repout Hmmph!  Gravity is working.  fly
+}
+{5}
+
+#ACTION {^Invisible things vanish again.$}
+{
+	repout di
+}
+{5}
+
+#ACTION {^Static cling rears its ugly head again.}
+{
+	repout pfl,
+}
+{5}
+
+#ACTION {^The elemental ward protecting you shudders and dissappears.$}
+{
+	repout elemental ward
+}
+{5}
+
+#ACTION {^The feeling of power fades as your deity departs.}
+{
+	repout righteous might,
+}
+{5}
+
+#ACTION {^The healing aura surrounding you shimmers and winks out of existence.$}
+{
+	repout healing aura
+}
+{5}
+
+#ACTION {^The world speeds up around you.$}
+{
+	repout haste
+}
+{5}
+
+#ACTION {^What IS that smell?}
+{
+	repout pfg,
+}
+{5}
+
+#ACTION {^You feel chilly.}
+{
+	repout pfc,
+}
+{5}
+
+#ACTION {^You feel less basic.$}
+{
+	repout pfa,
+}
+{5}
+
+#ACTION {^You feel less blessed.$}
+{
+	repout bless,
+}
+{5}
+
+#ACTION {^You feel less transparent.$}
+{
+	repout OH CRAP! They can see me!  invis
+}
+{5}
+
+#ACTION {^You feel less wooden.$}
+{
+	repout WOOF WOOF WOOF!  bark
+}
+{5}
+
+#ACTION {^Your body returns to its normal size.$}
+{
+	repout reduce
+}
+{5}
+
+#ACTION {^Your body shimmers and sheds its elemental form, returning to normal.$}
+{
+	repout elemental form
+}
+{5}
+
+#ACTION {^Your displaced form snaps back to your physical location!$}
+{
+	repout displace
+}
+{5}
+
+#ACTION {^Your dragon scales melt back into your regular flesh.$}
+{
+	repout dscale
+}
+{5}
+
+#ACTION {^Your flesh loses its stony texture.$}
+{
+	repout stone
+}
+{5}
+
+#ACTION {^Your form stops blurring.$}
+{
+	repout blur
+}
+{5}
+
+#ACTION {^Your globe shimmers, and fades into the air.$}
+{
+	repout globe
+}
+{5}
+
+#ACTION {^Your magic armor fades away.$}
+{
+	repout armor,
+}
+{5}
+
+#ACTION {^Your magical blue flame winks out of existence.$}
+{
+	repout mage flame
+}
+{5}
+
+#ACTION {^Your surroundings warm up.}
+{
+	repout pff,
+}
+{5}
+
+#ACTION {^Your vitality drains away.}
+{
+	repout vit,
+}
+{5}
+
+#ALIAS {repout %*}
+{
+	#var {outspell} {%1};
+	#regex {$outspell} {,} {#nop} {gsay $outspell out!};
+	#replace {$outspell} {,} {};
+	#showme $me says $outspell out!
+}
+{5}
+
+
+#CLASS {spellout} CLOSE
