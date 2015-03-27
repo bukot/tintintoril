@@ -161,7 +161,7 @@
 	#nop /*	with this name in the zone this way we can be sure we don't trigger with*/;
 	#nop /*	the wrong room. */;
 	#class trans open;
-	#action {{^Exits: - N(?:orth)? - E(:?ast)?  - S(:?outh)? - W(?:est)  - D(?:own)?$}} {portto dkport}{3};
+	#action {{^Exits: - N(?:orth)? - E(:?ast)?  - S(:?outh)? - W(?:est)  - D(?:own)? $}} {portto dkport}{3};
 	#class trans close
 }
 {5}

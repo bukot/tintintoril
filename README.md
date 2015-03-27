@@ -12,7 +12,7 @@ As those files are made stable they will appear here.
 <pre>
 recent changes
 
-2015-3-26 		reduced the number of tokens in chat capture.  no real functional
+2015-3-27 		reduced the number of tokens in chat capture.  no real functional
 					change, just faster response times for parsing.
 					
 					fixed prompt line matcher to work with psi and other classes 
@@ -20,6 +20,10 @@ recent changes
 					
 					refined mapport.tt to match on right rooms, and made the mapping.tt
 					load and unload it correctly only as needed.
+					
+					added spellout.tt to announce or not announce when effects expire
+					putting a comma after the spell type will cause it to display but
+					not be announced by the character in mud.
 
 ----------------------------------------------------------------------------------
 
