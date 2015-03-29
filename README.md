@@ -12,7 +12,19 @@ As those files are made stable they will appear here.
 <pre>
 recent changes
 
-2015-3-27 		reduced the number of tokens in chat capture.  no real functional
+2015-03-29		streamlined some actions in mapping to reduce the number of match
+					attempts.
+					
+					removed comma fix in spellout.tt and replaced with a per class
+					match that will only rep the spells you can't cast with that class
+					see the alias's at the end of that file for more information
+					
+					added var class <classname> to each class file and included the
+					class files here.
+
+----------------------------------------------------------------------------------
+
+2015-03-27 		reduced the number of tokens in chat capture.  no real functional
 					change, just faster response times for parsing.
 					
 					fixed prompt line matcher to work with psi and other classes 
@@ -27,7 +39,7 @@ recent changes
 
 ----------------------------------------------------------------------------------
 
-2015-3-26 		refined regex for chat capture again.  should not cap room or other
+2015-03-26 		refined regex for chat capture again.  should not cap room or other
 					info where the com type isn't the second word on the line.  also
 					got rid of lag in certain circumstances when ansi was involved.
 					hopefully this is the last time I will have to visit this line of

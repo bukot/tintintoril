@@ -1,0 +1,86 @@
+#CLASS {rogue} OPEN
+
+#ACTION {{.* does a nifty move, flipping you onto your back!}}
+{
+	st;
+	#if {$autogar}
+	{
+		gar $enemy
+	}
+}
+{5}
+
+#ALIAS {app %w %*}
+{
+	#switch {"%2"}
+	{
+		#case {"1"}
+		{
+			apply %1 primaryweapon
+		};
+		#case {"2"}
+		{
+			apply %1 secondaryweapon
+		};
+		#default
+		{
+			apply %1 %2
+		}
+	}
+}
+{5}
+
+#ALIAS {autogar %w}
+{
+	#switch {"%1"}
+	{
+		#case {"on"}
+		{
+			#variable autogar 1
+		};
+		#case {"off"}
+		{
+			#variable autogar 0
+		};
+		#default
+		{
+			#if {$autogar}
+			{
+				#showme {you say garrote is on}
+			};
+			#else
+			{
+				#showme {you say garrote is off}
+			}
+		}
+	}
+}
+{5}
+
+#ALIAS {bs}
+{
+	backstab
+}
+{5}
+
+#ALIAS {hs}
+{
+	hamstring
+}
+{5}
+
+#ALIAS {{As your poison takes effect, (.*?) appears to go blind!}}
+{
+	gsay %1 is poison blind!
+}
+{5}
+
+#MACRO {\eOP}
+{
+	say Ches
+}
+
+#VARIABLE         {autogar}  {0}
+#VARIABLE         {class}  {rogue}
+
+#CLASS {rogue} CLOSE

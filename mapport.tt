@@ -1,5 +1,11 @@
 #CLASS {mapport} OPEN
 
+#ACTION {There is no %w here.}
+{
+	portnoact
+}
+{5}
+
 #ACTION {^A Forgotten Burial Chamber{(?: \(Shadowed\))?}}
 {
 	portto wdskull
@@ -9,6 +15,12 @@
 #ACTION {^A Small Platform Overlooking the Elder Brain{(?: \(Shadowed\))?}}
 {
 	portto psiix
+}
+{5}
+
+#ACTION {^A Warded Arena{(?: \(Shadowed\))?}}
+{
+	portto 488
 }
 {5}
 
@@ -24,6 +36,12 @@
 }
 {5}
 
+#ACTION {^Hall of Divination{(?: \(Shadowed\))?}$}
+{
+	portto 1069
+}
+{5}
+
 #ACTION {^Inn of the Golden God{(?: \(Shadowed\))?}}
 {
 	portto gnomeinn
@@ -32,9 +50,11 @@
 
 #ACTION {^The Elemental Plane of Earth{(?:\(Shadowed\))?}}
 {
-	#nop /*	create a temporary class for this port since there are several rooms/*;
-	#nop /*	with this name in the zone this way we can be sure we don't trigger with*/;
-	#nop /*	the wrong room. */;
+	#nop /*	this is for getting the map oriented on the earth plane							*/;
+	#nop /*	create a temporary class for this port since there are several rooms			*/;
+	#nop /*	with this name in the zone this way we can be sure we don't trigger with	*/;
+	#nop /*	the wrong room.																			 	*/;
+	#nop;
 	#class {trans} OPEN;
 	#action {{^A large bucket and clockwork mechanism hangs over a mineshaft.}}{portto earthbucket}{5};
 	#action {{^Exits: - E(?:ast)? $}}{portto 13754}{5};
@@ -50,6 +70,12 @@
 #ACTION {^The Inn of Restful Contemplation{(?: \(Shadowed\))?}}
 {
 	portto ixinn
+}
+{5}
+
+#ACTION {^The Lady's College{(?:\(Shadowed\))?}$}
+{
+	portto 678
 }
 {5}
 
@@ -71,6 +97,12 @@
 }
 {5}
 
+#ACTION {^There is no %w here.}
+{
+	portnoact
+}
+{5}
+
 #ACTION {^Thethla's Inn{(?: \(Shadowed\))?}}
 {
 	portto mhinn
@@ -79,9 +111,10 @@
 
 #ACTION {^{A Cobblestone Path(?: \(Shadowed\))?}}
 {
-	#nop /*	create a temporary class for this port since there are several rooms/*;
-	#nop /*	with this name in the zone this way we can be sure we don't trigger with*/;
-	#nop /*	the wrong room. */;
+	#nop /*	create a temporary class for this port since there are several rooms			*/;
+	#nop /*	with this name in the zone this way we can be sure we don't trigger with	*/;
+	#nop /*	the wrong room. 																				*/;
+	#nop;
 	#class trans open;
 	#action {^A grinning skull rests here.}{portto bgskull;#class trans kill}{5};
 	#action {^< %dh/%dH} {#class trans kill}{1};
@@ -157,9 +190,10 @@
 
 #ACTION {^{Ust Circle - North(?: \(Shadowed\))?}}
 {
-	#nop /*	create a temporary class for this port since there are several rooms*/;
-	#nop /*	with this name in the zone this way we can be sure we don't trigger with*/;
-	#nop /*	the wrong room. */;
+	#nop /*	create a temporary class for this port since there are several rooms			*/;
+	#nop /*	with this name in the zone this way we can be sure we don't trigger with	*/;
+	#nop /*	the wrong room. 																				*/;
+	#nop;
 	#class trans open;
 	#action {{^Exits: - N(?:orth)? - E(:?ast)?  - S(:?outh)? - W(?:est)  - D(?:own)? $}} {portto dkport}{3};
 	#class trans close

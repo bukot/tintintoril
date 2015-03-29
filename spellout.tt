@@ -1,8 +1,44 @@
 #CLASS {spellout} OPEN
 
+#ACTION {You are exhausted as your adrenaline level returns to normal.}
+{
+	repout adrenalize~~psionicist
+}
+{5}
+
+#ACTION {You feel more vulnerable to psionic attack.}
+{
+	repout tower~~psionicist
+}
+{5}
+
+#ACTION {You lose your catlike gait.}
+{
+	repout catfall~~psionicist
+}
+{5}
+
+#ACTION {You no longer feel able to protect yourself from hostile environments.}
+{
+	repout body control~~psionicist
+}
+{5}
+
+#ACTION {Your body size returns to normal.}
+{
+	repout expansion~~psionicist
+}
+{5}
+
+#ACTION {Your skin becomes softer as your flesh armor fades away.}
+{
+	repout flesharmor~~psionicist
+}
+{5}
+
 #ACTION {^A wave of exhaustion washes over you as your divine power fades.$}
 {
-	repout divine power,
+	repout divine power~~cleric
 }
 {5}
 
@@ -20,7 +56,7 @@
 
 #ACTION {^Static cling rears its ugly head again.}
 {
-	repout pfl,
+	repout pfl~~cleric
 }
 {5}
 
@@ -32,13 +68,13 @@
 
 #ACTION {^The feeling of power fades as your deity departs.}
 {
-	repout righteous might,
+	repout righteous might~~cleric
 }
 {5}
 
 #ACTION {^The healing aura surrounding you shimmers and winks out of existence.$}
 {
-	repout healing aura
+	repout healing aura~~cleric
 }
 {5}
 
@@ -50,25 +86,25 @@
 
 #ACTION {^What IS that smell?}
 {
-	repout pfg,
+	repout pfg~~cleric
 }
 {5}
 
 #ACTION {^You feel chilly.}
 {
-	repout pfc,
+	repout pfc~~cleric
 }
 {5}
 
 #ACTION {^You feel less basic.$}
 {
-	repout pfa,
+	repout pfa~~cleric
 }
 {5}
 
 #ACTION {^You feel less blessed.$}
 {
-	repout bless,
+	repout bless~~cleric
 }
 {5}
 
@@ -86,7 +122,7 @@
 
 #ACTION {^Your body returns to its normal size.$}
 {
-	repout reduce
+	repout Why did everyone just shrink? reduce
 }
 {5}
 
@@ -128,7 +164,7 @@
 
 #ACTION {^Your magic armor fades away.$}
 {
-	repout armor,
+	repout armor~~cleric
 }
 {5}
 
@@ -140,21 +176,45 @@
 
 #ACTION {^Your surroundings warm up.}
 {
-	repout pff,
+	repout pff~~cleric
 }
 {5}
 
 #ACTION {^Your vitality drains away.}
 {
-	repout vit,
+	repout vit~~cleric,druid
 }
 {5}
 
 #ALIAS {repout %*}
 {
-	#var {outspell} {%1};
-	#regex {$outspell} {,} {#nop} {gsay $outspell out!};
-	#replace {$outspell} {,} {};
+	#nop /* 	in order for you not to gsay every spellout you need to put	*/;
+	#nop /*	the classes that you don't want to report after the spell 	*/;
+	#nop /*	out message separated by "~~" ie:repout vit~~cleric,druid	*/;
+	#nop /*	the separators between classes are not needed and only		*/;
+	#nop /*	provide clarity for editing and reading.							*/;
+	#nop /*	var class needs to be set for each character best practice 	*/;
+	#nop /*	would be to load it in the class you load for class types 	*/;
+	#nop /*	that way it resets when you change chars with minimal code	*/;
+	#nop;
+	#variable {outspell} {%1};
+	#regexp {$outspell} {{(.*)~~(.*)}} 
+	{
+		#variable classes {&3};
+		#regexp {&3} {$class}
+		{
+			#nop
+		};
+		#else
+		{
+			gsay &2 out!
+		};
+		#variable outspell {&2}
+	};
+	#else
+	{
+		gsay $outspell out!
+	};
 	#showme $me says $outspell out!
 }
 {5}

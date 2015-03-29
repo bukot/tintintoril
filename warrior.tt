@@ -1,0 +1,142 @@
+#CLASS {warrior} OPEN
+
+#ACTION {%* avoids your bash, you topple over and fall to the ground.$}
+{
+	st
+}
+{5}
+
+#ACTION {%* clambers to %w feet}
+{
+	#if {&bash}
+	{
+		#if {$bash}
+		{
+			bash
+		}
+	}
+}
+{5}
+
+#ACTION {In your haste to slam people around, you slip and fall!}
+{
+	st
+}
+{5}
+
+#ACTION {PANIC!  You couldn't escape!}
+{
+	flee
+}
+{5}
+
+#ACTION {You try to bash %*, only to sprawl completely}
+{
+	st
+}
+{5}
+
+#ACTION {You {clamber|rise} to your feet}
+{
+	#if {&bash}
+	{
+		#if {$bash}
+		{
+			bash
+		}
+	}
+}
+{5}
+
+#ACTION {Your bash at %*}
+{
+	#if {&sp}
+	{
+		#switch {$sp}
+		{
+			#case {1}
+			{
+				shi;
+				#variable sp 2
+			};
+			#case {2}
+			{
+				kc;
+				#variable sp 1
+			}
+		}
+	}
+}
+{5}
+
+#ACTION {^You pass clean through}
+{
+	#if {&bash}
+	{
+		#if {$bash}
+		{
+			bash
+		}
+	}
+}
+{5}
+
+#ALIAS {autobash %w}
+{
+	#switch {"%1"}
+	{
+		#case {"on"}
+		{
+			#variable bash 1
+		};
+		#case {"off"}
+		{
+			#variable bash 0
+		}
+	}
+}
+{5}
+
+#ALIAS {resc %d}
+{
+	rescue $t[%1]
+}
+{5}
+
+#ALIAS {shi}
+{
+	shieldpunch
+}
+{5}
+
+#ALIAS {shield %w}
+{
+	#switch {"%1"}
+	{
+		#case {"on"}
+		{
+			#variable {sp} {1}
+		};
+		#case {"off"}
+		{
+			#variable {sp}{0}
+		}
+	}
+}
+{5}
+
+#ALIAS {slam %w}
+{
+	#variable slamit[1] 1;
+	#variable slamit[2] %1;
+	flee
+}
+{5}
+
+#GAG              {You miss %*}
+#VARIABLE         {bash}  {1}
+#VARIABLE         {class}  {warior}
+#VARIABLE         {slamit}  {0}
+#VARIABLE         {sp}  {0}
+
+#CLASS {warrior} CLOSE

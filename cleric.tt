@@ -1,0 +1,458 @@
+#CLASS {cleric} OPEN
+
+#ACTION {%* briefly reveals a red aura}
+{
+	gsay %1 is cursed!;
+	#showme ::reshowforspeech::$me says %1 is cursed!
+}
+{5}
+
+#ACTION {%* seems to be blinded!}
+{
+	#nop gsay %1 is blind!;
+	#showme $me says %1 is blind!
+}
+{5}
+
+#ACTION {%* suddenly looks speechless!}
+{
+	gsay %1 is being weally weally quite (silenced);
+	#showme $me says %1 is silenced;
+	#class silence kill
+}
+{5}
+
+#ALIAS {arm}
+{
+	#variable {buffname} {@btarg{%1}};
+	#unvariable result;
+	cast 'arm' $buffname;
+	#if {@chkstat{{$buffname} {statuses}}}
+	{
+		#variable {buff[name]} {$buffname};
+		#variable {buff[spell]} {arm};
+		#variable {buff[say]} {arm};
+		load bufftrack
+	};
+	#unvariable {buffname}
+}
+{5}
+
+#ALIAS {bless}
+{
+	#variable {buffname} {@btarg{%1}};
+	#unvariable result;
+	cast 'bless' $buffname;
+	#if {@chkstat{{$buffname} {statuses}}}
+	{
+		#variable {buff[name]} {$buffname};
+		#variable {buff[spell]} {blss};
+		#variable {buff[say]} {blss};
+		load bufftrack
+	};
+	#unvariable {buffname}
+}
+{5}
+
+#ALIAS {burn}
+{
+	cast 'flame s'
+}
+{5}
+
+#ALIAS {cac}
+{
+	cast 'cause c'
+}
+{5}
+
+#ALIAS {cal}
+{
+	cast 'cause light'
+}
+{5}
+
+#ALIAS {cas}
+{
+	cast 'cause s'
+}
+{5}
+
+#ALIAS {cb}
+{
+	cast 'cure blind' @btarg{%1}
+}
+{5}
+
+#ALIAS {cc}
+{
+	cast 'cure c' @btarg{%1}
+}
+{5}
+
+#ALIAS {cf}
+{
+	cast 'create f'
+}
+{5}
+
+#ALIAS {cl}
+{
+	cast 'cure light' @btarg{%1}
+}
+{5}
+
+#ALIAS {cs}
+{
+	cast 'cure s' @btarg{%1}
+}
+{5}
+
+#ALIAS {curse}
+{
+	cast 'curse'
+}
+{5}
+
+#ALIAS {dark}
+{
+	cast 'blind' %1;
+	load blind
+}
+{5}
+
+#ALIAS {de}
+{
+	cast 'detect e'  @btarg{%1}
+}
+{5}
+
+#ALIAS {div}
+{
+	cast 'divine power' me
+}
+{5}
+
+#ALIAS {dp}
+{
+	cast 'divine p' @btarg{%1}
+}
+{5}
+
+#ALIAS {fh}
+{
+	cast 'full heal' @btarg{%1}
+}
+{5}
+
+#ALIAS {flygear {on|off}}
+{
+	#switch {"%1"}
+	{
+		#case {"on"}
+		{
+			rem mask;
+			rem crown;
+			rem mold;
+			wear helm
+		};
+		#case {"off"}
+		{
+			rem helm;
+			wear mask;
+			wear crown;
+			wear mold
+		}
+	}
+}
+{5}
+
+#ALIAS {grp}
+{
+	cast 'greater realm of pro' @btarg{%1}
+}
+{5}
+
+#ALIAS {ha}
+{
+	cast 'healing a' @btarg{%1}
+}
+{5}
+
+#ALIAS {harm}
+{
+	cast 'harm'
+}
+{5}
+
+#ALIAS {heal}
+{
+	cast 'heal' @btarg{%1}
+}
+{5}
+
+#ALIAS {hw}
+{
+	cast 'holy word'
+}
+{5}
+
+#ALIAS {lizloot %d %d}
+{
+	#loop {%1} {%2} {i}
+	{
+		get all.potion $i\.corpse;
+		put all.potion case
+	}
+}
+{5}
+
+#ALIAS {pfg}
+{
+	cast 'protection from good' @btarg{%1}
+}
+{5}
+
+#ALIAS {pfup}
+{
+	#action {You complete your spell.} {pfup %1};
+	#action {You don't have that spell memorized.} {pfup %1};
+	#if {&nextp}
+	{
+		$nextp %1;
+		#switch {"$nextp"}
+		{
+			#case {"pfg"}
+			{
+				#variable {nextp} {pfo}
+			};
+			#case {"pfo"}
+			{
+				#variable {nextp}{pfe}
+			};
+			#case {"pfe"}
+			{
+				#variable {nextp}{pfa}
+			};
+			#case {"pfa"}
+			{
+				#variable {nextp}{pfl}
+			};
+			#case {"pfl"}
+			{
+				#variable {nextp}{pfc}
+			};
+			#case {"pfc"}
+			{
+				#variable {nextp}{pff};
+				#action {You complete your spell.}{say you are protected %1 as best I can make you.;#unact{You complete your spell.;#unact {You don't have that spell memorized.};#unvar {nextp}}};
+				#action {You don't have that spell memorized.}{say you are protected %1 as best I can make you.;#unact{You complete your spell.;#unact {You don't have that spell memorized.};#unvar {nextp}}}
+			}
+		}
+	};
+	#else
+	{
+		pfa @btarg{%1};
+		#variable {nextp}{pfg}
+	}
+}
+{5}
+
+#ALIAS {pres}
+{
+	cast 'preserve' @btarg{%1}
+}
+{5}
+
+#ALIAS {res %w}
+{
+	#variable {resname} {@btarg{%1}};
+	t $resname consent I'm going to res you now and I run with Lili alot, so if this fails because you don't consent I am going to sell you down the river so fast to her for holding up the group you won't have time to drown!;
+	consent $resname;
+	cast 'resu' $resname;
+	#unvariable resname
+}
+{5}
+
+#ALIAS {rev %w}
+{
+	#variable {resname} {@btarg{%1}};
+	t $resname   You failed res so being revived.  consent now I don't want to have to tell the group we are waiting on you because you can't type.;
+	cast 'revi' $resname;
+	#unvariable resname
+}
+{5}
+
+#ALIAS {rm}
+{
+	cast 'righteous m'
+}
+{5}
+
+#ALIAS {rp}
+{
+	cast 'remove poison' @btarg{%1}
+}
+{5}
+
+#ALIAS {sh}
+{
+	cast 'full harm'
+}
+{5}
+
+#ALIAS {sil %w}
+{
+	cast 'silence p' %1
+}
+{5}
+
+#ALIAS {spellup}
+{
+	sit;
+	rest;
+	med;
+	pray
+}
+{5}
+
+#ALIAS {sum}
+{
+	cast 'summon' %1
+}
+{5}
+
+#ALIAS {vc}
+{
+	cast 'vigorize c' @btarg{%1}
+}
+{5}
+
+#ALIAS {vit}
+{
+	#variable {buffname} {@btarg{%1}};
+	#unvariable result;
+	vt $buffname;
+	#if {@chkstat{{$buffname} {statuses}}}
+	{
+		#variable {buff[name]} {$buffname};
+		#variable {buff[spell]} {vit};
+		#variable {buff[say]} {vit};
+		load bufftrack
+	};
+	#unvariable {buffname}
+}
+{5}
+
+#ALIAS {vs}
+{
+	cast 'vigorize serious' @btarg{%1}
+}
+{5}
+
+#ALIAS {word}
+{
+	cast 'word of recall'
+}
+{5}
+
+#ALIAS {pf%.}
+{
+	#switch {"%1"}
+	{
+		#case {"e"}
+		{
+			#variable {pspell} {evil}
+		};
+		#case {"o"}
+		{
+			#variable {pspell} {good}
+		};
+		#case {"a"}
+		{
+			#variable {pspell} {acid}
+		};
+		#case {"f"}
+		{
+			#variable {pspell} {fire}
+		};
+		#case {"g"}
+		{
+			#variable {pspell} {gas}
+		};
+		#case {"l"}
+		{
+			#variable {pspell} {lightning}
+		};
+		#case {"c"}
+		{
+			#variable {pspell} {cold}
+		}
+	};
+	#if {&pspell}
+	{
+		cast 'protection from $pspell' @btarg{%2};
+		#unvariable pspell
+	};
+	#else
+	{
+		#default
+		{
+			#showme Spell says no protection spell was indicated
+		}
+	}
+}
+{6}
+
+#FUNCTION {etarg}
+{
+	#nop this function is for spells that should not be cast w/o a target;
+	#if {"%1" != ""}
+	{
+		#class etarg open;
+		#action {^Exits:}{#var {castok} {0}#class etarg open;#act {%1}{#var {castok} {1}};#act {{< \d*h/\d*H \d*v\d*V T:}}{#class etarg kill;};#class etarg close;};
+		#class etarg close;
+		l;
+		#if {"%1" == "me"}
+		{
+			#showme spell says no valid target!!!;
+			#return neg
+		};
+		#else
+		{
+			#if {$castok}
+			{
+				#unvariable castok;
+				#return %1
+			};
+			#else
+			{
+				#showme spell says no valid target!!!;
+				#return neg
+			}
+		}
+	};
+	#else
+	{
+		#if {&enemy}
+		{
+			#return $enemy;
+			load silence
+		};
+		#else
+		{
+			#showme spell says no valid target!!!;
+			#return neg
+		}
+	};
+	#unvariable stest
+}
+
+#MACRO {\eOS}
+{
+	quaff illuminated sacl
+}
+
+#VARIABLE         {class}  {cleric}
+
+#CLASS {cleric} CLOSE

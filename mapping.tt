@@ -20,41 +20,10 @@
 }
 {5}
 
-#ACTION {{You (?:escape|flee) (\w*)!}}
+#ACTION {{You (?:escape|flee) ([nsweudNSWEUD])\w*!}}
 {
-	#switch {"%2"}
-	{
-		#case {"westward"}
-		{
-			#map move w;
-			#variable backflee e
-		};
-		#case {"eastward"}
-		{
-			#map move e;
-			#variable backflee w
-		};
-		#case {"southward"}
-		{
-			#map move s;
-			#variable backflee n
-		};
-		#case {"northward"}
-		{
-			#map move n;
-			#variable backflee s
-		};
-		#case {"upward"}
-		{
-			#map move u;
-			#variable backflee d
-		};
-		#case {"downward"}
-		{
-			#map move d;
-			#variable backflee u
-		}
-	};
+	#map move %2;
+	#var backflee %2;
 	#if {&slamit[1]}
 	{
 		#if {$slamit[1]}
@@ -78,9 +47,17 @@
 }
 {5}
 
-#ACTION {{You follow \w* (\w)\w*}}
+#ACTION {{You follow \w* ([nsweudNSWEUD])\w*}}
 {
 	#map move %2
+}
+{5}
+
+#ALIAS {%i{en (hole|worm|rift|well|portal)}}
+{
+	load mapport;
+	#map leave;
+	ent %2
 }
 {5}
 
@@ -91,10 +68,21 @@
 }
 {5}
 
-#ALIAS {jump {[N|S|E|W|D|U|n|s|e|w|u|d]}}
+#ALIAS {%ijump {[nsewud]}}
 {
 	jum %1;
 	#map move %1
+}
+{5}
+
+#ALIAS {mapunload}
+{
+	#map write $mapname;
+	killclass mapping;
+	killclass mapport;
+	killclass mapmistake;
+	killclass trans;
+	#map destroy
 }
 {5}
 
@@ -116,6 +104,10 @@
 		{
 			#variable {rmcolr} {160}
 		};
+		#case {"inn"}
+		{
+			#variable {rmcolr} {150}
+		};
 		#default
 		{
 			#variable {rmcolr} {170}
@@ -126,7 +118,7 @@
 }
 {5}
 
-#ALIAS {mdoor {[N|S|E|W|U|D|n|s|e|w|u|d]} %w}
+#ALIAS {%imdoor {[nsewud]} %w}
 {
 	#map dig %1;
 	#map exit %1 command {open %2 %1;%1}
@@ -155,7 +147,7 @@
 }
 {5}
 
-#ALIAS {mhide {[N|S|E|W|U|D|n|s|e|w|u|d]}}
+#ALIAS {%imhide {[nsewud]}}
 {
 	#map exitflag %1 hide
 }
@@ -205,14 +197,6 @@
 #ALIAS {updatemap}
 {
 	#map write $mapname
-}
-{5}
-
-#ALIAS {{en (hole|rift)}}
-{
-	load mapport;
-	#map leave;
-	ent %2
 }
 {5}
 

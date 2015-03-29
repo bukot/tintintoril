@@ -26,13 +26,16 @@
 
 #ALIAS {{asst(?: (\d*))?}}
 {
-	#if {%1}
+	#if {"$enemy" != ""}
 	{
-		ass $t[%1]
-	};
-	#else
-	{
-		ass $t.1
+		#if {%1}
+		{
+			ass $t[%1]
+		};
+		#else
+		{
+			ass $t.1
+		}
 	}
 }
 {5}
