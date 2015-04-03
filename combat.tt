@@ -18,9 +18,67 @@
 }
 {5}
 
+#ACTION {^Assist whom?$}
+{
+	#variable {doasst} {1}
+}
+{5}
+
+#ACTION {^That person is not fighting anyone.$}
+{
+	#variable {doasst} {1}
+}
+{5}
+
 #ACTION {^You manage to, with complete incompetence, throw yourself head first directly into the ground!}
 {
 	st
+}
+{5}
+
+#ALIAS {t{[1-9]} %*}
+{
+	#variable {ttest1} {%1};
+	#variable {ttest2} {@btarg{%2}};
+	#if {&ttest1}
+	{
+		#if {&ttest2}
+		{
+			#if {&t[%1]}
+			{
+				#unsubstitute {~%i%%1$t[%1]%%2}
+			};
+			#if {"$ttest2" != "none"}
+			{
+				#if {%1 == 1}
+				{
+					#substitute {~%i%%1%2%%2} {%%1<134>(t1)%2<088>%%2}
+				};
+				#else
+				{
+					#substitute {~%i%%1%2%%2} {%%1<134>(t%1)<088>%2%%2}
+				}
+			};
+			#else
+			{
+				#showme <168>Target %1 ($t[%1]) is now: %2
+			};
+			#if {"%2" == "none"}
+			{
+				#unvariable t[%1]
+			};
+			#else
+			{
+				#variable {t[%1]} {$ttest2}
+			}
+		};
+		#else
+		{
+			#showme target%1 is $t[%1]
+		}
+	};
+	#unvariable ttest1;
+	#unvariable ttest2
 }
 {5}
 
@@ -28,17 +86,27 @@
 {
 	#if {"$enemy" != ""}
 	{
-		#if {%1}
+		#if {$doasst}
 		{
-			ass $t[%1]
-		};
-		#else
-		{
-			ass $t.1
+			#if {%2 && "$t.%2" != ""}
+			{
+				ass $t[%2];
+				#variable {doasst} {0}
+			};
+			#else
+			{
+				ass $t.1;
+				#variable {doasst} {0}
+			}
 		}
+	};
+	#else
+	{
+		#variable {doasst} {1}
 	}
 }
 {5}
 
+#VARIABLE         {doasst}  {1}
 
 #CLASS {combat} CLOSE

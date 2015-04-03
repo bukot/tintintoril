@@ -18,6 +18,12 @@
 }
 {5}
 
+#ACTION {You stop floating.}
+{
+	repout lev~~psionicist
+}
+{5}
+
 #ACTION {You no longer feel able to protect yourself from hostile environments.}
 {
 	repout body control~~psionicist
@@ -188,14 +194,14 @@
 
 #ALIAS {repout %*}
 {
-	#nop /* 	in order for you not to gsay every spellout you need to put	*/;
+	#nop /*	in order for you not to gsay every spellout you need to put	*/;
 	#nop /*	the classes that you don't want to report after the spell 	*/;
 	#nop /*	out message separated by "~~" ie:repout vit~~cleric,druid	*/;
 	#nop /*	the separators between classes are not needed and only		*/;
 	#nop /*	provide clarity for editing and reading.							*/;
 	#nop /*	var class needs to be set for each character best practice 	*/;
-	#nop /*	would be to load it in the class you load for class types 	*/;
-	#nop /*	that way it resets when you change chars with minimal code	*/;
+	#nop /*	would be to use the classset.tt and the class var from    	*/;
+	#nop /*  general.tt
 	#nop;
 	#variable {outspell} {%1};
 	#regexp {$outspell} {{(.*)~~(.*)}} 

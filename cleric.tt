@@ -1,27 +1,5 @@
 #CLASS {cleric} OPEN
 
-#ACTION {%* briefly reveals a red aura}
-{
-	gsay %1 is cursed!;
-	#showme ::reshowforspeech::$me says %1 is cursed!
-}
-{5}
-
-#ACTION {%* seems to be blinded!}
-{
-	#nop gsay %1 is blind!;
-	#showme $me says %1 is blind!
-}
-{5}
-
-#ACTION {%* suddenly looks speechless!}
-{
-	gsay %1 is being weally weally quite (silenced);
-	#showme $me says %1 is silenced;
-	#class silence kill
-}
-{5}
-
 #ALIAS {arm}
 {
 	#variable {buffname} {@btarg{%1}};
@@ -207,12 +185,6 @@
 }
 {5}
 
-#ALIAS {pfg}
-{
-	cast 'protection from good' @btarg{%1}
-}
-{5}
-
 #ALIAS {pfup}
 {
 	#action {You complete your spell.} {pfup %1};
@@ -264,12 +236,20 @@
 }
 {5}
 
-#ALIAS {res %w}
+#ali {rc}
 {
-	#variable {resname} {@btarg{%1}};
-	t $resname consent I'm going to res you now and I run with Lili alot, so if this fails because you don't consent I am going to sell you down the river so fast to her for holding up the group you won't have time to drown!;
+	cast 'remove c' @btarg{%1}
+}
+
+#ALIAS {%i{res ([a-z\.0-9]*)}}
+{
+	#variable {resname} {%2};
+	#replace {resname} {{[\.0-9]*}} {};
+	#format {resname} {%n} {$resname}; 
+	t $resname Here me $resname!  prepare thyself. I have decided your battle is not over. Gods permitting you shall rejoin the living where you fell. I must have your consent so make your decision NOW!
+	t $resname \(You're getting ressed.  If you don\'t consent me I will move on to the next in line.  Also, I\'ll taunt you publicly!\);
 	consent $resname;
-	cast 'resu' $resname;
+	cast 'resu' %1;
 	#unvariable resname
 }
 {5}
@@ -277,7 +257,7 @@
 #ALIAS {rev %w}
 {
 	#variable {resname} {@btarg{%1}};
-	t $resname   You failed res so being revived.  consent now I don't want to have to tell the group we are waiting on you because you can't type.;
+	t $resname   The gods have decided you were not worthy of the rewards you were granted, and that you must re-prove your worth.  I am going to do what I can for this vessel and place you back in it. (res failed.  I'm going to revive you.);
 	cast 'revi' $resname;
 	#unvariable resname
 }
@@ -356,15 +336,15 @@
 }
 {5}
 
-#ALIAS {pf%.}
+#ALIAS {%i{pf ?(ga|g|e|a|f|l|c|u)\w*(?: (\w+))?}}
 {
-	#switch {"%1"}
+	#switch {"%2"}
 	{
 		#case {"e"}
 		{
 			#variable {pspell} {evil}
 		};
-		#case {"o"}
+		#case {"g"}
 		{
 			#variable {pspell} {good}
 		};
@@ -376,7 +356,7 @@
 		{
 			#variable {pspell} {fire}
 		};
-		#case {"g"}
+		#case {"ga"}
 		{
 			#variable {pspell} {gas}
 		};
@@ -387,11 +367,16 @@
 		#case {"c"}
 		{
 			#variable {pspell} {cold}
+		};
+		#case {"u"}
+		{
+			#variable {pspell} {undead}
 		}
 	};
-	#if {&pspell}
+	#if {"$pspell" != ""}
 	{
-		cast 'protection from $pspell' @btarg{%2};
+		#echo {casting 'protection from $pspell' at @btarg{%3}};
+		cast 'protection from $pspell' @btarg{%3};
 		#unvariable pspell
 	};
 	#else

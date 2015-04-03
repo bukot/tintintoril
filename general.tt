@@ -1,5 +1,72 @@
 #CLASS {general} OPEN
 
+#ACTION {Aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaageneral.tt$}
+{
+	#nop /* this action can be removed but is used to document the file and   */;
+	#nop /* it's functionality.                                               */;
+	#nop /* dependencies...                                                   */;
+	#nop /*      {classset.tt} must be present to make use of auto class      */;
+	#nop /*                    feature load and name assignment               */;
+	#nop /*                                                                   */;
+	#nop /*      {combat.tt} needed to make use of common combat features     */;
+	#nop /*                                                                   */;
+	#nop /*      {espeak unix modual} must be present to make use of text to  */;
+	#nop /*                           speech features                         */;
+	#nop /*                                                                   */;
+	#nop /*      {mapping.tt} must be present to make use of map features     */;
+	#nop /*                                                                   */;
+	#nop /*      {mapport.tt} must be present to make proper use of mapping   */;
+	#nop /*                   auto locate features                            */;
+	#nop /*                                                                   */;
+	#nop /*                                                                   */;
+	#nop /* variables set by class                                            */;
+	#nop /*      {caller} used to determine if condition caller is active     */;
+	#nop /*                                                                   */;
+	#nop /*      {class} used to store the current loaded character class     */;
+	#nop /*                                                                   */;
+	#nop /*      {classcheck} used to determine if a score command should be  */;
+	#nop /*                   sent to the mud so the current class can be     */;
+	#nop /*                   auto grabbed                                    */;
+	#nop /*                                                                   */;
+	#nop /*      {encond} used by stat tracker to store the last enemy        */;
+	#nop /*               condition                                           */;
+	#nop /*                                                                   */;
+	#nop /*      {enemy} used to track the currently engaged enemy's name     */;
+	#nop /*              when in battle                                       */;
+	#nop /*                                                                   */;
+	#nop /*      {loot} used to determine status of auto looter               */;
+	#nop /*                                                                   */;
+	#nop /*      {mapname} name of the map file that is loaded, or blank.  it */;
+	#nop /*                is initiated here to allow testing it's value in   */;
+	#nop /*                general.tt                                         */;
+	#nop /*                                                                   */;
+	#nop /*      {speechon} used to determine if the speech routine has been  */;
+	#nop /*                 called yet                                        */
+}
+{1}
+
+#ACTION {%* briefly reveals a red aura}
+{
+	gsay %1 is cursed!;
+	#showme ::reshowforspeech::$me says %1 is cursed!
+}
+{5}
+
+#ACTION {%* seems to be blinded!}
+{
+	#nop gsay %1 is blind!;
+	#showme $me says %1 is blind!
+}
+{5}
+
+#ACTION {%* suddenly looks speechless!}
+{
+	gsay %1 is being weally weally quite (silenced);
+	#showme $me says %1 is silenced;
+	#class silence kill
+}
+{5}
+
 #ACTION {%w has just given you %w consent.}
 {
 	group %1 Let's go get ded!
@@ -8,26 +75,23 @@
 
 #ACTION {You have learned something new about %*!}
 {
-	say %1 up!;
-	#line log chatlog.txt {%1 up!}
-}
-{5}
-
-#ACTION {You stop floating.}
-{
-	#showme {You say levitate out};
-	gsay lev out
+	gsay %1 up!;
+	#showme {you say %1 up!}
 }
 {5}
 
 #ACTION {^Type the # or name of a character above to login or choose an action below.}
 {
-	#class Rogue kill;
-	#class Cleric kill;
-	#class Psionicist kill;
-	#class Warrior kill;
-	#var {classcheck} {1};
+	#class rogue kill;
+	#class cleric kill;
+	#class psionicist kill;
+	#class warrior kill;
+	#variable {classcheck} {1};
 	load classset;
+	#if {$mapping}
+	{
+		load mapport
+	}
 }
 {5}
 
@@ -40,7 +104,6 @@
 
 #ACTION {^You receive %* XP (%*) experience.}
 {
-	#unvariable enemy;
 	#if {&loot}
 	{
 		#if {$loot}
@@ -81,7 +144,7 @@
 	#class glistadd kill;
 	#if {$classcheck}
 	{
-		#var classcheck 0;
+		#variable classcheck 0;
 		score
 	};
 	#unvariable pextra
@@ -115,13 +178,26 @@
 	};
 	#if {&statuses}
 	{
+		#variable statorlist {};
+		#foreach {$tracked} {i}
+		{
+			#if {"$statorlist" != ""}
+			{
+				#variable statorlist {$statorlist|$i}
+			};
+			#else
+			{
+				#variable statorlist {$i}
+			}
+		};
 		#foreach {$stats} {thisstat}
 		{
-			#regexp {$saytxt} {%i{^($statuses) .*(?:$statreg[$thisstat]) .*?(?:out|off|expired|down|faded|bu-bye!)}} {statset @btarg{&2} $thisstat out;statfix;}
+			#regexp {$saytxt} {%i{^($statuses) .*(?:$statreg[$thisstat]).*?(?:out|off|expired|down|faded|bu-bye!)}} {statset @btarg{&2} $thisstat out;statfix;}
 		};
 		#unvariable thisstat
 	};
-	#unvariable {saytxt}
+	#unvariable {saytxt};
+	#unvariable statorlist
 }
 {5}
 
@@ -131,7 +207,7 @@
 }
 {5}
 
-#ALIAS {caller %w}
+#ALIAS {statcall %w}
 {
 	#switch {"%1"}
 	{
@@ -161,18 +237,21 @@
 
 #ALIAS {loadmap}
 {
-	#if {&mapname}
+	#if {"$mapname" != ""}
 	{
 		#map write $mapname;
+		killclass mapping;
+		killclass mapport;
+		killclass mapmistake;
+		killclass trans;
 		#map destroy
 	};
 	#class mapkil open;
 	#class mapkil write mapdisp.txt;
 	#class mapkil kill;
-	#unvariable mapname;
+	load mapping;
 	#variable mapname %1;
 	#map read $mapname;
-	load mapping;
 	load mapport;
 	load mapmistake
 }
@@ -181,19 +260,6 @@
 #ALIAS {logon %w}
 {
 	#session %1 50.57.109.188 9999
-}
-{5}
-
-#ALIAS {loop %w}
-{
-	#foreach {488;1069} {room}
-	{
-		#map at $room #MAP get roomflag lavoid;
-		#if {($lavoid && "%1" == "off") || ($lavoid == "0"  && "%1" =="on")}
-		{
-			#map at $room #MAP roomflag avoid
-		}
-	}
 }
 {5}
 
@@ -279,52 +345,6 @@
 			}
 		}
 	}
-}
-{5}
-
-#ALIAS {t{[1-9]} %*}
-{
-	#variable {ttest1} {%1};
-	#variable {ttest2} {@btarg{%2}};
-	#if {&ttest1}
-	{
-		#if {&ttest2}
-		{
-			#if {&t[%1]}
-			{
-				#unsubstitute {~%i%%1$t[%1]%%2}
-			};
-			#if {"$ttest2" != "none"}
-			{
-				#if {%1 == 1}
-				{
-					#substitute {~%i%%1%2%%2} {%%1<134>(t1)%2<088>%%2}
-				};
-				#else
-				{
-					#substitute {~%i%%1%2%%2} {%%1<134>(t%1)<088>%2%%2}
-				}
-			};
-			#else
-			{
-				#showme <168>Target %1 ($t[%1]) is now: %2
-			};
-			#if {"%2" == "none"}
-			{
-				#unvariable t[%1]
-			};
-			#else
-			{
-				#variable {t[%1]} {$ttest2}
-			}
-		};
-		#else
-		{
-			#showme target%1 is $t[%1]
-		}
-	};
-	#unvariable ttest1;
-	#unvariable ttest2
 }
 {5}
 
@@ -438,6 +458,11 @@
 #TAB              {nilebbeple}
 #TAB              {zenpegeble}
 #VARIABLE         {caller}  {0}
-#var classcheck 0
+#VARIABLE         {class}  {}
+#VARIABLE         {classcheck}  {0}
+#VARIABLE         {enemy}  {}
+#VARIABLE         {loot}  {0}
+#VARIABLE         {mapname}  {}
+#VARIABLE         {speechon}  {0}
 
 #CLASS {general} CLOSE

@@ -12,6 +12,48 @@ As those files are made stable they will appear here.
 <pre>
 recent changes
 
+2015-04-03     in the process of adding a comment to the begining of each file,
+               and making sure any persistant vars are declared in the class file
+               that declares them.  this will make resetting classes easier as
+               all values will be reset with the class instead of having to hunt
+               them down individually or restarting tintin.
+
+               reorganized mapping.tt
+                    combined msetname and msetnote into one alias mset that takes
+                    an arguement mset <command> <value> it uses regex so the
+                    space between mset and the command is options for backwards
+                    compatability also it will match the abreviated arguement or 
+                    the whole word mset no, msetno, msetnote, and msetnote are
+                    all the same thing this will make it easier to add other map
+                    features as needed
+                    
+                    mmakeport now more robust
+                         mmakeport <en|open|jump|...> <portalname> <room to link>
+                         this will add a non standard exit to a room as a one way
+                         link.
+                         it also has to be used at both ends of the portal for
+                         two way links.
+                         remember that common portal types (portal, well, hole)
+                         will need to have both endpoints added to mapport to
+                         avoid breaking the mapper.
+                    
+                    added mportloc to allow for fast port locations to the file
+                    for now this does a simple location add and more complex locs
+                    will still require direct file addition.  it expects the full
+                    room name as the arguement.
+                    
+                    mapunload now correctly removes the map name from the variable
+                    
+                    added bank as an option in mcolor and made setting a room to
+                    default white easier by allowing mcolor to be called with out
+                    arguements
+                    
+               working on striping general.tt down as far as possible to make 
+               branching this project as easy as possible.  more files, but more
+               flexibility too.
+
+----------------------------------------------------------------------------------
+
 2015-03-29		streamlined some actions in mapping to reduce the number of match
 					attempts.
 					

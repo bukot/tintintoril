@@ -1,4 +1,17 @@
-#class mapmistake open
+#CLASS {mapmistake} OPEN
+
+#ACTION {Aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaamapmistake.tt$}
+{
+	#nop /* this action can be removed but is used to document the file and   */;
+	#nop /* it's functionality.                                               */;
+	#nop /* dependencies...                                                   */;
+	#nop /*      alias mundo from mapping.tt                                  */;
+	#nop /*                                                                   */;
+	#nop /*                                                                   */;
+	#nop /* variables set by class                                            */;
+	#nop /*      {mapmistake} set to 1 to allow for class loaded testing      */;
+}
+{1}
 
 #ACTION {%* humiliates you, and blocks your way.}
 {
@@ -96,4 +109,6 @@
 }
 {5}
 
-#class mapmistake close
+#VARIABLE         {mapmistake}  {1}
+
+#CLASS {mapmistake} CLOSE

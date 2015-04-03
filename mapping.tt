@@ -1,8 +1,36 @@
 #CLASS {mapping} OPEN
 
+#ACTION {Aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaamapping.tt$}
+{
+	#nop /* this action can be removed but is used to document the file and   */;
+	#nop /* it's functionality.                                               */;
+	#nop /* dependencies...                                                   */;
+	#nop /*      alias {killclass} from general.tt                            */;
+	#nop /*                                                                   */;
+	#nop /*      alias {load} from general.tt                                 */;
+	#nop /*                                                                   */;
+	#nop /*      mapport.tt must exist for auto location functionality        */;
+	#nop /*                                                                   */;
+	#nop /*                                                                   */;
+	#nop /* variables set by class                                            */;
+	#nop /*      {backflee} used to store the last direction fled or escaped  */;
+	#nop /*                                                                   */;
+	#nop /*      {mapcount} used to count moves made for save timing          */;
+	#nop /*                                                                   */;
+	#nop /*      {mapcountmax} number to count to with mapcount               */;
+	#nop /*                                                                   */;
+	#nop /*      {mapdispdims} <width>x<height> of the map to output to file  */;
+	#nop /*                    to tail                                        */;
+	#nop /*                                                                   */;
+	#nop /*      {mapsave} used internally to determine if map file should be */;
+	#nop /*                written every mapcountmax moves or is writing      */;
+	#nop /*                paused                                             */
+}
+{1}
+
 #ACTION {Suddenly the darkness falls revealing different surroundings.}
 {
-	#nop /*	this is the trigger for shifting to activate mapport /*;
+	#nop /*	this is the trigger for shifting to activate mapport             /*;
 	#map leave;
 	load mapport
 }
@@ -23,48 +51,13 @@
 #ACTION {{You (?:escape|flee) ([nsweudNSWEUD])\w*!}}
 {
 	#map move %2;
-	#var backflee %2;
-	#if {&slamit[1]}
-	{
-		#if {$slamit[1]}
-		{
-			$backflee;
-			bodyslam $slamit[2];
-			#variable slamit 0
-		}
-	};
-	#else
-	{
-		#if {&pracflee}
-		{
-			#if {"$pracflee" == "flame"}
-			{
-				spellup;
-				a
-			}
-		}
-	}
+	#variable backflee %2
 }
 {5}
 
 #ACTION {{You follow \w* ([nsweudNSWEUD])\w*}}
 {
 	#map move %2
-}
-{5}
-
-#ALIAS {%i{en (hole|worm|rift|well|portal)}}
-{
-	load mapport;
-	#map leave;
-	ent %2
-}
-{5}
-
-#ALIAS {disembark}
-{
-	load mapport;
-	disemb
 }
 {5}
 
@@ -75,6 +68,72 @@
 }
 {5}
 
+#ALIAS {%imdoor {[nsewud]} %w}
+{
+	#map dig %1;
+	#map exit %1 command {open %2 %1;%1}
+}
+{5}
+
+#ALIAS {%imhide {[nsewud]}}
+{
+	#map exitflag %1 hide
+}
+{5}
+
+#ALIAS {%i{en (hole|worm|rift|well|portal)}}
+{
+	#nop /* this is an alias to activate the mapport class on entering a      */;
+	#nop /* common mass teleportation method                                  */;
+	#map leave;
+	load mapport;
+	ent %2
+}
+{5}
+
+#ALIAS {%i{mset ?(no|n)\w* (.*)}}
+{
+	#switch {"%2"}
+	{
+		#case {"n"}
+		{
+			#variable setfield roomname
+		};
+		#case {"no"}
+		{
+			#variable setfield roomnote
+		}
+	};
+	#if {"$setfield" != ""}
+	{
+		#map set $setfield {%3}
+	};
+	#unvariable setfield
+}
+{5}
+
+#ALIAS {disembark}
+{
+	#nop /* this is used to activate mapport when exiting a ship with         */;
+	#nop /* disembark                                                         */;
+	#map leave;
+	load mapport;
+	disemb
+}
+{5}
+
+#alias {mportloc %1}
+{
+	#map {get} {roomvnum} {mportvnum};
+	load mapport;
+	#class mapport open;
+	#line {substitute} {variables} {#act {^%1{(?: \(Shadowed\))?}}{portto $mportvnum}};
+	#class mapport close;
+	saveclass mapport;
+	#unvar mportvnum;
+	l
+}
+
 #ALIAS {mapunload}
 {
 	#map write $mapname;
@@ -82,19 +141,26 @@
 	killclass mapport;
 	killclass mapmistake;
 	killclass trans;
+	#var {mapname} {}
 	#map destroy
 }
 {5}
 
 #ALIAS {mapupdate}
 {
-	#map map 110x24 mapdisp.txt a
+	#line {substitute} {variables} {#map {map} {$mapdispdims} {mapdisp.txt} {a}}
 }
 {5}
 
-#ALIAS {mcolor %w}
+#ALIAS {mavoid}
 {
-	#switch {"%1"}
+	#map roomflag avoid
+}
+{5}
+
+#ALIAS {mcolor{ (\w*)}}
+{
+	#switch {"%2"}
 	{
 		#case {"rd"}
 		{
@@ -108,6 +174,10 @@
 		{
 			#variable {rmcolr} {150}
 		};
+		#case {"bank"}
+		{
+			#variable {rmcolr} {130}
+		};
 		#default
 		{
 			#variable {rmcolr} {170}
@@ -118,20 +188,13 @@
 }
 {5}
 
-#ALIAS {%imdoor {[nsewud]} %w}
-{
-	#map dig %1;
-	#map exit %1 command {open %2 %1;%1}
-}
-{5}
-
 #ALIAS {mfind %w %2}
 {
 	#switch {"%1"}
 	{
 		#case {"no"}
 		{
-			#map list {roomnote}{%*%2%*}
+			#map list {} {} {} {} {%*%2%*}
 		};
 		#case {"n"}
 		{
@@ -147,15 +210,9 @@
 }
 {5}
 
-#ALIAS {%imhide {[nsewud]}}
+#ALIAS {%immakeport {(\w*) (\w*) ([a-z 0-9]*)}}
 {
-	#map exitflag %1 hide
-}
-{5}
-
-#ALIAS {mmakeport}
-{
-	#map dig {en %1} %2
+	#map dig {%2 %3} %4
 }
 {5}
 
@@ -164,20 +221,8 @@
 	#variable mapsave 0;
 	#map run %1;
 	t $me hello;
-	#map map 110x24 mapdisp.txt a;
+	mapupdate;
 	#map write $mapname
-}
-{5}
-
-#ALIAS {msetname %1}
-{
-	#map set roomname {%1}
-}
-{5}
-
-#ALIAS {msetnote %1}
-{
-	#map set roomnote {%1}
 }
 {5}
 
@@ -194,6 +239,20 @@
 }
 {5}
 
+#ALIAS {portals %w}
+{
+	#foreach {488;1069} {room}
+	{
+		#map at $room #MAP get roomflag lavoid;
+		#if {($lavoid && "%1" == "off") || ($lavoid == "0"  && "%1" == "on")}
+		{
+			#map at $room #MAP roomflag avoid
+		};
+		#unvariable lavoid
+	}
+}
+{5}
+
 #ALIAS {updatemap}
 {
 	#map write $mapname
@@ -205,13 +264,13 @@
 	mapupdate;
 	#if {$mapsave}
 	{
-		#if {$mapcount < 30}
+		#if {$mapcount < $mapcountmax}
 		{
 			#math mapcount {$mapcount + 1}
 		};
 		#else
 		{
-			#unvariable mapcount;
+			#variable mapcount 0;
 			updatemap
 		}
 	}
@@ -222,6 +281,11 @@
 	updatemap
 }
 
+#VARIABLE         {backflee}  {}
+#VARIABLE         {mapcount}  {0}
+#VARIABLE         {mapcountmax}  {30}
+#VARIABLE         {mapdispdims}  {110x24}
+#VARIABLE         {mapping}  {1}
 #VARIABLE         {mapsave}  {1}
 
 #CLASS {mapping} CLOSE

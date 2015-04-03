@@ -1,5 +1,18 @@
 #CLASS {mapport} OPEN
 
+#ACTION {Aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaamapport.tt$}
+{
+	#nop /* this action can be removed but is used to document the file and   */;
+	#nop /* it's functionality.                                               */;
+	#nop /* dependencies...                                                   */;
+	#nop /*      alias killclass from general.tt                              */;
+	#nop /*                                                                   */;
+	#nop /*                                                                   */;
+	#nop /* variables set by class                                            */;
+	#nop /*      {mapport} set to 1 to allow for class loaded testing         */
+}
+{1}
+
 #ACTION {There is no %w here.}
 {
 	portnoact
@@ -14,7 +27,7 @@
 
 #ACTION {^A Small Platform Overlooking the Elder Brain{(?: \(Shadowed\))?}}
 {
-	portto psiix
+	portto 9908
 }
 {5}
 
@@ -24,9 +37,27 @@
 }
 {5}
 
+#ACTION {^A petrified tree stands here, long dead.{(?: \(Shadowed\))?}}
+{
+	portto 10680
+}
+{5}
+
 #ACTION {^At a Pillar of Stone Embedded with Skulls{(?: \(Shadowed\))?}}
 {
 	portto skullport
+}
+{5}
+
+#ACTION {^At a Shimmering Portal (Water){(?: \(Shadowed\))?}}
+{
+	portto 10448
+}
+{5}
+
+#ACTION {^At the Southern Shore of Darklake{(?: \(Shadowed\))?}}
+{
+	portto 10447
 }
 {5}
 
@@ -45,6 +76,12 @@
 #ACTION {^Inn of the Golden God{(?: \(Shadowed\))?}}
 {
 	portto gnomeinn
+}
+{5}
+
+#ACTION {^On a Marble Slab{(?: \(Shadowed\))?}}
+{
+	portto 10453
 }
 {5}
 
@@ -99,6 +136,7 @@
 
 #ACTION {^There is no %w here.}
 {
+	#map return;
 	portnoact
 }
 {5}
@@ -221,5 +259,6 @@
 }
 {5}
 
+#VARIABLE         {mapport}  {1}
 
 #CLASS {mapport} CLOSE
