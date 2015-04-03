@@ -5,43 +5,109 @@
 	#nop /* this action can be removed but is used to document the file and   */;
 	#nop /* it's functionality.                                               */;
 	#nop /* dependencies...                                                   */;
-	#nop /*      {classset.tt} must be present to make use of auto class      */;
-	#nop /*                    feature load and name assignment               */;
+	#nop /*      {classset.tt}                                                */;
+	#nop /*           must be present to make use of auto class feature load  */;
+	#nop /*           and name assignment                                     */;
 	#nop /*                                                                   */;
-	#nop /*      {combat.tt} needed to make use of common combat features     */;
+	#nop /*      {combat.tt}                                                  */;
+	#nop /*           needed to make use of common combat features            */;
 	#nop /*                                                                   */;
-	#nop /*      {espeak unix modual} must be present to make use of text to  */;
-	#nop /*                           speech features                         */;
+	#nop /*      {espeak unix modual}                                         */;
+	#nop /*           must be present to make use of text to speech features  */;
 	#nop /*                                                                   */;
-	#nop /*      {mapping.tt} must be present to make use of map features     */;
+	#nop /*      {mapping.tt}                                                 */;
+	#nop /*           must be present to make use of map features             */;
 	#nop /*                                                                   */;
-	#nop /*      {mapport.tt} must be present to make proper use of mapping   */;
-	#nop /*                   auto locate features                            */;
+	#nop /*      {mapport.tt}                                                 */;
+	#nop /*           must be present to make proper use of mapping auto      */;
+	#nop /*           locate features                                         */;
+	#nop /*                                                                   */;
+	#nop /*                                                                   */;
+	#nop /* aliases and usage                                                 */;
+	#nop /*      {statcall on|off}                                            */;
+	#nop /*           will turn the stat caller on or off                     */;
+	#nop /*                                                                   */;
+	#nop /*      {tloot <on|off|group>}                                       */;
+	#nop /*           sets the auto looter mode.  allows for abreviation of   */;
+	#nop /*           options and use or not of spaces.                       */;
+	#nop /*                                                                   */;
+	#nop /*      {astat <string>}                                             */;
+	#nop /*           will send a tell to katumi and get the advanced stats   */;
+	#nop /*           for an item (string value)                              */;
+	#nop /*                                                                   */;
+	#nop /*      {killclass <word>}                                           */;
+	#nop /*           shortcut for #class <word> kill                         */;
+	#nop /*                                                                   */;
+	#nop /*      {load <word>}                                                */;
+	#nop /*           shortcut for #read <word>.tt                            */;
+	#nop /*                                                                   */;
+	#nop /*      {loadmap <string>}                                           */;
+	#nop /*           saves and closes currently loaded map then loads the    */;
+	#nop /*           specified map and all mapping files.  if you change     */;
+	#nop /*           this pay attention to the order you do things so you    */;
+	#nop /*           don't destroy your map file by accident.                */;
+	#nop /*                                                                   */;
+	#nop /*      {logon <word>}                                               */;
+	#nop /*           creates a session named <word> and connects to the mud  */;
+	#nop /*                                                                   */;
+	#nop /*      {oepn}                                                       */;
+	#nop /*           replaces it with open.  I make this typo alot           */;
+	#nop /*                                                                   */;
+	#nop /*      {opne}                                                       */;
+	#nop /*           see oepn                                                */;
+	#nop /*                                                                   */;
+	#nop /*      {resetclass <word>}                                          */;
+	#nop /*           kills the class named <word>.tt and reloads it from     */;
+	#nop /*           disk.  depends on saveclass from same file              */;
+	#nop /*                                                                   */;
+	#nop /*      {saveclass <word>}                                           */;
+	#nop /*           saves the class named <word>.tt                         */;
+	#nop /*                                                                   */;
+	#nop /*      {setme <word>}                                               */;
+	#nop /*           sets the value of $me to <word> formatted as all lower  */;
+	#nop /*           several processes could set the value of this var so    */;
+	#nop /*           this makes normalizing it easier                        */;
+	#nop /*                                                                   */;
+	#nop /*      {speechoff}                                                  */;
+	#nop /*           disables the speech processes in case of spam overload  */;
+	#nop /*           but allows it to be restarted automatically.            */;
+	#nop /*                                                                   */;
+	#nop /*      {stat <word>}                                                */;
+	#nop /*           see astat, but uses the abbreviated stat from katumi    */;
+	#nop /*                                                                   */;
+	#nop /*      {loot <string>}                                              */;
+	#nop /*           get or gget all from <string> if string is ommited it   */;
+	#nop /*           loots corpse automatically if only a number it supplied */;
+	#nop /*           it loots <string>.corpse automatically                  */;
 	#nop /*                                                                   */;
 	#nop /*                                                                   */;
 	#nop /* variables set by class                                            */;
-	#nop /*      {caller} used to determine if condition caller is active     */;
+	#nop /*      {caller}                                                     */;
+	#nop /*           used to determine if condition caller is active         */;
 	#nop /*                                                                   */;
-	#nop /*      {class} used to store the current loaded character class     */;
+	#nop /*      {class}                                                      */;
+	#nop /*           used to store the current loaded character class        */;
 	#nop /*                                                                   */;
 	#nop /*      {classcheck} used to determine if a score command should be  */;
-	#nop /*                   sent to the mud so the current class can be     */;
-	#nop /*                   auto grabbed                                    */;
+	#nop /*           sent to the mud so the current class can be auto grabbed*/;
 	#nop /*                                                                   */;
-	#nop /*      {encond} used by stat tracker to store the last enemy        */;
-	#nop /*               condition                                           */;
+	#nop /*      {encond}                                                     */;
+	#nop /*           used by stat tracker to store the last enemy condition  */;
 	#nop /*                                                                   */;
-	#nop /*      {enemy} used to track the currently engaged enemy's name     */;
-	#nop /*              when in battle                                       */;
+	#nop /*      {enemy}                                                      */;
+	#nop /*           used to track the currently engaged enemy's name when in*/;
+	#nop /*           battle                                                  */;
 	#nop /*                                                                   */;
-	#nop /*      {loot} used to determine status of auto looter               */;
+	#nop /*      {loot}                                                       */;
+	#nop /*           used to determine status of auto looter                 */;
 	#nop /*                                                                   */;
-	#nop /*      {mapname} name of the map file that is loaded, or blank.  it */;
-	#nop /*                is initiated here to allow testing it's value in   */;
-	#nop /*                general.tt                                         */;
+	#nop /*      {mapname}                                                    */;
+	#nop /*           name of the map file that is loaded, or blank.  it is   */;
+	#nop /*           initiated here to allow testing it's value in general.tt*/;
 	#nop /*                                                                   */;
-	#nop /*      {speechon} used to determine if the speech routine has been  */;
-	#nop /*                 called yet                                        */
+	#nop /*      {speechon}                                                   */;
+	#nop /*           used to determine if the speech routine has been called */;
+	#nop /*           yet                                                     */
 }
 {1}
 
@@ -201,25 +267,80 @@
 }
 {5}
 
-#ALIAS {astat %1}
+#ALIAS {%istatcall{ ?(on|of)?.*}}
 {
-	tell katumi astat %1
+	#if {"%2" != ""}
+	{
+		#switch {"%2"}
+		{
+			#case {"on"}
+			{
+				#variable {caller} {1}
+			};
+			#case {"of"}
+			{
+				#variable {caller} {0}
+			}
+		};
+		statcall
+	};
+	#else
+	{
+		#variable callerstat off;
+		#if {$caller}
+		{
+			#variable callerstat on
+		};
+		#showme {You say stat caller is $callerstat};
+		#unvariable callerstat
+	}
 }
 {5}
 
-#ALIAS {statcall %w}
+#ALIAS {%itloot{ ?(of|on|gr)?.*}}
 {
 	#switch {"%1"}
 	{
+		#case {"of"}
+		{
+			#variable loot 0;
+			tloot
+		};
 		#case {"on"}
 		{
-			#variable {caller} {1}
+			#variable loot 1;
+			tloot
 		};
-		#case {"off"}
+		#case {"gr"}
 		{
-			#variable {caller} {0}
+			#variable loot 2;
+			tloot
+		};
+		#default
+		{
+			#switch {$loot}
+			{
+				#case {1}
+				{
+					say loot is on
+				};
+				#case {2}
+				{
+					say loot is for group (and thats good enough for me)
+				};
+				#default
+				{
+					say loot is off
+				}
+			}
 		}
 	}
+}
+{5}
+
+#ALIAS {astat %1}
+{
+	tell katumi astat %1
 }
 {5}
 
@@ -304,47 +425,6 @@
 #ALIAS {stat %1}
 {
 	tell katumi stat %1
-}
-{5}
-
-#ALIAS {tloot}
-{
-	#switch {"%1"}
-	{
-		#case {"off"}
-		{
-			#variable loot 0;
-			tloot
-		};
-		#case {"on"}
-		{
-			#variable loot 1;
-			tloot
-		};
-		#case {"group"}
-		{
-			#variable loot 2;
-			tloot
-		};
-		#default
-		{
-			#switch {$loot}
-			{
-				#case {1}
-				{
-					say loot is on
-				};
-				#case {2}
-				{
-					say loot is for group (and thats good enough for me)
-				};
-				#default
-				{
-					say loot is off
-				}
-			}
-		}
-	}
 }
 {5}
 
@@ -461,6 +541,7 @@
 #VARIABLE         {class}  {}
 #VARIABLE         {classcheck}  {0}
 #VARIABLE         {enemy}  {}
+#VARIABLE         {general}  {1}
 #VARIABLE         {loot}  {0}
 #VARIABLE         {mapname}  {}
 #VARIABLE         {speechon}  {0}
