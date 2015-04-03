@@ -20,7 +20,7 @@ recent changes
 
                reorganized mapping.tt
                     combined msetname and msetnote into one alias mset that takes
-                    an arguement mset <command> <value> it uses regex so the
+                    an arguement mset &#60;command&#62; &#60;value&#62; it uses regex so the
                     space between mset and the command is options for backwards
                     compatability also it will match the abreviated arguement or 
                     the whole word mset no, msetno, msetnote, and msetnote are
@@ -28,7 +28,7 @@ recent changes
                     features as needed
                     
                     mmakeport now more robust
-                         mmakeport <en|open|jump|...> <portalname> <room to link>
+                         mmakeport &#60;en|open|jump|...&#62; &#60;portalname&#62; &#60;room to link&#62;
                          this will add a non standard exit to a room as a one way
                          link.
                          it also has to be used at both ends of the portal for
@@ -61,7 +61,7 @@ recent changes
 					match that will only rep the spells you can't cast with that class
 					see the alias's at the end of that file for more information
 					
-					added var class <classname> to each class file and included the
+					added var class &#60;classname&#62; to each class file and included the
 					class files here.
 
 ----------------------------------------------------------------------------------
@@ -87,7 +87,7 @@ recent changes
 					hopefully this is the last time I will have to visit this line of
 					script.
 
--	made all map functions start with m<command> for ease of tracking and use
+-	made all map functions start with m&#60;command&#62; for ease of tracking and use
 
 -	fixed various bug in the the chat capture that was triggering on all lines with
 	ansi seems to be stable now
