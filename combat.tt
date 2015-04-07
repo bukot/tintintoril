@@ -86,23 +86,24 @@
 {
 	#if {"$enemy" != ""}
 	{
-		#if {$doasst}
-		{
-			#if {%2 && "$t.%2" != ""}
-			{
-				ass $t[%2];
-				#variable {doasst} {0}
-			};
-			#else
-			{
-				ass $t.1;
-				#variable {doasst} {0}
-			}
-		}
+		#variable {doasst} {0}
 	};
 	#else
 	{
 		#variable {doasst} {1}
+	};
+	#if {$doasst}
+	{
+		#if {%2 && "$t.%2" != ""}
+		{
+			ass $t[%2];
+			#variable {doasst} {0}
+		};
+		#else
+		{
+			ass $t.1;
+			#variable {doasst} {0}
+		}
 	}
 }
 {5}

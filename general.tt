@@ -1,6 +1,6 @@
 #CLASS {general} OPEN
 
-#ACTION {Aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaageneral.tt$}
+#ACTION {Aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa general.tt$}
 {
 	#nop /* this action can be removed but is used to document the file and   */;
 	#nop /* it's functionality.                                               */;
@@ -456,6 +456,14 @@
 	load combat;
 	load spellout;
 	load statwin
+}
+
+#EVENT {SESSION DISCONNECTED}
+{
+	#if {$mapping}
+	{
+		msave
+	};
 }
 
 #FUNCTION {btarg}

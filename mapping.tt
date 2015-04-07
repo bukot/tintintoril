@@ -1,30 +1,127 @@
 #CLASS {mapping} OPEN
 
-#ACTION {Aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaamapping.tt$}
+#ACTION {Aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa mapping.tt$}
 {
 	#nop /* this action can be removed but is used to document the file and   */;
 	#nop /* it's functionality.                                               */;
 	#nop /* dependencies...                                                   */;
-	#nop /*      alias {killclass} from general.tt                            */;
+	#nop /*      alias {killclass}                                            */;
+	#nop /*           located in general.tt                                   */;
+	#nop /*           used to kill as needed map related classes              */;
 	#nop /*                                                                   */;
-	#nop /*      alias {load} from general.tt                                 */;
+	#nop /*      alias {load}                                                 */;
+	#nop /*           located in general.tt                                   */;
+	#nop /*           used to load as needed map related classes              */;
 	#nop /*                                                                   */;
-	#nop /*      mapport.tt must exist for auto location functionality        */;
+	#nop /*      mapport.tt                                                   */;
+	#nop /*           must exist for the map to locate the current room on    */;
+	#nop /*           load or after various teleportation events in game      */;
+	#nop /*                                                                   */;
+	#nop /*                                                                   */;
+	#nop /* aliases and usage                                                 */;
+	#nop /*      {disembark}                                                  */;
+	#nop /*           exits the map and activates mapport.tt so that we don't */;
+	#nop /*           have to do fancy matching and map tricks to get to the  */;
+	#nop /*           right room after a ship voyage.  does require that all  */;
+	#nop /*           disembark points be in the mapport.tt file or the map   */;
+	#nop /*           will pause until we enter a listed room just like       */;
+	#nop /*           teleporting.                                            */;
+	#nop /*                                                                   */;
+	#nop /*      {en <hole|worm|rift|well|portal>}                            */;
+	#nop /*           exits the map an activates mapport.tt so that we don't  */;
+	#nop /*           mess up the map when we teleport.                       */;
+	#nop /*                                                                   */;
+	#nop /*      {jump <n|s|e|w|u|d>}                                         */;
+	#nop /*           used to track movement in rooms where jump is a valid   */;
+	#nop /*           move method. full direction of the any abbreviation for */;
+	#nop /*           them are acceptable for the parameter                   */;
+	#nop /*                                                                   */;
+	#nop /*      {mapunload}                                                  */;
+	#nop /*           saves the map then unloads the map and all the mapping  */;
+	#nop /*           classes.                                                */;
+	#nop /*                                                                   */;
+	#nop /*      {mapupdate}                                                  */;
+	#nop /*           Updates the file being used as output to display the    */;
+	#nop /*           map using tail.                                         */;
+	#nop /*                                                                   */;
+	#nop /*      {mavoid}                                                     */;
+	#nop /*           sets the avoid flag in the map for the current room.    */;
+	#nop /*           useful for floor less rooms when using mrun to move.    */;
+	#nop /*                                                                   */;
+	#nop /*      {mcolor <rd|shop|inn|bank| >}                                */;
+	#nop /*           set the color of the room on the map.  leave the        */;
+	#nop /*           pramameter blank for normal white.                      */;
+	#nop /*                                                                   */;
+	#nop /*      {mdoor <n|s|e|w|u|d> <word>}                                 */;
+	#nop /*           creates a simple door on the map with attending command */;
+	#nop /*           to open it when moved through. is one directional and   */;
+	#nop /*           must be done on both sides of the door                  */;
+	#nop /*                                                                   */;
+	#nop /*      {mfind <note|name> <string>}                                 */;
+	#nop /*           finds all the rooms where the string is at least part   */;
+	#nop /*           of the chosen field                                     */;
+	#nop /*                                                                   */;
+	#nop /*      {mgoto <room name/num>}                                      */;
+	#nop /*           move the current room in the map to the room with the   */;
+	#nop /*           name that best matches the parameter supplied           */;
+	#nop /*                                                                   */;
+	#nop /*      {mhide <n|s|e|w|u|d>}                                        */;
+	#nop /*           hides the map on one side of an exit on the map.        */;
+	#nop /*           useful when rooms overlap severly and stretching won't  */;
+	#nop /*           work.                                                   */;
+	#nop /*                                                                   */;
+	#nop /*      {mmakeport <two word command> <room name/num>}               */;
+	#nop /*           makes a map based portal linking one way between two    */;
+	#nop /*           rooms.  ie: mmakeport en crack 123                      */;
+	#nop /*                       mmakeport open 2.chest sminn                */;
+	#nop /*                                                                   */;
+	#nop /*      {mportals <on|off>}                                          */;
+	#nop /*           make rooms with portals avoid rooms so that when people */;
+	#nop /*           are following you you don't scrape them off on a portal */;
+	#nop /*                                                                   */;
+	#nop /*      {mportloc <string>}                                          */;
+	#nop /*           creates a simply entry in mapport.tt string must be the */;
+	#nop /*           room name of the room you want to match.                */;
+	#nop /*                                                                   */;
+	#nop /*      {mrun <room name/num>}                                       */;
+	#nop /*           find the quickest path to the named room, turn off map  */;
+	#nop /*           writing to prevent lagging, and enter all move commands */;
+	#nop /*           needed to get from current loc to chosen room in map    */;
+	#nop /*                                                                   */;
+	#nop /*      {msave}                                                      */;
+	#nop /*           saves the current map file to $mapname                  */;
+	#nop /*                                                                   */;
+	#nop /*      {mset <note|name> <string>}                                  */;
+	#nop /*           set the name/note field in the map for the current room */;
+	#nop /*           abbreviations are allowed with n being the shortest for */;
+	#nop /*           name, and no being the shortest for note                */;
+	#nop /*                                                                   */;
+	#nop /*      {mstr <n|s|e|w|u|d>}                                         */;
+	#nop /*           insert a void room in the given direction to stretch    */;
+	#nop /*           the map for visual reasons.  parameter can be the full  */;
+	#nop /*           direction name all the way down to the letters shown    */;
+	#nop /*                                                                   */;
+	#nop /*      {mundo}                                                      */;
+	#nop /*           undoes the last map move/addition.  as far as I can     */;
+	#nop /*           tell deletions can't be undone.                         */;
 	#nop /*                                                                   */;
 	#nop /*                                                                   */;
 	#nop /* variables set by class                                            */;
-	#nop /*      {backflee} used to store the last direction fled or escaped  */;
+	#nop /*      {backflee}                                                   */;
+	#nop /*           used to store the last direction fled or escaped in     */;
 	#nop /*                                                                   */;
-	#nop /*      {mapcount} used to count moves made for save timing          */;
+	#nop /*      {mapcount}                                                   */;
+	#nop /*           used to count moves made for save timing                */;
 	#nop /*                                                                   */;
-	#nop /*      {mapcountmax} number to count to with mapcount               */;
+	#nop /*      {mapcountmax}                                                */;
+	#nop /*           number to count to with mapcount                        */;
 	#nop /*                                                                   */;
-	#nop /*      {mapdispdims} <width>x<height> of the map to output to file  */;
-	#nop /*                    to tail                                        */;
+	#nop /*      {mapdispdims}                                                */;
+	#nop /*           <width>x<height> of the map to output to file to tail   */;
 	#nop /*                                                                   */;
-	#nop /*      {mapsave} used internally to determine if map file should be */;
-	#nop /*                written every mapcountmax moves or is writing      */;
-	#nop /*                paused                                             */
+	#nop /*      {mapsave}                                                    */;
+	#nop /*           used internally to determine if map file should be      */;
+	#nop /*           written every mapcountmax moves or is writing paused    */
 }
 {1}
 
@@ -38,18 +135,22 @@
 
 #ACTION {You try to tell yourself something}
 {
+	#nop /* detects mrun telling to you so that mapsave can be set back to 1  /*;
 	#variable mapsave 1
 }
 {5}
 
 #ACTION {^{You find traces of tracks leading (\w)\w*\.}}
 {
+	#nop /* makes sure we keep the map updated when tracking                  /*;
 	#map move %2
 }
 {5}
 
-#ACTION {{You (?:escape|flee) ([nsweudNSWEUD])\w*!}}
+#ACTION {{You (?:escape|flee) ([nNsSeEwWuUdD]?)\w*!}}
 {
+	#nop /* makes sure we keep the map updated when running from a fight      /*;
+	
 	#map move %2;
 	#variable backflee %2
 }
@@ -57,27 +158,18 @@
 
 #ACTION {{You follow \w* ([nsweudNSWEUD])\w*}}
 {
+	#nop /* makes sure we keep the map updated when following someone         /*;
 	#map move %2
 }
 {5}
 
-#ALIAS {%ijump {[nsewud]}}
+#ALIAS {%i{disembark}}
 {
-	jum %1;
-	#map move %1
-}
-{5}
-
-#ALIAS {%imdoor {[nsewud]} %w}
-{
-	#map dig %1;
-	#map exit %1 command {open %2 %1;%1}
-}
-{5}
-
-#ALIAS {%imhide {[nsewud]}}
-{
-	#map exitflag %1 hide
+	#nop /* this is used to activate mapport when exiting a ship with         */;
+	#nop /* disembark                                                         */;
+	#map leave;
+	load mapport;
+	disemb
 }
 {5}
 
@@ -91,76 +183,42 @@
 }
 {5}
 
-#ALIAS {%i{mset ?(no|n)\w* (.*)}}
+#ALIAS {%i{jump ([nsewud])}}
 {
-	#switch {"%2"}
-	{
-		#case {"n"}
-		{
-			#variable setfield roomname
-		};
-		#case {"no"}
-		{
-			#variable setfield roomnote
-		}
-	};
-	#if {"$setfield" != ""}
-	{
-		#map set $setfield {%3}
-	};
-	#unvariable setfield
+	jum %2;
+	#map move %2
 }
 {5}
 
-#ALIAS {disembark}
-{
-	#nop /* this is used to activate mapport when exiting a ship with         */;
-	#nop /* disembark                                                         */;
-	#map leave;
-	load mapport;
-	disemb
-}
-{5}
-
-#alias {mportloc %1}
-{
-	#map {get} {roomvnum} {mportvnum};
-	load mapport;
-	#class mapport open;
-	#line {substitute} {variables} {#act {^%1{(?: \(Shadowed\))?}}{portto $mportvnum}};
-	#class mapport close;
-	saveclass mapport;
-	#unvar mportvnum;
-	l
-}
-
-#ALIAS {mapunload}
+#ALIAS {%i{mapunload}}
 {
 	#map write $mapname;
 	killclass mapping;
 	killclass mapport;
 	killclass mapmistake;
 	killclass trans;
-	#var {mapname} {}
+	#variable {mapname} {};
 	#map destroy
 }
 {5}
 
-#ALIAS {mapupdate}
+#ALIAS {%i{mapupdate}}
 {
 	#line {substitute} {variables} {#map {map} {$mapdispdims} {mapdisp.txt} {a}}
 }
 {5}
 
-#ALIAS {mavoid}
+#ALIAS {%i{mavoid}}
 {
 	#map roomflag avoid
 }
 {5}
 
-#ALIAS {mcolor{ (\w*)}}
+#ALIAS {%i{mcolor (\w*)}}
 {
-	#switch {"%2"}
+	#variable {roomtype} {@mlowercase{%2}};
+	#unvariable {result};
+	#switch {"$roomtype"}
 	{
 		#case {"rd"}
 		{
@@ -184,67 +242,64 @@
 		}
 	};
 	#map set roomcolor <$rmcolr>;
-	#unvariable rmcolr
+	#unvariable rmcolr;
+	#unvar roomtype
 }
 {5}
 
-#ALIAS {mfind %w %2}
+#ALIAS {%i{mdoor ([nsewud])} %w}
 {
-	#switch {"%1"}
+	#map dig %2;
+	#map exit %2 command {open %3 %2;%2}
+}
+{5}
+
+#ALIAS {%i{mfind  ?(no(?:te?)?|n(?:a(?:m(?:e)?)?)?) (.*)}}
+{
+	#variable {mroomvar} {@mlowercase{%2}};
+	#variable {mroomval} {@mlowercase{%3}};
+	#unvariable {result};
+	#regexp {$mroomvar} {^{no?}} 
 	{
-		#case {"no"}
+		#switch {"&1"}
 		{
-			#map list {} {} {} {} {%*%2%*}
-		};
-		#case {"n"}
-		{
-			#map list {%*%2%*}
+			#case {"no"}
+			{
+				#map list {} {} {} {} {%*$mroomval%*}
+			};
+			#case {"n"}
+			{
+				#map list {%*$mroomval%*}
+			}
 		}
 	}
 }
 {5}
 
-#ALIAS {mgoto}
+#ALIAS {%i{mgoto ((?:\d|\w).*)}}
 {
-	#map goto %1
+	#map goto {%2}
 }
 {5}
 
-#ALIAS {%immakeport {(\w*) (\w*) ([a-z 0-9]*)}}
+#ALIAS {%i{mhide ([nsewud])}}
 {
-	#map dig {%2 %3} %4
+	#map exitflag %2 hide
 }
 {5}
 
-#ALIAS {mrun %1}
+#ALIAS {%i{mmakeport (\w* [a-z.0-9]*) ([a-z 0-9]*)}}
 {
-	#variable mapsave 0;
-	#map run %1;
-	t $me hello;
-	mapupdate;
-	#map write $mapname
+	#map dig {%2} {%3}
 }
 {5}
 
-#ALIAS {mstr}
-{
-	#map insert %1 void
-}
-{5}
-
-#ALIAS {mundo}
-{
-	#map undo;
-	mapupdate
-}
-{5}
-
-#ALIAS {portals %w}
+#ALIAS {%i{mportals (\w+)}}
 {
 	#foreach {488;1069} {room}
 	{
 		#map at $room #MAP get roomflag lavoid;
-		#if {($lavoid && "%1" == "off") || ($lavoid == "0"  && "%1" == "on")}
+		#if {($lavoid && "%2" == "off") || ($lavoid == "0"  && "%2" == "on")}
 		{
 			#map at $room #MAP roomflag avoid
 		};
@@ -253,9 +308,83 @@
 }
 {5}
 
-#ALIAS {updatemap}
+#ALIAS {%i{mportloc ((?:\w|\d).*)}}
+{
+	#map {get} {roomvnum} {mportvnum};
+	load mapport;
+	#class mapport open;
+	#line {substitute} {variables} {#act {^%2{(?: \(Shadowed\))?}}{portto $mportvnum}};
+	#class mapport close;
+	saveclass mapport;
+	#unvariable mportvnum;
+	l
+}
+{5}
+
+#ALIAS {%i{mrun ?((?:\w|\d).*)}}
+{
+	#variable mapsave 0;
+	#variable {mroomname} {@mlowercase{%2}};
+	#unvariable {result};
+	#map run {$mroomname};
+	t $me $mroomname;
+	mapupdate;
+	#map write $mapname;
+	#unvariable mroomname
+}
+{5}
+
+#ALIAS {%i{msave}}
 {
 	#map write $mapname
+}
+{5}
+
+#ALIAS {%i{mset ?(no(?:te?)?|n(?:a(?:m(?:e)?)?)?) (.*)}}
+{
+	#variable {mroomvar} {@mlowercase{%2}};
+	#variable {mroomval} {@mlowercase{%3}};
+	#unvariable {result};
+	#regexp {$mroomvar} {^{no?}} 
+	{
+		#switch {"&1"}
+		{
+			#case {"n"}
+			{
+				#variable setfield roomname
+			};
+			#case {"no"}
+			{
+				#variable setfield roomnote
+			}
+		}
+	};
+	#if {"$setfield" != ""}
+	{
+		#map set $setfield {$mroomval}
+	};
+	#unvariable setfield;
+	#unvariable mroomvar;
+	#unvariable mroomval
+}
+{5}
+
+#ALIAS {%i{mstr (n(?:o(?:r(?:th?)?)?)?|s(?:o(?:u(?:th?)?)?)?|e(?:a(?:st?)?)?|w(?:e(?:st?)?)?|up?|d(?:o(?:wn?)?)?)}$}
+{
+	#variable {mdir} {@mlowercase{%2}};
+	#unvariable {result};
+	#regexp {$mdir} {^{[nsewud]}} 
+	{
+		#map insert &1 void
+	};
+	#unvariable mdir
+}
+{5}
+
+#ALIAS {%i{mundo}}
+{
+	#map undo;
+	mapupdate
 }
 {5}
 
@@ -271,14 +400,20 @@
 		#else
 		{
 			#variable mapcount 0;
-			updatemap
+			msave
 		}
 	}
 }
 
-#EVENT {SESSION DISCONNECTED}
+#FUNCTION {mlowercase}
 {
-	updatemap
+	#regexp {%1} {{[a-zA-Z]}} {#format {mltarg} {%l} {%1}};
+	#else
+	{
+		#variable {mltarg} {%1}
+	};
+	#variable {result} {$mltarg};
+	#unvariable {mltarg}
 }
 
 #VARIABLE         {backflee}  {}

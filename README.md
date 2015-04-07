@@ -11,6 +11,30 @@ and there are refrences to files and methods that don't exist yet.
 As those files are made stable they will appear here.
 <pre>
 recent changes
+2015-04-06     fixed matching in res alias cleric.tt var %1 to %2.  Was
+               preventing res alias from working at all.  Usage stayed the same
+               internal fix only
+               
+               fixed issue with asst alias in combat.tt logic was not set
+               correctly when last update was done.  Usage stayed the same
+               internal fix only.
+               
+               made mset second param testint more stringent to prevent triggering
+               on malformed entries.  Sligtly more complex matcthing, but more
+               predictible actions when used.  Usage stayed the same internal fix
+               only.
+               
+               renamed savemap to msave in mapping.tt
+               
+               moved #event {session disconnect} from mapping.tt to general.tt
+               and made it save the map contingent on $mapping being true
+               
+               other structural and processing changes to mapping.tt to prevent
+               unintended usage or activation, but no other changes to commands.
+
+----------------------------------------------------------------------------------
+
+
 
 2015-04-03     in the process of adding a comment to the begining of each file,
                and making sure any persistant vars are declared in the class file
@@ -72,10 +96,10 @@ recent changes
                fixed prompt line matcher to work with psi and other classes 					
                correctly.  YMMV if you use custom prompt setups.
 					
-					refined mapport.tt to match on right rooms, and made the mapping.tt					
+               refined mapport.tt to match on right rooms, and made the mapping.tt					
                load and unload it correctly only as needed.
 					
-					added spellout.tt to announce or not announce when effects expire					
+               added spellout.tt to announce or not announce when effects expire					
                putting a comma after the spell type will cause it to display but					
                not be announced by the character in mud.
 

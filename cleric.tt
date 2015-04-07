@@ -232,7 +232,7 @@
 
 #ALIAS {pres}
 {
-	cast 'preserve' @btarg{%1}
+	cast 'preserve' %1
 }
 {5}
 
@@ -246,10 +246,10 @@
 	#variable {resname} {%2};
 	#replace {resname} {{[\.0-9]*}} {};
 	#format {resname} {%n} {$resname}; 
-	t $resname Here me $resname!  prepare thyself. I have decided your battle is not over. Gods permitting you shall rejoin the living where you fell. I must have your consent so make your decision NOW!
+	t $resname Hear me $resname!  prepare thyself. I have decided your battle is not over. Gods permitting you shall rejoin the living where you fell. I must have your consent so make your decision NOW!;
 	t $resname \(You're getting ressed.  If you don\'t consent me I will move on to the next in line.  Also, I\'ll taunt you publicly!\);
 	consent $resname;
-	cast 'resu' %1;
+	cast 'resu' %2;
 	#unvariable resname
 }
 {5}
