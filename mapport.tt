@@ -4,9 +4,19 @@
 {
 	#nop /* this action can be removed but is used to document the file and   */;
 	#nop /* it's functionality.                                               */;
-	#nop /* dependencies...                                                   */;
-	#nop /*      alias killclass from general.tt                              */;
+	#nop /* external dependencies...                                          */;
+	#nop /*      alias {killclass} from general.tt                            */;
 	#nop /*                                                                   */;
+	#nop /*      alias {mgoto} from mapping.tt                                */;
+	#nop /*                                                                   */;
+	#nop /*                                                                   */;
+	#nop /* aliases and usage...                                              */;
+	#nop /*                                                                   */;
+	#nop /*      {portnoact}                                                  */;
+	#nop /*           kills mapport and trans classes without doing anything  */;
+	#nop /*                                                                   */;
+	#nop /*      {portto <room name/vnum>}                                    */;
+	#nop /*           moves to the specified room then kills mapport and trans*/;
 	#nop /*                                                                   */;
 	#nop /* variables set by class                                            */;
 	#nop /*      {mapport} set to 1 to allow for class loaded testing         */
@@ -118,6 +128,12 @@
 #ACTION {^Outside the Southern Gates of Bryn Shander{(?: \(Shadowed\))?}}
 {
 	portto 5149
+}
+{5}
+
+#ACTION {^The City Gates of the City of Beluir{(?: \(Shadowed\))?}}
+{
+	portto 10933
 }
 {5}
 
@@ -290,8 +306,7 @@
 #ALIAS {portto %1}
 {
 	mgoto %1;
-	killclass mapport;
-	killclass trans
+	portnoact
 }
 {5}
 

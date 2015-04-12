@@ -1,0 +1,47 @@
+#CLASS {classset} OPEN
+
+#ACTION {Aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa classset.tt$}
+{
+	#nop /* this action can be removed but is used to document the file and   */;
+	#nop /* it's functionality.                                               */;
+	#nop /* dependencies...                                                   */;
+	#nop /*      a .tt file for each class and race must exist and it's name  */;
+	#nop /*           must be all lowercase.  substitute an "_" for spaces    */;
+	#nop /*                                                                   */;
+	#nop /*      {load} alias                                                 */;
+	#nop /*           from general.tt used to load the appropriate class and  */;
+	#nop /*           race files                                              */;
+	#nop /*                                                                   */;
+	#nop /*      {class} var                                                  */;
+	#nop /*           variable should be set in general.tt for proper         */;
+	#nop /*           containment and reset of variable                       */;
+	#nop /*                                                                   */;
+	#nop /*      {race} var                                                   */;
+	#nop /*           variable should be set in general.tt for proper         */;
+	#nop /*           containment and reset of variable                       */;
+	#nop /*                                                                   */;
+	#nop /* variables set by class                                            */
+}
+{5}
+
+#ACTION {Score information for %w}
+{
+	setme %1
+}
+{5}
+
+#ACTION {^{Level: (\d+) +Race: (\w[ a-z-A-Z]+\w) +Class: (\w+)}}
+{
+	#format {race} {%l} {%3};
+	#replace {race} { } {_};
+	#format {classname} {%l} {%4};
+	load $race;
+	load $classname;
+	#var class $classname;
+	#unvariable classname;
+	#class classset kill
+}
+{5}
+
+
+#CLASS {classset} CLOSE

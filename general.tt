@@ -4,7 +4,7 @@
 {
 	#nop /* this action can be removed but is used to document the file and   */;
 	#nop /* it's functionality.                                               */;
-	#nop /* dependencies...                                                   */;
+	#nop /* external dependencies...                                          */;
 	#nop /*      {classset.tt}                                                */;
 	#nop /*           must be present to make use of auto class feature load  */;
 	#nop /*           and name assignment                                     */;
@@ -12,7 +12,7 @@
 	#nop /*      {combat.tt}                                                  */;
 	#nop /*           needed to make use of common combat features            */;
 	#nop /*                                                                   */;
-	#nop /*      {espeak unix modual}                                         */;
+	#nop /*      {espeak unix module}                                         */;
 	#nop /*           must be present to make use of text to speech features  */;
 	#nop /*                                                                   */;
 	#nop /*      {mapping.tt}                                                 */;
@@ -47,6 +47,11 @@
 	#nop /*           get or gget all from <string> if string is ommited it   */;
 	#nop /*           loots corpse automatically if only a number it supplied */;
 	#nop /*           it loots <string>.corpse automatically                  */;
+	#nop /*                                                                   */;
+	#nop /*      {loottype <target> <a>}                                      */;
+	#nop /*           sets the type of thing to loot <target> the optional    */;
+	#nop /*           parameter a is used to denote all.<target> if used      */;
+	#nop /*           if omitted it will default to 1.<target>                */;
 	#nop /*                                                                   */;
 	#nop /*      {resetclass <word>}                                          */;
 	#nop /*           kills the class named <word>.tt and reloads it from     */;
@@ -98,8 +103,15 @@
 	#nop /*           used to track the currently engaged enemy's name when in*/;
 	#nop /*           battle                                                  */;
 	#nop /*                                                                   */;
+	#nop /*      {general}                                                    */;
+	#nop /*           used to determine if the general class is loaded        */;
+	#nop /*                                                                   */;
 	#nop /*      {loot}                                                       */;
 	#nop /*           used to determine status of auto looter                 */;
+	#nop /*                                                                   */;
+	#nop /*      {loott}                                                      */;
+	#nop /*           is used to store the desired item to loot.  initializes */;
+	#nop /*           to <all> on load.                                       */;
 	#nop /*                                                                   */;
 	#nop /*      {mapname}                                                    */;
 	#nop /*           name of the map file that is loaded, or blank.  it is   */;
@@ -220,9 +232,13 @@
 
 #ACTION {~%i{^((?:\x1B\[(?:;?\d{1,3})+(?:m|K))*\w+(?:\x1B\[(?:;?\d{1,3})+(?:m|K))* (?:(?:\x1B\[(?:;?\d{1,3})+(?:m|K))*\(H\)(?:\x1B\[(?:;?\d{1,3})+(?:m|K))* )?(?:\x1B\[(?:;?\d{1,3})+(?:m|K))*(?:says?|tells?|group-says?|OOC|GCC|NHC|LFG|shouts?|(?:(?:group-)?projects? ')|(?:responds to your petition)|(?:responds to your group)).*)}}
 {
-	#nop /* this line will perform the same match without capturing ansi       */;
+	#nop /* this line will perform the same match without capturing ansi      */;
+	#nop /* substitute the following for everything between {} in the action  */;
+	#nop /* line above                                                        */;
+	
 	#nop /* %i{^(\w+ (?:\(H\) )?(?:says?|tells?|group-says?|OOC|GCC|NHC|LFG|shouts?|(?:(?:group-)?projects? ')|(?:responds to your petition)|(?:responds to your group)).*)} */;
-	#nop /*                                                                   */;
+	
+	
 	#format timestamp {%t} {{%H:%M:%S}};
 	#line log chatlog.txt {%0 :: $timestamp};
 	#unvariable timestamp;
@@ -230,22 +246,6 @@
 	#replace {saytxt} {{\x1B.*?[m|K]}}{};
 	#replace {saytxt}{'}{};
 	#replace {saytxt}{"}{};
-	#if {$speechon}
-	{
-		#nop
-	};
-	#else
-	{
-		#variable {speechon}{1};
-		#run speech espeak;
-		#speech #kill;
-		#session -
-	};
-	#regexp {$saytxt} {%i{(katumi tells.*|notice: the lfg ch)}} {#NOP;};
-	#else
-	{
-		#speech {$saytxt}
-	};
 	#if {&statuses}
 	{
 		#variable statorlist {};
@@ -266,6 +266,26 @@
 		};
 		#unvariable thisstat
 	};
+	
+	#nop /* to disable mud reading disable the following lines up to the first #unvariable */;
+	#if {$speechon}
+	{
+		#nop
+	};
+	#else
+	{
+		#variable {speechon}{1};
+		#run speech espeak;
+		#speech #kill;
+		#session -
+	};
+	#regexp {$saytxt} {%i{(katumi tells.*|notice: the lfg ch)}} {#NOP;};
+	#else
+	{
+		#speech {$saytxt}
+	};
+	#nop /* stop disabling here                                                             */;
+	
 	#unvariable {saytxt};
 	#unvariable statorlist
 }
@@ -333,13 +353,26 @@
 	#regexp {%2} {%i{([0-9]*[a-zA-Z\.]+)}} {#var ltarg &1};
 	#if {$loot == 2}
 	{
-		gget all $ltarg
+		gget $loott $ltarg
 	};
 	#else
 	{
-		get all $ltarg
+		get $loott $ltarg
 	};
 	#unvariable ltarg
+}
+{5}
+
+#ALIAS {%i{loottype ([a-z.0-9]+)(?: (a))?}}
+{
+	#if {"%3" == "a"}
+	{
+		#variable {loott} {all.%2}
+	};
+	#else
+	{
+		#variable {loott} {%2}
+	}
 }
 {5}
 
@@ -433,7 +466,10 @@
 				{
 					say loot is off
 				}
-			}
+			};
+			#showme {you say you are looting $loott};
+			#showme {you say use loottype <target> <a :to get all, omit for 1.>};
+			#showme {nyou say use "loottype all" to get all}
 		}
 	}
 }
@@ -483,7 +519,17 @@
 	#if {"%1" != ""}
 	{
 		#format {btname} {%l} {%1};
-		#regexp {"$btname"} {{[1-9]}} {#IF {&t[%1]}{#RETURN $t[%1]};#ELSE {#VAR {result} {self}}};
+		#regexp {"$btname"} {{[1-9]}} 
+		{
+			#IF {&t[%1]}
+			{
+				#RETURN $t[%1]
+			};
+			#ELSE
+			{
+				#VAR {result} {self}
+			}
+		};
 		#else
 		{
 			#if {"$btname" == "me"}
@@ -563,8 +609,9 @@
 #VARIABLE         {enemy}  {}
 #VARIABLE         {general}  {1}
 #VARIABLE         {loot}  {0}
+#VARIABLE         {loott}  {all}
 #VARIABLE         {mapname}  {}
-#var race {}
+#VARIABLE         {race}  {}
 #VARIABLE         {speechon}  {0}
 
 #CLASS {general} CLOSE

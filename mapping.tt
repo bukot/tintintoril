@@ -4,7 +4,7 @@
 {
 	#nop /* this action can be removed but is used to document the file and   */;
 	#nop /* it's functionality.                                               */;
-	#nop /* dependencies...                                                   */;
+	#nop /* external dependencies...                                          */;
 	#nop /*      alias {killclass}                                            */;
 	#nop /*           located in general.tt                                   */;
 	#nop /*           used to kill as needed map related classes              */;
@@ -12,6 +12,10 @@
 	#nop /*      alias {load}                                                 */;
 	#nop /*           located in general.tt                                   */;
 	#nop /*           used to load as needed map related classes              */;
+	#nop /*                                                                   */;
+	#nop /*      alias {saveclass}                                            */;
+	#nop /*           located in general.tt used as part of mportloc to save  */;
+	#nop /*           the added port location                                 */;
 	#nop /*                                                                   */;
 	#nop /*      mapport.tt                                                   */;
 	#nop /*           must exist for the map to locate the current room on    */;
@@ -28,21 +32,13 @@
 	#nop /*           teleporting.                                            */;
 	#nop /*                                                                   */;
 	#nop /*      {en <hole|worm|rift|well|portal>}                            */;
-	#nop /*           exits the map an activates mapport.tt so that we don't  */;
+	#nop /*           exits the map and activates mapport.tt so that we don't */;
 	#nop /*           mess up the map when we teleport.                       */;
 	#nop /*                                                                   */;
 	#nop /*      {jump <n|s|e|w|u|d>}                                         */;
 	#nop /*           used to track movement in rooms where jump is a valid   */;
 	#nop /*           move method. full direction of the any abbreviation for */;
 	#nop /*           them are acceptable for the parameter                   */;
-	#nop /*                                                                   */;
-	#nop /*      {mapunload}                                                  */;
-	#nop /*           saves the map then unloads the map and all the mapping  */;
-	#nop /*           classes.                                                */;
-	#nop /*                                                                   */;
-	#nop /*      {mapupdate}                                                  */;
-	#nop /*           Updates the file being used as output to display the    */;
-	#nop /*           map using tail.                                         */;
 	#nop /*                                                                   */;
 	#nop /*      {mavoid}                                                     */;
 	#nop /*           sets the avoid flag in the map for the current room.    */;
@@ -105,6 +101,15 @@
 	#nop /*           undoes the last map move/addition.  as far as I can     */;
 	#nop /*           tell deletions can't be undone.                         */;
 	#nop /*                                                                   */;
+	#nop /*      {mupdate}                                                    */;
+	#nop /*           Updates the file being used as output to display the    */;
+	#nop /*           map using tail.                                         */;
+	#nop /*                                                                   */;
+	#nop /*      {unloadmap <n>}                                              */;
+	#nop /*           unloads the map and all the mapping classes. if n is    */;
+	#nop /*           specified it does not save it first.  if omitted the    */;
+	#nop /*           map is saved first                                      */;
+	#nop /*                                                                   */;
 	#nop /*                                                                   */;
 	#nop /* variables set by class                                            */;
 	#nop /*      {backflee}                                                   */;
@@ -135,7 +140,8 @@
 
 #ACTION {You try to tell yourself something}
 {
-	#nop /* detects mrun telling to you so that mapsave can be set back to 1  /*;
+	#nop /* detects end of a mrun and tells to you so that mapsave can be set /*;
+	#nop /* back to 1                                                         /*;
 	#variable mapsave 1
 }
 {5}
@@ -150,7 +156,6 @@
 #ACTION {{You (?:escape|flee) ([nNsSeEwWuUdD]?)\w*!}}
 {
 	#nop /* makes sure we keep the map updated when running from a fight      /*;
-	
 	#map move %2;
 	#variable backflee %2
 }
@@ -190,24 +195,6 @@
 }
 {5}
 
-#ALIAS {%i{mapunload}}
-{
-	#map write $mapname;
-	killclass mapping;
-	killclass mapport;
-	killclass mapmistake;
-	killclass trans;
-	#variable {mapname} {};
-	#map destroy
-}
-{5}
-
-#ALIAS {%i{mapupdate}}
-{
-	#line {substitute} {variables} {#map {map} {$mapdispdims} {mapdisp.txt} {a}}
-}
-{5}
-
 #ALIAS {%i{mavoid}}
 {
 	#map roomflag avoid
@@ -243,7 +230,7 @@
 	};
 	#map set roomcolor <$rmcolr>;
 	#unvariable rmcolr;
-	#unvar roomtype
+	#unvariable roomtype
 }
 {5}
 
@@ -259,20 +246,7 @@
 	#variable {mroomvar} {@mlowercase{%2}};
 	#variable {mroomval} {@mlowercase{%3}};
 	#unvariable {result};
-	#regexp {$mroomvar} {^{no?}} 
-	{
-		#switch {"&1"}
-		{
-			#case {"no"}
-			{
-				#map list {} {} {} {} {%*$mroomval%*}
-			};
-			#case {"n"}
-			{
-				#map list {%*$mroomval%*}
-			}
-		}
-	}
+	#regexp {$mroomvar} {^{no?}} {#switch {"&1"}{#case {"no"}{#map list {} {} {} {} {%*$mroomval%*}};#case {"n"}{#map list {%*$mroomval%*}}}}
 }
 {5}
 
@@ -317,6 +291,7 @@
 	#class mapport close;
 	saveclass mapport;
 	#unvariable mportvnum;
+	msave;
 	l
 }
 {5}
@@ -328,7 +303,7 @@
 	#unvariable {result};
 	#map run {$mroomname};
 	t $me $mroomname;
-	mapupdate;
+	mupdate;
 	#map write $mapname;
 	#unvariable mroomname
 }
@@ -345,20 +320,7 @@
 	#variable {mroomvar} {@mlowercase{%2}};
 	#variable {mroomval} {@mlowercase{%3}};
 	#unvariable {result};
-	#regexp {$mroomvar} {^{no?}} 
-	{
-		#switch {"&1"}
-		{
-			#case {"n"}
-			{
-				#variable setfield roomname
-			};
-			#case {"no"}
-			{
-				#variable setfield roomnote
-			}
-		}
-	};
+	#regexp {$mroomvar} {^{no?}} {#switch {"&1"}{#case {"n"}{#variable setfield roomname};#case {"no"}{#variable setfield roomnote}}};
 	#if {"$setfield" != ""}
 	{
 		#map set $setfield {$mroomval}
@@ -373,10 +335,7 @@
 {
 	#variable {mdir} {@mlowercase{%2}};
 	#unvariable {result};
-	#regexp {$mdir} {^{[nsewud]}} 
-	{
-		#map insert &1 void
-	};
+	#regexp {$mdir} {^{[nsewud]}} {#map insert &1 void};
 	#unvariable mdir
 }
 {5}
@@ -384,13 +343,34 @@
 #ALIAS {%i{mundo}}
 {
 	#map undo;
-	mapupdate
+	mupdate
+}
+{5}
+
+#ALIAS {%i{mupdate}}
+{
+	#line {substitute} {variables} {#map {map} {$mapdispdims} {mapdisp.txt} {a}}
+}
+{5}
+
+#ALIAS {%i{unloadmap(?: (n))?}}
+{
+	#if {"%2" != "n"}
+	{
+		#map write $mapname
+	};
+	killclass mapping;
+	killclass mapport;
+	killclass mapmistake;
+	killclass trans;
+	#variable {mapname} {};
+	#map destroy
 }
 {5}
 
 #EVENT {MAP ENTER ROOM}
 {
-	mapupdate;
+	mupdate;
 	#if {$mapsave}
 	{
 		#if {$mapcount < $mapcountmax}

@@ -1,5 +1,27 @@
 #CLASS {rogue} OPEN
 
+#ACTION {Aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa rogue.tt$}
+{
+	#nop /* this action can be removed but is used to document the file and   */;
+	#nop /* it's functionality.                                               */;
+	#nop /* external dependencies...                                          */;
+	#nop /*      none                                                         */;
+	#nop /*                                                                   */;
+	#nop /* aliases and usage...                                              */;
+	#nop /*      {app <weapon> <poison>}                                      */;
+	#nop /*           applies the specified poison to the specified weapon    */;
+	#nop /*           if no poison is specified and this was used before      */;
+	#nop /*           the last poison applied will be used.                   */;
+	#nop /*                                                                   */;
+	#nop /*      {autogar <on|off>}                                           */;
+	#nop /*           will re-garrote a target if the target flips you off    */;
+	#nop /*           if the on|off is omitted then it will report the status */;
+	#nop /*           of auto garroting.                                      */;
+	#nop /*                                                                   */;
+	#nop /*      {bs <target>}                                                */;
+	#nop /*           backstab the target                                     */;
+	
+
 #ACTION {{.* does a nifty move, flipping you onto your back!}}
 {
 	st;
@@ -10,70 +32,80 @@
 }
 {5}
 
-#ALIAS {app {([a-zA-Z.0-9]+)(?: ([a-zA-Z.0-9]+))?}}
+#ACTION {{As your poison takes effect, (.*?) appears to go blind!}}
 {
-	#var {ppoi} {%3};
-	#if {"$ppoi" == "" && "$lastpoison" != ""}
-	{
-		#var {ppoi} {$lastpoison}
-	};
-	#else
-	{
-		#if {"$ppoi" == ""}
-		{
-			#showme You say No poison was specified!!
-		};
-	};
-	#var {pwep} {%2};
-	#echo {$pwep :: $ppoi};
-	#switch {"$pwep"}
-	{
-		#case {"1"}
-		{
-			apply $ppoi primaryweapon
-		};
-		#case {"2"}
-		{
-			apply $ppoi secondaryweapon
-		};
-		#case {""}
-		{
-			apply $lastpoison $pwep
-		}
-		#default
-		{
-			apply $ppoi $pwep
-		}
-	};
-	#unvar {ppoi};
-	#unvar {pwep}
+	gsay %1 is poison blind!
 }
 {5}
 
-#ALIAS {autogar %w}
+#ALIAS {%i{app ([a-zA-Z.0-9]+)(?: ([a-zA-Z.0-9]+))?}}
 {
-	#switch {"%1"}
+	#variable {rpoi} {%3};
+	#if {"$rpoi" == "" && "$lastpoison" != ""}
+	{
+		#variable {rpoi} {$lastpoison}
+	};
+	#else
+	{
+		#if {"$rpoi" == ""}
+		{
+			#showme You say No poison was specified!!
+		}
+	};
+	#variable {rwep} {%2};
+	#echo {$rwep :: $rpoi};
+	#switch {"$rwep"}
+	{
+		#case {"1"}
+		{
+			apply $rpoi primaryweapon
+		};
+		#case {"2"}
+		{
+			apply $rpoi secondaryweapon
+		};
+		#case {""}
+		{
+			apply $lastpoison $rwep
+		};
+		#default
+		{
+			apply $rpoi $rwep
+		}
+	};
+	#unvariable {rpoi};
+	#unvariable {rwep}
+}
+{5}
+
+#ALIAS {%i{autogar(?: (on|off?))?}}
+{
+	#format {agp} {%l} {%2};
+	#switch {"$agp"}
 	{
 		#case {"on"}
 		{
-			#variable autogar 1
+			#variable autogar 1;
+			autogar
 		};
-		#case {"off"}
+		#case {"of"}
 		{
-			#variable autogar 0
+			#variable autogar 0;
+			autogar
 		};
 		#default
 		{
 			#if {$autogar}
 			{
-				#showme {you say garrote is on}
+				#showme {you say auto garrote is on}
 			};
 			#else
 			{
-				#showme {you say garrote is off}
+				#showme {you say auto garrote is off}
 			}
 		}
-	}
+	};
+	#unvariable {agp}
 }
 {5}
 
@@ -89,19 +121,13 @@
 }
 {5}
 
-#ALIAS {{As your poison takes effect, (.*?) appears to go blind!}}
-{
-	gsay %1 is poison blind!
-}
-{5}
-
 #MACRO {\eOP}
 {
 	say Ches
 }
 
 #VARIABLE         {autogar}  {0}
-#VARIABLE         {class}  {rogue}
-#var {lastpoison} {}
+#VARIABLE         {lastpoison}  {}
+#VARIABLE         {rogue}  {1}
 
 #CLASS {rogue} CLOSE

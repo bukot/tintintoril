@@ -11,11 +11,40 @@ and there are refrences to files and methods that don't exist yet.
 As those files are made stable they will appear here.
 <pre>
 recent changes
-
-               fixed bug with {tloot} alias in general.tt
                
-               converted various aliases in general.tt to regex for more 
-               predictable matching
+               in general.tt
+                    rearranged the order that the chat grab trigger executes
+                    to allow for easy removal of speech sequences by people
+                    who don't want a mud reader.
+               
+                    fixed bug with {tloot} alias
+               
+                    converted various aliases in to regex for more predictable 
+                    matching
+
+               in rogue.tt
+                    changed app alias to app <wep> <poison> if poison is
+                    omitted it will default to the last poison used.  if no other
+                    poison was used previously throws an error.
+                    
+                    fixed poison blind action to be an action INSTEAD OF AN ALIAS
+                    
+                    fixed autogar alias so it will report status when param is
+                    omitted.
+               
+               in mapping.tt (i know i thought i was done with it too)
+                    changed mapunload to unloadmap and added the optional 
+                    parameter n if n is specified the map WONT be saved before 
+                    being destroyed. this will allow you to revert to a previous
+                    version of the map easily.
+                    
+                    changed mapupdate to mupdate to normalize commands contained
+                    in this file
+                    
+               in mapport.tt
+                    changed portto to use portnoact instead of duplicating the
+                    functionality
+
 
 ----------------------------------------------------------------------------------
 
