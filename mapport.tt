@@ -37,9 +37,27 @@
 }
 {5}
 
+#ACTION {^A dark guildmaster stands here ready to teach someone.{(?: \(Shadowed\))?}}
+{
+	portto 12233
+}
+{5}
+
+#ACTION {^A holy cleric guildguard stands here praying.{(?: \(Shadowed\))?}}
+{
+	portto 4339
+}
+{5}
+
 #ACTION {^A petrified tree stands here, long dead.{(?: \(Shadowed\))?}}
 {
 	portto 10680
+}
+{5}
+
+#ACTION {^At a Circle of Stones In the Wyllowwood{(?: \(Shadowed\))?}}
+{
+	portto 9614
 }
 {5}
 
@@ -67,9 +85,21 @@
 }
 {5}
 
+#ACTION {^Dead End in the Forest{(?: \(Shadowed\))?}}
+{
+	portto 9378
+}
+{5}
+
 #ACTION {^Hall of Divination{(?: \(Shadowed\))?}$}
 {
 	portto 1069
+}
+{5}
+
+#ACTION {^In Calimport Harbor (Water){(?: \(Shadowed\))?}}
+{
+	portto 17583
 }
 {5}
 
@@ -82,6 +112,12 @@
 #ACTION {^On a Marble Slab{(?: \(Shadowed\))?}}
 {
 	portto 10453
+}
+{5}
+
+#ACTION {^Outside the Southern Gates of Bryn Shander{(?: \(Shadowed\))?}}
+{
+	portto 5149
 }
 {5}
 

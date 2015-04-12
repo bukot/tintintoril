@@ -94,8 +94,7 @@
 
 #ALIAS {dark}
 {
-	cast 'blind' %1;
-	load blind
+	cast 'blind' %1
 }
 {5}
 
@@ -175,16 +174,6 @@
 }
 {5}
 
-#ALIAS {lizloot %d %d}
-{
-	#loop {%1} {%2} {i}
-	{
-		get all.potion $i\.corpse;
-		put all.potion case
-	}
-}
-{5}
-
 #ALIAS {pfup}
 {
 	#action {You complete your spell.} {pfup %1};
@@ -236,25 +225,32 @@
 }
 {5}
 
-#ali {rc}
+#ALIAS {quake}
 {
-	cast 'remove c' @btarg{%1}
+	cast 'earthq'
 }
+{5}
 
-#ALIAS {%i{res ([a-z\.0-9]*)}}
+#ALIAS {rc}
 {
-	#variable {resname} {%2};
+	cast 'remove c' %1
+}
+{5}
+
+#ALIAS {res}
+{
+	#variable {resname} {%1};
 	#replace {resname} {{[\.0-9]*}} {};
-	#format {resname} {%n} {$resname}; 
+	#format {resname} {%n} {$resname};
 	t $resname Hear me $resname!  prepare thyself. I have decided your battle is not over. Gods permitting you shall rejoin the living where you fell. I must have your consent so make your decision NOW!;
 	t $resname \(You're getting ressed.  If you don\'t consent me I will move on to the next in line.  Also, I\'ll taunt you publicly!\);
 	consent $resname;
-	cast 'resu' %2;
+	cast 'resu' %1;
 	#unvariable resname
 }
 {5}
 
-#ALIAS {rev %w}
+#ALIAS {rev}
 {
 	#variable {resname} {@btarg{%1}};
 	t $resname   The gods have decided you were not worthy of the rewards you were granted, and that you must re-prove your worth.  I am going to do what I can for this vessel and place you back in it. (res failed.  I'm going to revive you.);
@@ -438,6 +434,6 @@
 	quaff illuminated sacl
 }
 
-#VARIABLE         {class}  {cleric}
+#VARIABLE         {cleric}  {1}
 
 #CLASS {cleric} CLOSE

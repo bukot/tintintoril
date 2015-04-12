@@ -18,12 +18,6 @@
 }
 {5}
 
-#ACTION {In your haste to slam people around, you slip and fall!}
-{
-	st
-}
-{5}
-
 #ACTION {PANIC!  You couldn't escape!}
 {
 	flee
@@ -125,18 +119,9 @@
 }
 {5}
 
-#ALIAS {slam %w}
-{
-	#variable slamit[1] 1;
-	#variable slamit[2] %1;
-	flee
-}
-{5}
-
 #GAG              {You miss %*}
 #VARIABLE         {bash}  {1}
-#VARIABLE         {class}  {warior}
-#VARIABLE         {slamit}  {0}
+#VARIABLE         {warior} {1}
 #VARIABLE         {sp}  {0}
 
 #CLASS {warrior} CLOSE

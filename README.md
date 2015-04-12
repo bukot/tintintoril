@@ -11,6 +11,15 @@ and there are refrences to files and methods that don't exist yet.
 As those files are made stable they will appear here.
 <pre>
 recent changes
+
+               fixed bug with {tloot} alias in general.tt
+               
+               converted various aliases in general.tt to regex for more 
+               predictable matching
+
+----------------------------------------------------------------------------------
+
+
 2015-04-06     fixed matching in res alias cleric.tt var %1 to %2.  Was
                preventing res alias from working at all.  Usage stayed the same
                internal fix only
@@ -26,14 +35,13 @@ recent changes
                
                renamed savemap to msave in mapping.tt
                
-               moved #event {session disconnect} from mapping.tt to general.tt
+               moved #event &#123;session disconnect&#125; from mapping.tt to general.tt
                and made it save the map contingent on $mapping being true
                
                other structural and processing changes to mapping.tt to prevent
                unintended usage or activation, but no other changes to commands.
 
 ----------------------------------------------------------------------------------
-
 
 
 2015-04-03     in the process of adding a comment to the begining of each file,

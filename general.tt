@@ -24,13 +24,6 @@
 	#nop /*                                                                   */;
 	#nop /*                                                                   */;
 	#nop /* aliases and usage                                                 */;
-	#nop /*      {statcall on|off}                                            */;
-	#nop /*           will turn the stat caller on or off                     */;
-	#nop /*                                                                   */;
-	#nop /*      {tloot <on|off|group>}                                       */;
-	#nop /*           sets the auto looter mode.  allows for abreviation of   */;
-	#nop /*           options and use or not of spaces.                       */;
-	#nop /*                                                                   */;
 	#nop /*      {astat <string>}                                             */;
 	#nop /*           will send a tell to katumi and get the advanced stats   */;
 	#nop /*           for an item (string value)                              */;
@@ -50,11 +43,10 @@
 	#nop /*      {logon <word>}                                               */;
 	#nop /*           creates a session named <word> and connects to the mud  */;
 	#nop /*                                                                   */;
-	#nop /*      {oepn}                                                       */;
-	#nop /*           replaces it with open.  I make this typo alot           */;
-	#nop /*                                                                   */;
-	#nop /*      {opne}                                                       */;
-	#nop /*           see oepn                                                */;
+	#nop /*      {loot <string>}                                              */;
+	#nop /*           get or gget all from <string> if string is ommited it   */;
+	#nop /*           loots corpse automatically if only a number it supplied */;
+	#nop /*           it loots <string>.corpse automatically                  */;
 	#nop /*                                                                   */;
 	#nop /*      {resetclass <word>}                                          */;
 	#nop /*           kills the class named <word>.tt and reloads it from     */;
@@ -68,17 +60,25 @@
 	#nop /*           several processes could set the value of this var so    */;
 	#nop /*           this makes normalizing it easier                        */;
 	#nop /*                                                                   */;
-	#nop /*      {speechoff}                                                  */;
-	#nop /*           disables the speech processes in case of spam overload  */;
-	#nop /*           but allows it to be restarted automatically.            */;
-	#nop /*                                                                   */;
 	#nop /*      {stat <word>}                                                */;
 	#nop /*           see astat, but uses the abbreviated stat from katumi    */;
 	#nop /*                                                                   */;
-	#nop /*      {loot <string>}                                              */;
-	#nop /*           get or gget all from <string> if string is ommited it   */;
-	#nop /*           loots corpse automatically if only a number it supplied */;
-	#nop /*           it loots <string>.corpse automatically                  */;
+	#nop /*      {statcall on|off}                                            */;
+	#nop /*           will turn the stat caller on or off                     */;
+	#nop /*                                                                   */;
+	#nop /*      {tloot <on|off|group>}                                       */;
+	#nop /*           sets the auto looter mode.  allows for abreviation of   */;
+	#nop /*           options and use or not of spaces.                       */;
+	#nop /*                                                                   */;
+	#nop /*      {oepn}                                                       */;
+	#nop /*           replaces it with open.  I make this typo alot           */;
+	#nop /*                                                                   */;
+	#nop /*      {opne}                                                       */;
+	#nop /*           see oepn                                                */;
+	#nop /*                                                                   */;
+	#nop /*      {speechoff}                                                  */;
+	#nop /*           disables the speech processes in case of spam overload  */;
+	#nop /*           but allows it to be restarted automatically.            */;
 	#nop /*                                                                   */;
 	#nop /*                                                                   */;
 	#nop /* variables set by class                                            */;
@@ -103,7 +103,8 @@
 	#nop /*                                                                   */;
 	#nop /*      {mapname}                                                    */;
 	#nop /*           name of the map file that is loaded, or blank.  it is   */;
-	#nop /*           initiated here to allow testing it's value in general.tt*/;
+	#nop /*           initiated here to allow testing it's value in           */;
+	#nop /*           general.tt                                              */;
 	#nop /*                                                                   */;
 	#nop /*      {speechon}                                                   */;
 	#nop /*           used to determine if the speech routine has been called */;
@@ -114,7 +115,7 @@
 #ACTION {%* briefly reveals a red aura}
 {
 	gsay %1 is cursed!;
-	#showme ::reshowforspeech::$me says %1 is cursed!
+	#showme $me says %1 is cursed!
 }
 {5}
 
@@ -219,6 +220,9 @@
 
 #ACTION {~%i{^((?:\x1B\[(?:;?\d{1,3})+(?:m|K))*\w+(?:\x1B\[(?:;?\d{1,3})+(?:m|K))* (?:(?:\x1B\[(?:;?\d{1,3})+(?:m|K))*\(H\)(?:\x1B\[(?:;?\d{1,3})+(?:m|K))* )?(?:\x1B\[(?:;?\d{1,3})+(?:m|K))*(?:says?|tells?|group-says?|OOC|GCC|NHC|LFG|shouts?|(?:(?:group-)?projects? ')|(?:responds to your petition)|(?:responds to your group)).*)}}
 {
+	#nop /* this line will perform the same match without capturing ansi       */;
+	#nop /* %i{^(\w+ (?:\(H\) )?(?:says?|tells?|group-says?|OOC|GCC|NHC|LFG|shouts?|(?:(?:group-)?projects? ')|(?:responds to your petition)|(?:responds to your group)).*)} */;
+	#nop /*                                                                   */;
 	#format timestamp {%t} {{%H:%M:%S}};
 	#line log chatlog.txt {%0 :: $timestamp};
 	#unvariable timestamp;
@@ -267,7 +271,104 @@
 }
 {5}
 
-#ALIAS {%istatcall{ ?(on|of)?.*}}
+#ALIAS {%i{astat (.+)}}
+{
+	tell katumi astat %2
+}
+{5}
+
+#ALIAS {%i{killclass (\w+)}}
+{
+	#class %2 kill
+}
+{5}
+
+#ALIAS {%i{load (\w+)}}
+{
+	#read %2.tt
+}
+{5}
+
+#ALIAS {%i{loadmap(?: (\w*))?}}
+{
+	#if {"%2" != ""}
+	{
+		#if {"$mapname" != ""}
+		{
+			#map write $mapname;
+			killclass mapping;
+			killclass mapport;
+			killclass mapmistake;
+			killclass trans;
+			#map destroy
+		};
+		#class mapkil open;
+		#class mapkil write mapdisp.txt;
+		#class mapkil kill;
+		load mapping;
+		#variable mapname %2;
+		#map read $mapname;
+		load mapport;
+		load mapmistake;
+		#echo {map %2 loaded}
+	};
+	#else
+	{
+		echo {no map file was specified map not loaded}
+	}
+}
+{5}
+
+#ALIAS {%i{logon (\w+)}}
+{
+	#session %2 50.57.109.188 9999
+}
+{5}
+
+#ALIAS {%i{loot(?: (.*))?}}
+{
+	#variable {ltarg} {corpse};
+	#showme %2;
+	#regexp {%2} {{([0-9]+)}} {#var ltarg &1.corpse};
+	#regexp {%2} {%i{([0-9]*[a-zA-Z\.]+)}} {#var ltarg &1};
+	#if {$loot == 2}
+	{
+		gget all $ltarg
+	};
+	#else
+	{
+		get all $ltarg
+	};
+	#unvariable ltarg
+}
+{5}
+
+#ALIAS {%i{resetclass (\w+)}}
+{
+	#class %2 kill;
+	load %2
+}
+{5}
+
+#ALIAS {%i{saveclass (\w+)}}
+{
+	#class %2 write %2.tt
+}
+{5}
+
+#ALIAS {%i{setme (\w+)}}
+{
+	#format {me} {%l} {%2}
+}
+{5}
+
+#ALIAS {%i{stat (.+)}}
+{
+	tell katumi stat %2
+}
+{5}
+
+#ALIAS {%i{statcall ?(on|of)?.*}}
 {
 	#if {"%2" != ""}
 	{
@@ -297,9 +398,9 @@
 }
 {5}
 
-#ALIAS {%itloot{ ?(of|on|gr)?.*}}
+#ALIAS {%i{tloot ?(of|on|gr)?.*}}
 {
-	#switch {"%1"}
+	#switch {"%2"}
 	{
 		#case {"of"}
 		{
@@ -338,52 +439,6 @@
 }
 {5}
 
-#ALIAS {astat %1}
-{
-	tell katumi astat %1
-}
-{5}
-
-#ALIAS {killclass %w}
-{
-	#class %1 kill
-}
-{5}
-
-#ALIAS {load %w}
-{
-	#read %1.tt
-}
-{5}
-
-#ALIAS {loadmap}
-{
-	#if {"$mapname" != ""}
-	{
-		#map write $mapname;
-		killclass mapping;
-		killclass mapport;
-		killclass mapmistake;
-		killclass trans;
-		#map destroy
-	};
-	#class mapkil open;
-	#class mapkil write mapdisp.txt;
-	#class mapkil kill;
-	load mapping;
-	#variable mapname %1;
-	#map read $mapname;
-	load mapport;
-	load mapmistake
-}
-{5}
-
-#ALIAS {logon %w}
-{
-	#session %1 50.57.109.188 9999
-}
-{5}
-
 #ALIAS {oepn}
 {
 	open
@@ -396,53 +451,10 @@
 }
 {5}
 
-#ALIAS {resetclass %w}
-{
-	#class %1 kill;
-	load %1
-}
-{5}
-
-#ALIAS {saveclass %w}
-{
-	#class %1 write %1.tt
-}
-{5}
-
-#ALIAS {setme %w}
-{
-	#format {me} {%l} {%1}
-}
-{5}
-
 #ALIAS {speechoff}
 {
 	#speech #zap;
 	#unvariable speechon
-}
-{5}
-
-#ALIAS {stat %1}
-{
-	tell katumi stat %1
-}
-{5}
-
-#ALIAS {{loot(?: (.*))?}}
-{
-	#variable {ltarg} {corpse};
-	#showme %2;
-	#regexp {%2} {{([0-9]+)}} {#var ltarg &1.corpse};
-	#regexp {%2} {%i{([0-9]*[a-zA-Z\.]+)}} {#var ltarg &1};
-	#if {$loot == 2}
-	{
-		gget all $ltarg
-	};
-	#else
-	{
-		get all $ltarg
-	};
-	#unvariable ltarg
 }
 {5}
 
@@ -463,7 +475,7 @@
 	#if {$mapping}
 	{
 		msave
-	};
+	}
 }
 
 #FUNCTION {btarg}
@@ -552,6 +564,7 @@
 #VARIABLE         {general}  {1}
 #VARIABLE         {loot}  {0}
 #VARIABLE         {mapname}  {}
+#var race {}
 #VARIABLE         {speechon}  {0}
 
 #CLASS {general} CLOSE

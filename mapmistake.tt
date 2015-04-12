@@ -13,6 +13,11 @@
 }
 {1}
 
+#action {is blocking your path!$}
+{
+	mundo
+}
+
 #ACTION {%* humiliates you, and blocks your way.}
 {
 	mundo
