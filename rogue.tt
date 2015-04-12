@@ -10,23 +10,43 @@
 }
 {5}
 
-#ALIAS {app %w %*}
+#ALIAS {app {([a-zA-Z.0-9]+)(?: ([a-zA-Z.0-9]+))?}}
 {
-	#switch {"%2"}
+	#var {ppoi} {%3};
+	#if {"$ppoi" == "" && "$lastpoison" != ""}
+	{
+		#var {ppoi} {$lastpoison}
+	};
+	#else
+	{
+		#if {"$ppoi" == ""}
+		{
+			#showme You say No poison was specified!!
+		};
+	};
+	#var {pwep} {%2};
+	#echo {$pwep :: $ppoi};
+	#switch {"$pwep"}
 	{
 		#case {"1"}
 		{
-			apply %1 primaryweapon
+			apply $ppoi primaryweapon
 		};
 		#case {"2"}
 		{
-			apply %1 secondaryweapon
+			apply $ppoi secondaryweapon
 		};
+		#case {""}
+		{
+			apply $lastpoison $pwep
+		}
 		#default
 		{
-			apply %1 %2
+			apply $ppoi $pwep
 		}
-	}
+	};
+	#unvar {ppoi};
+	#unvar {pwep}
 }
 {5}
 
@@ -82,5 +102,6 @@
 
 #VARIABLE         {autogar}  {0}
 #VARIABLE         {class}  {rogue}
+#var {lastpoison} {}
 
 #CLASS {rogue} CLOSE
