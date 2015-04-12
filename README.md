@@ -28,7 +28,7 @@ recent changes
                correctly when last update was done.  Usage stayed the same
                internal fix only.
                
-               made mset second param testint more stringent to prevent triggering
+               made mset second param testing more stringent to prevent triggering
                on malformed entries.  Sligtly more complex matcthing, but more
                predictible actions when used.  Usage stayed the same internal fix
                only.
