@@ -22,6 +22,9 @@ recent changes
                     converted various aliases in to regex for more predictable 
                     matching
                     
+                    made map go to static mode on load by default
+                    
+               in combat.tt
                     revamped alias t<digit> for targeting to work better and
                     report via local says
 
@@ -43,6 +46,12 @@ recent changes
                     
                     changed mapupdate to mupdate to normalize commands contained
                     in this file
+                    
+                    added mstatic <on|off> alias to prevent some mapping mishaps
+                    have not worked on mapmistake.tt to take static mode into 
+                    account yet.  use static mode with caution!
+                    
+                    added nn param to mfind to search both notes and name
                     
                in mapport.tt
                     changed portto to use portnoact instead of duplicating the
