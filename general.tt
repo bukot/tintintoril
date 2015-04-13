@@ -18,6 +18,8 @@
 	#nop /*      {mapping.tt}                                                 */;
 	#nop /*           must be present to make use of map features             */;
 	#nop /*                                                                   */;
+	#nop /*           {mstatic} alias as part of loadmap                      */;
+	#nop /*                                                                   */;
 	#nop /*      {mapport.tt}                                                 */;
 	#nop /*           must be present to make proper use of mapping auto      */;
 	#nop /*           locate features                                         */;
@@ -36,9 +38,10 @@
 	#nop /*                                                                   */;
 	#nop /*      {loadmap <string>}                                           */;
 	#nop /*           saves and closes currently loaded map then loads the    */;
-	#nop /*           specified map and all mapping files.  if you change     */;
-	#nop /*           this pay attention to the order you do things so you    */;
-	#nop /*           don't destroy your map file by accident.                */;
+	#nop /*           specified map and all mapping files, and sets the map   */;
+	#nop /*           to static.                                              */;
+	#nop /*           if you change this pay attention to the order you do    */;
+	#nop /*           things so you don't destroy your map file by accident.  */;
 	#nop /*                                                                   */;
 	#nop /*      {logon <word>}                                               */;
 	#nop /*           creates a session named <word> and connects to the mud  */;
@@ -235,10 +238,7 @@
 	#nop /* this line will perform the same match without capturing ansi      */;
 	#nop /* substitute the following for everything between {} in the action  */;
 	#nop /* line above                                                        */;
-	
 	#nop /* %i{^(\w+ (?:\(H\) )?(?:says?|tells?|group-says?|OOC|GCC|NHC|LFG|shouts?|(?:(?:group-)?projects? ')|(?:responds to your petition)|(?:responds to your group)).*)} */;
-	
-	
 	#format timestamp {%t} {{%H:%M:%S}};
 	#line log chatlog.txt {%0 :: $timestamp};
 	#unvariable timestamp;
@@ -266,7 +266,6 @@
 		};
 		#unvariable thisstat
 	};
-	
 	#nop /* to disable mud reading disable the following lines up to the first #unvariable */;
 	#if {$speechon}
 	{
@@ -279,13 +278,12 @@
 		#speech #kill;
 		#session -
 	};
-	#regexp {$saytxt} {%i{(katumi tells.*|notice: the lfg ch)}} {#NOP;};
+	#regexp {$saytxt} {%i{(katumi tells.*)}} {#NOP;};
 	#else
 	{
 		#speech {$saytxt}
 	};
 	#nop /* stop disabling here                                                             */;
-	
 	#unvariable {saytxt};
 	#unvariable statorlist
 }
@@ -326,6 +324,7 @@
 		#class mapkil write mapdisp.txt;
 		#class mapkil kill;
 		load mapping;
+		#event {MAP ENTER MAP}{mstatic on;#unevent {MAP ENTER MAP}};
 		#variable mapname %2;
 		#map read $mapname;
 		load mapport;
@@ -345,7 +344,7 @@
 }
 {5}
 
-#ALIAS {%i{loot(?: (.*))?}}
+#ALIAS {%i{loot(?: (.*))?$}}
 {
 	#variable {ltarg} {corpse};
 	#showme %2;
@@ -469,7 +468,7 @@
 			};
 			#showme {you say you are looting $loott};
 			#showme {you say use loottype <target> <a :to get all, omit for 1.>};
-			#showme {nyou say use "loottype all" to get all}
+			#showme {you say use "loottype all" to get all}
 		}
 	}
 }
@@ -519,17 +518,7 @@
 	#if {"%1" != ""}
 	{
 		#format {btname} {%l} {%1};
-		#regexp {"$btname"} {{[1-9]}} 
-		{
-			#IF {&t[%1]}
-			{
-				#RETURN $t[%1]
-			};
-			#ELSE
-			{
-				#VAR {result} {self}
-			}
-		};
+		#regexp {"$btname"} {{[1-9]}} {#IF {&t[%1]}{#RETURN $t[%1]};#ELSE {#VAR {result} {self}}};
 		#else
 		{
 			#if {"$btname" == "me"}

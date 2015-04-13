@@ -53,9 +53,9 @@
 	#nop /*           to open it when moved through. is one directional and   */;
 	#nop /*           must be done on both sides of the door                  */;
 	#nop /*                                                                   */;
-	#nop /*      {mfind <note|name> <string>}                                 */;
+	#nop /*      {mfind <note|name|nn> <string>}                              */;
 	#nop /*           finds all the rooms where the string is at least part   */;
-	#nop /*           of the chosen field                                     */;
+	#nop /*           of the chosen field (nn for name and notes)             */;
 	#nop /*                                                                   */;
 	#nop /*      {mgoto <room name/num>}                                      */;
 	#nop /*           move the current room in the map to the room with the   */;
@@ -92,6 +92,10 @@
 	#nop /*           abbreviations are allowed with n being the shortest for */;
 	#nop /*           name, and no being the shortest for note                */;
 	#nop /*                                                                   */;
+	#nop /*      {mstatic <on|off>}                                           */;
+	#nop /*           sets the map's static feature to control if walking     */;
+	#nop /*           will create, or link new rooms.
+	#nop /*                                                                   */;
 	#nop /*      {mstr <n|s|e|w|u|d>}                                         */;
 	#nop /*           insert a void room in the given direction to stretch    */;
 	#nop /*           the map for visual reasons.  parameter can be the full  */;
@@ -126,7 +130,12 @@
 	#nop /*                                                                   */;
 	#nop /*      {mapsave}                                                    */;
 	#nop /*           used internally to determine if map file should be      */;
-	#nop /*           written every mapcountmax moves or is writing paused    */
+	#nop /*           written every mapcountmax moves or is writing paused    */;
+	#nop /*                                                                   */;
+	#nop /*      {mapstatic}                                                  */;
+	#nop /*           used to track the status of the state of the static     */;
+	#nop /*           flat for the mapper                                     */;
+	#nop /*                                                                   */;
 }
 {1}
 
@@ -241,12 +250,12 @@
 }
 {5}
 
-#ALIAS {%i{mfind  ?(no(?:te?)?|n(?:a(?:m(?:e)?)?)?) (.*)}}
+#ALIAS {%i{mfind  ?(no(?:te?)?|n(?:a(?:m(?:e)?)?)?|nn) (.*)}}
 {
 	#variable {mroomvar} {@mlowercase{%2}};
 	#variable {mroomval} {@mlowercase{%3}};
 	#unvariable {result};
-	#regexp {$mroomvar} {^{no?}} {#switch {"&1"}{#case {"no"}{#map list {} {} {} {} {%*$mroomval%*}};#case {"n"}{#map list {%*$mroomval%*}}}}
+	#regexp {$mroomvar} {^{nn|no?}} {#switch {"&1"}{#case {"no"}{#map list {} {} {} {} {%*$mroomval%*}};#case {"nn"}{#map list {} {} {} {} {%*$mroomval%*};#map list {%*$mroomval%*}};#case {"n"}{#map list {%*$mroomval%*}}}}
 }
 {5}
 
@@ -331,6 +340,22 @@
 }
 {5}
 
+#ALIAS {%i{mstatic (on|off)}}
+{
+	#map flag static %2;
+	#if {"%2" == "on"}
+	{
+		#variable {mapstatic} {1};
+		#showme {you say map is now static}
+	};
+	#else
+	{
+		#variable {mapstatic} {0};
+		#showme {you say map is set to create by walking (non-static)}
+	}
+}
+{5}
+
 #ALIAS {%i{mstr (n(?:o(?:r(?:th?)?)?)?|s(?:o(?:u(?:th?)?)?)?|e(?:a(?:st?)?)?|w(?:e(?:st?)?)?|up?|d(?:o(?:wn?)?)?)}$}
 {
 	#variable {mdir} {@mlowercase{%2}};
@@ -402,5 +427,6 @@
 #VARIABLE         {mapdispdims}  {110x24}
 #VARIABLE         {mapping}  {1}
 #VARIABLE         {mapsave}  {1}
+#VARIABLE         {mapstatic}  {}
 
 #CLASS {mapping} CLOSE

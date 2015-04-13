@@ -36,49 +36,55 @@
 }
 {5}
 
-#ALIAS {t{[1-9]} %*}
+#ALIAS {t{([1-9])(?: (\w*))?}}
 {
-	#variable {ttest1} {%1};
-	#variable {ttest2} {@btarg{%2}};
-	#if {&ttest1}
+	#variable {ttest1} {%2};
+	#variable {ttest2} {%3};
+	#variable {ttest3} {$t.%2};
+	#if {"%2" != ""}
 	{
-		#if {&ttest2}
+		#if {"%3" != ""}
 		{
-			#if {&t[%1]}
+			#if {"$ttest3" != ""}
 			{
-				#unsubstitute {~%i%%1$t[%1]%%2}
+				#line {substitute} {variable} {#unsubstitute {~%i%%1$ttest3%%2}}
 			};
-			#if {"$ttest2" != "none"}
+			#if {"%3" != "none"}
 			{
-				#if {%1 == 1}
+				#if {%2 == 1}
 				{
-					#substitute {~%i%%1%2%%2} {%%1<134>(t1)%2<088>%%2}
+					#line {substitute} {variable} {#substitute {~%i%%1$ttest2%%2} {%%2<134>(t1)$ttest2<088>%%2}}
 				};
 				#else
 				{
-					#substitute {~%i%%1%2%%2} {%%1<134>(t%1)<088>%2%%2}
+					#line {substitute} {variable} {#substitute {~%i%%1$ttest2%%2} {%%1<134>(t$ttest1)<088>$ttest2%%2}}
 				}
 			};
 			#else
 			{
-				#showme <168>Target %1 ($t[%1]) is now: %2
+				#showme <168>Target %2 ($ttest3) is now: $ttest2
 			};
-			#if {"%2" == "none"}
+			#if {"%3" == "none"}
 			{
-				#unvariable t[%1]
+				#unvariable t[$ttest1]
 			};
 			#else
 			{
-				#variable {t[%1]} {$ttest2}
+				#if {"$ttest2" != ""}
+				{
+					#variable {t[$ttest1]} {$ttest2};
+					t$ttest1
+				}
 			}
 		};
 		#else
 		{
-			#showme target%1 is $t[%1]
+			#showme {you say target$ttest1 is $t.$ttest1}
 		}
 	};
 	#unvariable ttest1;
-	#unvariable ttest2
+	#unvariable ttest2;
+	#unvariable ttest3
 }
 {5}
 
@@ -94,7 +100,7 @@
 	};
 	#if {$doasst}
 	{
-		#if {%2 && "$t.%2" != ""}
+		#if {%2 && "$t[%2]" != ""}
 		{
 			ass $t[%2];
 			#variable {doasst} {0}
@@ -109,5 +115,6 @@
 {5}
 
 #VARIABLE         {doasst}  {1}
+#VARIABLE         {t}  {}
 
 #CLASS {combat} CLOSE

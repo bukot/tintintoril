@@ -21,6 +21,9 @@ recent changes
                
                     converted various aliases in to regex for more predictable 
                     matching
+                    
+                    revamped alias t<digit> for targeting to work better and
+                    report via local says
 
                in rogue.tt
                     changed app alias to app <wep> <poison> if poison is

@@ -35,6 +35,18 @@
 }
 {5}
 
+#ACTION {^A Guard Post in the Spider Swamp Bazaar{(?: \(Shadowed\))?}}
+{
+	portto 13823
+}
+{5}
+
+#ACTION {^A Guard Post in the Underdark Bazaar{(?: \(Shadowed\))?}}
+{
+	portto 13249
+}
+{5}
+
 #ACTION {^A Small Platform Overlooking the Elder Brain{(?: \(Shadowed\))?}}
 {
 	portto 9908
@@ -50,12 +62,6 @@
 #ACTION {^A dark guildmaster stands here ready to teach someone.{(?: \(Shadowed\))?}}
 {
 	portto 12233
-}
-{5}
-
-#ACTION {^A holy cleric guildguard stands here praying.{(?: \(Shadowed\))?}}
-{
-	portto 4339
 }
 {5}
 
@@ -168,6 +174,14 @@
 }
 {5}
 
+#ACTION {^The Practice Room{(?: \(Shadowed\))?}}
+{
+	#class {trans} OPEN;
+	#action {^A holy cleric guildguard stands here praying.}{portto 4339};
+	#class {trans} close
+}
+{5}
+
 #ACTION {^The Reception of the Dead Orc Inn{(?: \(Shadowed\))?}}
 {
 	portto wdinn
@@ -177,6 +191,12 @@
 #ACTION {^The Receptionist's Chambers in the Inn of the First Home{(?: \(Shadowed\))?}}
 {
 	portto halflinginn
+}
+{5}
+
+#ACTION {^The Registration Desk of the Caravansary{(?: \(Shadowed\))?}}
+{
+	portto 13244
 }
 {5}
 

@@ -242,6 +242,7 @@
 	#variable {resname} {%1};
 	#replace {resname} {{[\.0-9]*}} {};
 	#format {resname} {%n} {$resname};
+	say ressing $resname;
 	t $resname Hear me $resname!  prepare thyself. I have decided your battle is not over. Gods permitting you shall rejoin the living where you fell. I must have your consent so make your decision NOW!;
 	t $resname \(You're getting ressed.  If you don\'t consent me I will move on to the next in line.  Also, I\'ll taunt you publicly!\);
 	consent $resname;
