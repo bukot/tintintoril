@@ -116,6 +116,11 @@
 	#nop /*           is used to store the desired item to loot.  initializes */;
 	#nop /*           to <all> on load.                                       */;
 	#nop /*                                                                   */;
+	#nop /*      (mapdir)                                                     */;
+	#nop /*           if map files are stored any where other than where we   */;
+	#nop /*           run tintin from put a fully qualified path in this var  */;
+	#nop /*           to the location and they will load correctly            */;
+	#nop /*                                                                   */;
 	#nop /*      {mapname}                                                    */;
 	#nop /*           name of the map file that is loaded, or blank.  it is   */;
 	#nop /*           initiated here to allow testing it's value in           */;
@@ -123,7 +128,11 @@
 	#nop /*                                                                   */;
 	#nop /*      {speechon}                                                   */;
 	#nop /*           used to determine if the speech routine has been called */;
-	#nop /*           yet                                                     */
+	#nop /*           yet                                                     */;
+	#nop /*                                                                   */;
+	#nop /*      {ttdir}                                                      */;
+	#nop /*           same as map dir but for .tt files                       */;
+	#nop /*                                                                   */
 }
 {1}
 
@@ -204,10 +213,20 @@
 	{
 		#class etarg kill
 	};
-	#regexp {$pextra} {{E:\s*(\w*)}} {#variable {enemy} {&2};};
+	#regexp {$pextra} {{E:\s*(\w*)}} 
+	{
+		#variable {enemy} {&2};
+	};
 	#if {"$enemy" != "" && $caller}
 	{
-		#regexp {$pextra} {{EC: ((?:nasty wounds)|(?:pretty hurt)|(?:awful)) (?:EP:)}} {#if {"&2" != "$encond"}{#var encond {&2};gsay $enemy is at $encond;};}
+		#regexp {$pextra} {{EC: ((?:nasty wounds)|(?:pretty hurt)|(?:awful)) (?:EP:)}}
+		{
+			#if {"&2" != "$encond"}
+			{
+				#var encond {&2};
+				gsay $enemy is at $encond;
+			};
+		}
 	};
 	#else
 	{
@@ -238,7 +257,10 @@
 	#nop /* this line will perform the same match without capturing ansi      */;
 	#nop /* substitute the following for everything between {} in the action  */;
 	#nop /* line above                                                        */;
+	
 	#nop /* %i{^(\w+ (?:\(H\) )?(?:says?|tells?|group-says?|OOC|GCC|NHC|LFG|shouts?|(?:(?:group-)?projects? ')|(?:responds to your petition)|(?:responds to your group)).*)} */;
+	
+	
 	#format timestamp {%t} {{%H:%M:%S}};
 	#line log chatlog.txt {%0 :: $timestamp};
 	#unvariable timestamp;
@@ -262,7 +284,11 @@
 		};
 		#foreach {$stats} {thisstat}
 		{
-			#regexp {$saytxt} {%i{^($statuses) .*(?:$statreg[$thisstat]).*?(?:out|off|expired|down|faded|bu-bye!)}} {statset @btarg{&2} $thisstat out;statfix;}
+			#regexp {$saytxt} {%i{^($statuses) .*(?:$statreg[$thisstat]).*?(?:out|off|expired|down|faded|bu-bye!)}} 
+			{
+				statset @btarg{&2} $thisstat out;
+				statfix;
+			}
 		};
 		#unvariable thisstat
 	};
@@ -278,12 +304,17 @@
 		#speech #kill;
 		#session -
 	};
-	#regexp {$saytxt} {%i{(katumi tells.*)}} {#NOP;};
+	#regexp {$saytxt} {%i{(katumi tells.*)}}
+	{
+		#nop;
+	};
 	#else
 	{
 		#speech {$saytxt}
 	};
 	#nop /* stop disabling here                                                             */;
+	
+	
 	#unvariable {saytxt};
 	#unvariable statorlist
 }
@@ -303,7 +334,9 @@
 
 #ALIAS {%i{load (\w+)}}
 {
-	#read %2.tt
+	#variable {genholder} {%2.tt};
+	#read $ttdir$genholder;
+	#unvariable {genholder}
 }
 {5}
 
@@ -326,7 +359,7 @@
 		load mapping;
 		#event {MAP ENTER MAP}{mstatic on;#unevent {MAP ENTER MAP}};
 		#variable mapname %2;
-		#map read $mapname;
+		#map read $mapdir$mapname;
 		load mapport;
 		load mapmistake;
 		#echo {map %2 loaded}
@@ -384,7 +417,9 @@
 
 #ALIAS {%i{saveclass (\w+)}}
 {
-	#class %2 write %2.tt
+	#variable {genholder} {%2.tt};
+	#class %2 write $ttdir$genholder;
+	#unvariable {genholder}
 }
 {5}
 
@@ -518,7 +553,17 @@
 	#if {"%1" != ""}
 	{
 		#format {btname} {%l} {%1};
-		#regexp {"$btname"} {{[1-9]}} {#IF {&t[%1]}{#RETURN $t[%1]};#ELSE {#VAR {result} {self}}};
+		#regexp {"$btname"} {{[1-9]}} 
+		{
+			#if {&t[%1]}
+			{
+				#return $t[%1]
+			};
+			#else 
+			{
+				#var {result} {self}
+			}
+		};
 		#else
 		{
 			#if {"$btname" == "me"}
@@ -599,8 +644,10 @@
 #VARIABLE         {general}  {1}
 #VARIABLE         {loot}  {0}
 #VARIABLE         {loott}  {all}
+#VARIABLE         {mapdir}  {}
 #VARIABLE         {mapname}  {}
 #VARIABLE         {race}  {}
 #VARIABLE         {speechon}  {0}
+#VARIABLE         {ttdir}  {}
 
 #CLASS {general} CLOSE

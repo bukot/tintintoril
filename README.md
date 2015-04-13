@@ -24,6 +24,17 @@ recent changes
                     
                     made map go to static mode on load by default
                     
+                    added loottype <word> <a> to get all or coins, or what ever
+                    you want to specify.  <a> is optional and will get all.<word>
+                    if omitted will just get <word> or 1.<word>
+                    
+                    tloot now reports looter to mud and locally tells you what
+                    you are looting
+                    
+                    added mapdir and ttdir variables to hold the path to file
+                    locations and incorporated them into all save and read
+                    aliases
+                    
                in combat.tt
                     revamped alias t<digit> for targeting to work better and
                     report via local says
