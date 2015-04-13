@@ -173,10 +173,8 @@
 
 #ACTION {^Type the # or name of a character above to login or choose an action below.}
 {
-	#class rogue kill;
-	#class cleric kill;
-	#class psionicist kill;
-	#class warrior kill;
+	killclass $class;
+	killclass $race;
 	#variable {classcheck} {1};
 	load classset;
 	#if {$mapping}

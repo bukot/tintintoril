@@ -11,6 +11,13 @@ and there are refrences to files and methods that don't exist yet.
 As those files are made stable they will appear here.
 <pre>
 recent changes
+
+               in mapmistake.tt
+                    adapted wall error triggers to not undo when map is in static
+                    mode.
+
+
+----------------------------------------------------------------------------------
 2015-04-13
                in general.tt
                     rearranged the order that the chat grab trigger executes
