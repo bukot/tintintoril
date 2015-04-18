@@ -53,6 +53,12 @@
 }
 {5}
 
+#ACTION {^A Small Shrine to the Halflings Gods{(?: \(Shadowed\))?}}
+{
+	portto 394
+}
+{5}
+
 #ACTION {^A Warded Arena{(?: \(Shadowed\))?}}
 {
 	portto 488
@@ -71,9 +77,27 @@
 }
 {5}
 
+#ACTION {^An Upper Floor Practice Room{(?: \(Shadowed\))?}}
+{
+	portto 587
+}
+{5}
+
+#ACTION {^At Moonway and Ghostwalk{(?: \(Shadowed\))?}}
+{
+	portto 20
+}
+{5}
+
 #ACTION {^At a Circle of Stones In the Wyllowwood{(?: \(Shadowed\))?}}
 {
 	portto 9614
+}
+{5}
+
+#ACTION {^At a Fountain in an Overgrown Courtyard{(?: \(Shadowed\))?}}
+{
+	portto 11540
 }
 {5}
 
@@ -107,6 +131,18 @@
 }
 {5}
 
+#ACTION {^Everdusk Hall{(?: \(Shadowed\))?}}
+{
+	portto 572
+}
+{5}
+
+#ACTION {^Fortune Hall{(?: \(Shadowed\))?}}
+{
+	portto 38
+}
+{5}
+
 #ACTION {^Hall of Divination{(?: \(Shadowed\))?}$}
 {
 	portto 1069
@@ -134,6 +170,24 @@
 #ACTION {^Outside the Southern Gates of Bryn Shander{(?: \(Shadowed\))?}}
 {
 	portto 5149
+}
+{5}
+
+#ACTION {^Rhyester's Matins{(?: \(Shadowed\))?}}
+{
+	portto 573
+}
+{5}
+
+#ACTION {^Solonor's Square{(?: \(Shadowed\))?}}
+{
+	portto 4083
+}
+{5}
+
+#ACTION {^Temple of Silver Stars{(?: \(Shadowed\))?}}
+{
+	portto 570
 }
 {5}
 
@@ -200,6 +254,12 @@
 }
 {5}
 
+#ACTION {^The Temple Dedicated to Ao{(?: \(Shadowed\))?}}
+{
+	portto 2760
+}
+{5}
+
 #ACTION {^The Upstairs of the Wayward House Inn{(?: \(Shadowed\))?}}
 {
 	portto smrent
@@ -216,6 +276,18 @@
 #ACTION {^Thethla's Inn{(?: \(Shadowed\))?}}
 {
 	portto mhinn
+}
+{5}
+
+#ACTION {^Ultrumm's Music Conservatory{(?: \(Shadowed\))?}}
+{
+	portto 586
+}
+{5}
+
+#ACTION {^Within Silverglen{(?: \(Shadowed\))?}}
+{
+	portto 562
 }
 {5}
 

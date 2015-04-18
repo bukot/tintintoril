@@ -9,14 +9,9 @@
 	#nop /*                                                                   */;
 	#nop /*                                                                   */;
 	#nop /* variables set by class                                            */;
-	#nop /*      {mapmistake} set to 1 to allow for class loaded testing      */;
+	#nop /*      {mapmistake} set to 1 to allow for class loaded testing      */
 }
 {1}
-
-#action {is blocking your path!$}
-{
-	mundo
-}
 
 #ACTION {%* humiliates you, and blocks your way.}
 {
@@ -78,6 +73,12 @@
 }
 {5}
 
+#ACTION {You are too exhausted to follow.}
+{
+	mundo
+}
+{5}
+
 #ACTION {You are too exhausted.}
 {
 	mundo
@@ -115,6 +116,12 @@
 {5}
 
 #ACTION {^You find yourself unwilling to pass through a chill, invisible wall}
+{
+	mundo
+}
+{5}
+
+#ACTION {is blocking your path!$}
 {
 	mundo
 }

@@ -15,6 +15,26 @@ recent changes
                in mapmistake.tt
                     adapted wall error triggers to not undo when map is in static
                     mode.
+                    
+               in mapping.tt
+                    added alias {mmove} as shortcut to #map move
+                    
+                    added alias {mpath} as a shortcut to #map find to allow for
+                    visible paths on the map easier
+                    
+                    added map updates to all functions that change the map 
+                    in a visible way.
+                    
+                    mavoid will now accept an optional room num or name
+               
+               in general.tt
+                    minor change to {logon <string>} to prevent erroneous sends to
+                    the mud
+                    
+                    fixed chat trigger to catch a red shape messages correctly
+                    
+                    added alias {alpha} to facilitate some advanced features to
+                    come.
 
 
 ----------------------------------------------------------------------------------

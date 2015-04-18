@@ -36,12 +36,12 @@
 }
 {5}
 
-#ALIAS {t{([1-9])(?: (\w*))?}}
+#ALIAS {%i{t([0-9l]+)(?: (\w*))?}}
 {
 	#variable {ttest1} {%2};
 	#variable {ttest2} {%3};
 	#variable {ttest3} {$t.%2};
-	#if {"%2" != ""}
+	#if {"%2" != "" && "%2" != "l"}
 	{
 		#if {"%3" != ""}
 		{
@@ -82,6 +82,13 @@
 			#showme {you say target$ttest1 is $t.$ttest1}
 		}
 	};
+	#if {"%2" == "l"}
+	{
+		#foreach {$t} {i}
+		{
+			#regexp {$i} {{[0-9]}} {t%2}
+		}
+	};
 	#unvariable ttest1;
 	#unvariable ttest2;
 	#unvariable ttest3
@@ -115,6 +122,6 @@
 {5}
 
 #VARIABLE         {doasst}  {1}
-#VARIABLE         {t}  {}
+#VARIABLE         {t}  {{1}{Gatur}{2}{Rurosidok}{3}{Gatur}{4}{Rurosidok}{5}{Xubon}}
 
 #CLASS {combat} CLOSE

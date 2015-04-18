@@ -20,7 +20,7 @@
 	#nop /*                                                                   */;
 	#nop /*      {bs <target>}                                                */;
 	#nop /*           backstab the target                                     */;
-	
+	}
 
 #ACTION {{.* does a nifty move, flipping you onto your back!}}
 {

@@ -40,8 +40,9 @@
 	#nop /*           move method. full direction of the any abbreviation for */;
 	#nop /*           them are acceptable for the parameter                   */;
 	#nop /*                                                                   */;
-	#nop /*      {mavoid}                                                     */;
-	#nop /*           sets the avoid flag in the map for the current room.    */;
+	#nop /*      {mavoid <room num/name>}                                     */;
+	#nop /*           sets the avoid flag in the map for the current room, or */;
+	#nop /*           for the <room num/name> if specified.                   */;
 	#nop /*           useful for floor less rooms when using mrun to move.    */;
 	#nop /*                                                                   */;
 	#nop /*      {mcolor <rd|shop|inn|bank| >}                                */;
@@ -51,7 +52,8 @@
 	#nop /*      {mdoor <n|s|e|w|u|d> <word>}                                 */;
 	#nop /*           creates a simple door on the map with attending command */;
 	#nop /*           to open it when moved through. is one directional and   */;
-	#nop /*           must be done on both sides of the door                  */;
+	#nop /*           must be done on both sides of the door. direction can be*/;
+	#nop /*           full word or any abbreviation                           */;
 	#nop /*                                                                   */;
 	#nop /*      {mfind <note|name|nn> <string>}                              */;
 	#nop /*           finds all the rooms where the string is at least part   */;
@@ -63,13 +65,21 @@
 	#nop /*                                                                   */;
 	#nop /*      {mhide <n|s|e|w|u|d>}                                        */;
 	#nop /*           hides the map on one side of an exit on the map.        */;
-	#nop /*           useful when rooms overlap severly and stretching won't  */;
-	#nop /*           work.                                                   */;
+	#nop /*           useful when rooms overlap severely and stretching won't */;
+	#nop /*           work. directions can be full word or any abbreviation.  */;
 	#nop /*                                                                   */;
 	#nop /*      {mmakeport <two word command> <room name/num>}               */;
 	#nop /*           makes a map based portal linking one way between two    */;
 	#nop /*           rooms.  ie: mmakeport en crack 123                      */;
 	#nop /*                       mmakeport open 2.chest sminn                */;
+	#nop /*                                                                   */;
+	#nop /*      {mmove <exit>}                                               */;
+	#nop /*           shortcut to #map move <exit>.  exit can be any defined  */;
+	#nop /*           exit for the current room                               */;
+	#nop /*                                                                   */;
+	#nop /*      {mpath <room num>}                                           */;
+	#nop /*           finds a room in the map and creates a visible trail on  */;
+	#nop /*           the display to follow by manually walking               */;
 	#nop /*                                                                   */;
 	#nop /*      {mportals <on|off>}                                          */;
 	#nop /*           make rooms with portals avoid rooms so that when people */;
@@ -94,7 +104,7 @@
 	#nop /*                                                                   */;
 	#nop /*      {mstatic <on|off>}                                           */;
 	#nop /*           sets the map's static feature to control if walking     */;
-	#nop /*           will create, or link new rooms.
+	#nop /*           will create, or link new rooms.                         */;
 	#nop /*                                                                   */;
 	#nop /*      {mstr <n|s|e|w|u|d>}                                         */;
 	#nop /*           insert a void room in the given direction to stretch    */;
@@ -134,8 +144,8 @@
 	#nop /*                                                                   */;
 	#nop /*      {mapstatic}                                                  */;
 	#nop /*           used to track the status of the state of the static     */;
-	#nop /*           flat for the mapper                                     */;
-	#nop /*                                                                   */;
+	#nop /*           flag for the mapper                                     */;
+	#nop /*                                                                   */
 }
 {1}
 
@@ -170,7 +180,7 @@
 }
 {5}
 
-#ACTION {{You follow \w* ([nsweudNSWEUD])\w*}}
+#ACTION {{You follow \w* ([nNsSeEwWuUdD])\w*}}
 {
 	#nop /* makes sure we keep the map updated when following someone         /*;
 	#map move %2
@@ -197,16 +207,23 @@
 }
 {5}
 
-#ALIAS {%i{jump ([nsewud])}}
+#ALIAS {%i{jump (n(?:o(?:r(?:th?)?)?)?|s(?:o(?:u(?:th?)?)?)?|e(?:a(?:st?)?)?|w(?:e(?:st?)?)?|up?|d(?:o(?:wn?)?)?)}}
 {
 	jum %2;
 	#map move %2
 }
 {5}
 
-#ALIAS {%i{mavoid}}
+#ALIAS {%i{mavoid(?: ([a-z 0-9]*))?}}
 {
-	#map roomflag avoid
+	#if {"%2" != ""}
+	{
+		#map at %2 #map roomflag avoid
+	};
+	#else
+	{
+		#map roomflag avoid
+	}
 }
 {5}
 
@@ -239,11 +256,12 @@
 	};
 	#map set roomcolor <$rmcolr>;
 	#unvariable rmcolr;
-	#unvariable roomtype
+	#unvariable roomtype;
+	mupdate
 }
 {5}
 
-#ALIAS {%i{mdoor ([nsewud])} %w}
+#ALIAS {%i{mdoor (n(?:o(?:r(?:th?)?)?)?|s(?:o(?:u(?:th?)?)?)?|e(?:a(?:st?)?)?|w(?:e(?:st?)?)?|up?|d(?:o(?:wn?)?)?)} %w}
 {
 	#map dig %2;
 	#map exit %2 command {open %3 %2;%2}
@@ -265,15 +283,30 @@
 }
 {5}
 
-#ALIAS {%i{mhide ([nsewud])}}
+#ALIAS {%i{mhide (n(?:o(?:r(?:th?)?)?)?|s(?:o(?:u(?:th?)?)?)?|e(?:a(?:st?)?)?|w(?:e(?:st?)?)?|up?|d(?:o(?:wn?)?)?))}}
 {
-	#map exitflag %2 hide
+	#map exitflag %2 hide;
+	mupdate
 }
 {5}
 
 #ALIAS {%i{mmakeport (\w* [a-z.0-9]*) ([a-z 0-9]*)}}
 {
 	#map dig {%2} {%3}
+}
+{5}
+
+#ALIAS {%i{mmove ((?:\w+ (?:[0-9]{0,2}\.)?\w*)|n(?:o(?:r(?:th?)?)?)?|s(?:o(?:u(?:th?)?)?)?|e(?:a(?:st?)?)?|w(?:e(?:st?)?)?|up?|d(?:o(?:wn?)?)?)}}
+{
+	#map move %2;
+	mupdate
+}
+{5}
+
+#ALIAS {%i{mpath (/d+)}}
+{
+	#map find %2;
+	mupdate
 }
 {5}
 
@@ -361,7 +394,8 @@
 	#variable {mdir} {@mlowercase{%2}};
 	#unvariable {result};
 	#regexp {$mdir} {^{[nsewud]}} {#map insert &1 void};
-	#unvariable mdir
+	#unvariable mdir;
+	mupdate
 }
 {5}
 
