@@ -4,6 +4,7 @@
 {
 	#nop /* this action can be removed but is used to document the file and   */;
 	#nop /* it's functionality.                                               */;
+	#nop /*                                                                   */;
 	#nop /* external dependencies...                                          */;
 	#nop /*      alias {killclass}                                            */;
 	#nop /*           located in general.tt                                   */;

@@ -329,6 +329,7 @@
 
 #ALIAS {word}
 {
+	load mapport;
 	cast 'word of recall'
 }
 {5}

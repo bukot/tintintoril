@@ -2,8 +2,13 @@
 
 #ACTION {Aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa general.tt$}
 {
+	#nop /* for best results start tintin as "tt++ general.tt" so that all    */;
+	#nop /* general features are available from start and the entry line is   */;
+	#nop /* split by default.                                                 */;
+	#nop /*                                                                   */;
 	#nop /* this action can be removed but is used to document the file and   */;
 	#nop /* it's functionality.                                               */;
+	#nop /*                                                                   */;
 	#nop /* external dependencies...                                          */;
 	#nop /*      {classset.tt}                                                */;
 	#nop /*           must be present to make use of auto class feature load  */;
@@ -16,32 +21,26 @@
 	#nop /*           must be present to make use of text to speech features  */;
 	#nop /*                                                                   */;
 	#nop /*      {mapping.tt}                                                 */;
-	#nop /*           must be present to make use of map features             */;
 	#nop /*           loads with alias {loadmap <string>}                     */;
 	#nop /*                                                                   */;
-	#nop /*           {mstatic} alias as part of loadmap                      */;
+	#nop /*           {mstatic} alias as part of local alias {loadmap}        */;
+	#nop /*                                                                   */;
+	#nop /*           must be present to make use of map features             */;
 	#nop /*                                                                   */;
 	#nop /*      {mapport.tt}                                                 */;
-	#nop /*           must be present to make proper use of mapping auto      */;
-	#nop /*           locate features                                         */;
 	#nop /*           loads with alias {loadmap <string>}                     */;
 	#nop /*                                                                   */;
+	#nop /*           must be present to make proper use of mapping auto      */;
+	#nop /*           locate features                                         */;
+	#nop /*                                                                   */;
 	#nop /*      {mapmistake.tt}                                              */;
+	#nop /*           loads with alias {loadmap <string>}                     */;
+	#nop /*                                                                   */;
 	#nop /*           must be present to prevent random room making or other  */;
 	#nop /*           unpredictable behaviour on movement mistakes            */;
-	#nop /*           loads with alias {loadmap <string>}                     */;
 	#nop /*                                                                   */;
 	#nop /*                                                                   */;
 	#nop /* aliases and usage                                                 */;
-	#nop /*      {alpha <varname> <delim> <replacement delim>}                */;
-	#nop /*           will take a delimited list stored in a variable         */;
-	#nop /*           <varname> and alphabetize it.  if <delim> and           */;
-	#nop /*           <replacement delim> are optional, but replacement can   */;
-	#nop /*           only be specified if delim is.  if <delim> is used it   */;
-	#nop /*           will be the assumed delimiter of the list.  if          */;
-	#nop /*           <replacement delim> is used it will be substituted for  */;
-	#nop /*           <delim> after sorting.                                  */;
-	#nop /*                                                                   */;
 	#nop /*      {astat <string>}                                             */;
 	#nop /*           will send a tell to katumi and get the advanced stats   */;
 	#nop /*           for an item (string value)                              */;
@@ -93,6 +92,15 @@
 	#nop /*      {tloot <on|off|group>}                                       */;
 	#nop /*           sets the auto looter mode.  allows for abreviation of   */;
 	#nop /*           options and use or not of spaces.                       */;
+	#nop /*                                                                   */;
+	#nop /*      {alpha <varname> <delim> <replacement delim>}                */;
+	#nop /*           will take a delimited list stored in a variable         */;
+	#nop /*           <varname> and alphabetize it.  <delim> and              */;
+	#nop /*           <replacement delim> are optional, but replacement can   */;
+	#nop /*           only be specified if delim is.  if <delim> is used it   */;
+	#nop /*           will be the assumed delimiter of the list.  if          */;
+	#nop /*           <replacement delim> is used it will be substituted for  */;
+	#nop /*           <delim> after sorting.                                  */;
 	#nop /*                                                                   */;
 	#nop /*      {oepn}                                                       */;
 	#nop /*           replaces it with open.  I make this typo alot           */;
@@ -225,9 +233,10 @@
 }
 {5}
 
-#ACTION {{< (\d{1,4})h/(\d{1,4})H(?: \d{1,3}p/\d{1,3}P)? (\d{1,4})v/(\d{1,4})V (.*)>}}
+#ACTION {{< (?:(\d+)h)?\/?(?:(\d+)H)? ?(?:(\d+)p)?\/?(?:(\d+)P)? ?(?:(\d+)v)?\/?(?:(\d+)V)? ?(.+)? >}}
 {
-	#variable {pextra} {%6};
+	#nop echo {:1: %1 :2: %2 :3: %3 :4: %4 :5: %5 :6: %6 :7: %7 :8: %8 :9: %9 :10: %10 :};
+	#variable {pextra} {%8};
 	#variable enemy {};
 	#if {&etarg}
 	{

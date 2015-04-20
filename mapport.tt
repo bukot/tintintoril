@@ -35,6 +35,12 @@
 }
 {5}
 
+#ACTION {^A Golden Moonwell{(?: \(Shadowed\))?}}
+{
+	portto 16253
+}
+{5}
+
 #ACTION {^A Guard Post in the Spider Swamp Bazaar{(?: \(Shadowed\))?}}
 {
 	portto 13823
@@ -218,12 +224,13 @@
 	#nop;
 	#class {trans} OPEN;
 	#action {{^A large bucket and clockwork mechanism hangs over a mineshaft.}}{portto earthbucket}{5};
-	#action {{^Exits: - E(?:ast)? $}}{portto 13754}{5};
-	#action {{^Exits: - W(?:est)? $}}{portto 13791}{5};
-	#action {{^Exits: - W(?:est)?  - Up? $}}{portto 13812}{5};
-	#action {{^Exits: - N(?:orth)? - E(?:ast)?  - S(?:outh)? - Up? $}}{portto 13743}{5};
-	#action {{^Exits: - N(?:orth)? - W(?:est)?  - S(?:outh)? - Up? $}}{portto 13749}{5};
-	#action {{^Exits: - S(?:outh)? - Up?    - D(:?own)? $}}{portto 13739}{5};
+	#action {{^Exits: - E(?:ast)? ?$}}{portto 13754}{5};
+	#action {{^Exits: - W(?:est)? ?$}}{portto 13791}{5};
+	#action {{^Exits: - W(?:est)?  - Up? ?$}}{portto 13812}{5};
+	#action {{^Exits: - N(?:orth)? - S(?:outh)? - E(?:ast)?  - Up?}}{portto 13743}{5};
+	#action {{^Exits: - N(?:orth)? - S(?:outh)? - W(?:est)?  - Up?}}{portto 13749}{5};
+	#action {{^Exits: - S(?:outh)? - Up?    - D(:?own)? ?$}}{portto 13739}{5};
+	#action {{^Exits: - N(?:orth)? - E(?:ast)  - S(?:outh)? ?$}} {portto 13799}{5};
 	#class {trans} CLOSE
 }
 {5}

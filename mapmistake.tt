@@ -27,6 +27,10 @@
 	}
 }
 {5}
+#act {You collapse under your carried load!}
+{
+	mundo
+}
 
 #ACTION {Nah... You feel too relaxed to do that...}
 {

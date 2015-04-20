@@ -4,6 +4,7 @@
 {
 	#nop /* this action can be removed but is used to document the file and   */;
 	#nop /* it's functionality.                                               */;
+	#nop /*                                                                   */;
 	#nop /* external dependencies...                                          */;
 	#nop /*      general.tt                                                   */;
 	#nop /*           var {enemy} used to determine if we are in combat so we */;
@@ -12,11 +13,12 @@
 	#nop /*                                                                   */;
 	#nop /* aliases and usage                                                 */;
 	#nop /*      {t<number> <name|none>}                                      */;
-	#nop /*           this is the targeting system values are stored in an    */;
+	#nop /*           this is the targeting system. values are stored in an   */;
 	#nop /*           array type variable named t.                            */;
 	#nop /*           the name is optional if omitted will report the current */;
-	#nop /*           value of t<number> if none is supplied it will clear it */;
-	#nop /*           otherwise it sets t<number> to the give name            */;
+	#nop /*           value of t<number> if "none" is supplied as the name it */;
+	#nop /*           will clear it otherwise it sets t<number> to the given  */;
+	#nop /*           name                                                    */;
 	#nop /*                                                                   */;
 	#nop /*      {tclear}                                                     */;
 	#nop /*           clears the target list                                  */;
@@ -25,8 +27,9 @@
 	#nop /*           displays all values stored in the target list           */;
 	#nop /*                                                                   */;
 	#nop /*      {asst <name|num>}                                            */;
-	#nop /*           assist that can accept a name or target number.  if the */;
+	#nop /*           assist that can accept a name or tnumber.  if the       */;
 	#nop /*           <name|num> is omitted it defaults to target 1 <1>       */;
+	#nop /*           you only supply the number                              */;
 	#nop /*                                                                   */;
 	#nop /*                                                                   */;
 	#nop /* variables set by class                                            */;
@@ -94,11 +97,11 @@
 		{
 			#if {$ttest1 == 1}
 			{
-				#line {substitute} {variable} {#substitute {~%i%%1$ttest2%%2} {%%1<134>(t1)$ttest2<088>%%2}}
+				#line {substitute} {variable} {#substitute {~%i%%1$ttest2%%2} {%%1<134><488>(t1)$ttest2<088>%%2}}
 			};
 			#else
 			{
-				#line {substitute} {variable} {#substitute {~%i%%1$ttest2%%2} {%%1<134>(t$ttest1)<088>$ttest2%%2}}
+				#line {substitute} {variable} {#substitute {~%i%%1$ttest2%%2} {%%1<130>(t$ttest1)<088>$ttest2%%2}}
 			}
 		};
 		#else
