@@ -149,6 +149,12 @@
 }
 {5}
 
+#ACTION {^Halls of Inspiration{(?: \(Shadowed\))?}}
+{
+	portto 159
+}
+{5}
+
 #ACTION {^In Calimport Harbor (Water){(?: \(Shadowed\))?}}
 {
 	portto 17583
@@ -188,6 +194,12 @@
 #ACTION {^Temple of Silver Stars{(?: \(Shadowed\))?}}
 {
 	portto 570
+}
+{5}
+
+#ACTION {^The Blue Bottle{(?: \(Shadowed\))?}}
+{
+	portto 158
 }
 {5}
 

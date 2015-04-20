@@ -1,14 +1,44 @@
 #CLASS {combat} OPEN
 
-#ACTION {%* sends you sprawling.$}
+#ACTION {Aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa general.tt$}
 {
-	st
-}
-{5}
-
-#ACTION {%* tripping you.$}
-{
-	st
+	#nop /* this action can be removed but is used to document the file and   */;
+	#nop /* it's functionality.                                               */;
+	#nop /* external dependencies...                                          */;
+	#nop /*      general.tt                                                   */;
+	#nop /*           var {enemy} used to determine if we are in combat so we */;
+	#nop /*           don't spam switch opponents with asst                   */;
+	#nop /*                                                                   */;
+	#nop /*                                                                   */;
+	#nop /* aliases and usage                                                 */;
+	#nop /*      {t<number> <name|none>}                                      */;
+	#nop /*           this is the targeting system values are stored in an    */;
+	#nop /*           array type variable named t.                            */;
+	#nop /*           the name is optional if omitted will report the current */;
+	#nop /*           value of t<number> if none is supplied it will clear it */;
+	#nop /*           otherwise it sets t<number> to the give name            */;
+	#nop /*                                                                   */;
+	#nop /*      {tclear}                                                     */;
+	#nop /*           clears the target list                                  */;
+	#nop /*                                                                   */;
+	#nop /*      {tl}                                                         */;
+	#nop /*           displays all values stored in the target list           */;
+	#nop /*                                                                   */;
+	#nop /*      {asst <name|num>}                                            */;
+	#nop /*           assist that can accept a name or target number.  if the */;
+	#nop /*           <name|num> is omitted it defaults to target 1 <1>       */;
+	#nop /*                                                                   */;
+	#nop /*                                                                   */;
+	#nop /* variables set by class                                            */;
+	#nop /*      {combat}                                                     */;
+	#nop /*           variable used to test for combat class being loaded     */;
+	#nop /*                                                                   */;
+	#nop /*      {doasst}                                                     */;
+	#nop /*           used to track if asst should fire the assist or not     */;
+	#nop /*                                                                   */;
+	#nop /*      {t}                                                          */;
+	#nop /*           stores the target information in array format           */;
+	#nop /*                                                                   */;
 }
 {5}
 
@@ -32,66 +62,85 @@
 
 #ACTION {^You manage to, with complete incompetence, throw yourself head first directly into the ground!}
 {
+	#nop /* trip fail trigger                                           */;
 	st
 }
 {5}
 
-#ALIAS {%i{t([0-9l]+)(?: (\w*))?}}
+#ACTION {{.* sends you sprawling.$}}
+{
+	st
+}
+{5}
+
+#ACTION {{.* tripping you.$}}
+{
+	st
+}
+{5}
+
+#ALIAS {%i{^t([0-9]+)(?: (\w*))?$}}
 {
 	#variable {ttest1} {%2};
 	#variable {ttest2} {%3};
 	#variable {ttest3} {$t.%2};
-	#if {"%2" != "" && "%2" != "l"}
+	#if {"$ttest2" != ""}
 	{
-		#if {"%3" != ""}
+		#if {"$ttest3" != ""}
 		{
-			#if {"$ttest3" != ""}
+			#line {substitute} {variable} {#unsubstitute {~%i%%1$ttest3%%2}}
+		};
+		#if {"$ttest2" != "none"}
+		{
+			#if {$ttest1 == 1}
 			{
-				#line {substitute} {variable} {#unsubstitute {~%i%%1$ttest3%%2}}
-			};
-			#if {"%3" != "none"}
-			{
-				#if {%2 == 1}
-				{
-					#line {substitute} {variable} {#substitute {~%i%%1$ttest2%%2} {%%2<134>(t1)$ttest2<088>%%2}}
-				};
-				#else
-				{
-					#line {substitute} {variable} {#substitute {~%i%%1$ttest2%%2} {%%1<134>(t$ttest1)<088>$ttest2%%2}}
-				}
+				#line {substitute} {variable} {#substitute {~%i%%1$ttest2%%2} {%%1<134>(t1)$ttest2<088>%%2}}
 			};
 			#else
 			{
-				#showme <168>Target %2 ($ttest3) is now: $ttest2
-			};
-			#if {"%3" == "none"}
-			{
-				#unvariable t[$ttest1]
-			};
-			#else
-			{
-				#if {"$ttest2" != ""}
-				{
-					#variable {t[$ttest1]} {$ttest2};
-					t$ttest1
-				}
+				#line {substitute} {variable} {#substitute {~%i%%1$ttest2%%2} {%%1<134>(t$ttest1)<088>$ttest2%%2}}
 			}
 		};
 		#else
 		{
-			#showme {you say target$ttest1 is $t.$ttest1}
-		}
-	};
-	#if {"%2" == "l"}
-	{
-		#foreach {$t} {i}
+			#showme <168>Target $ttest1 ($ttest3) is now: $ttest2
+		};
+		#if {"$ttest2" == "none"}
 		{
-			#regexp {$i} {{[0-9]}} {t%2}
+			#unvariable t[$ttest1]
+		};
+		#else
+		{
+			#if {"$ttest2" != ""}
+			{
+				#variable {t[$ttest1]} {$ttest2};
+			}
 		}
 	};
+	#showme {you say target$ttest1 is $t.$ttest1};
 	#unvariable ttest1;
 	#unvariable ttest2;
 	#unvariable ttest3
+}
+{5}
+
+#ALIAS {%i{^tclear$}}
+{
+	#foreach {$t} {tcli}
+	{
+		#regexp {$tcli} {{[0-9]+$}} {t$tcli none}
+	};
+	#unvariable {tcli}
+}
+{5}
+
+#ALIAS {%i{^tl$}}
+{
+	#foreach {$t} {tli}
+	{
+		#regexp {$tli} {{[0-9]+$}} {t$tli}
+	};
+	#unvariable {tli}
 }
 {5}
 
@@ -121,7 +170,8 @@
 }
 {5}
 
+#VARIABLE         {combat}  {1}
 #VARIABLE         {doasst}  {1}
-#VARIABLE         {t}  {{1}{Gatur}{2}{Rurosidok}{3}{Gatur}{4}{Rurosidok}{5}{Xubon}}
+#VARIABLE         {t}  {}
 
 #CLASS {combat} CLOSE

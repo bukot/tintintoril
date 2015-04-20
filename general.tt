@@ -463,45 +463,42 @@
 }
 {5}
 
-#ALIAS {%i{tloot ?(of|on|gr)?.*}}
+#ALIAS {%i{tloot ?(off?|on|gr(?:o(?:up?)?)?)?.*}}
 {
-	#switch {"%2"}
+	#regexp {%2} {{(of|on|gr)}} 
 	{
-		#case {"of"}
+		#switch {"&2"}
 		{
-			#variable loot 0;
-			tloot
-		};
-		#case {"on"}
-		{
-			#variable loot 1;
-			tloot
-		};
-		#case {"gr"}
-		{
-			#variable loot 2;
-			tloot
-		};
-		#default
-		{
-			#switch {$loot}
+			#case {"of"}
 			{
-				#case {1}
-				{
-					say loot is on
-				};
-				#case {2}
-				{
-					say loot is for group (and thats good enough for me)
-				};
-				#default
-				{
-					say loot is off
-				}
+				#variable loot 0
 			};
-			#showme {you say you are looting $loott};
-			#showme {you say use loottype <target> <a :to get all, omit for 1.>};
-			#showme {you say use "loottype all" to get all}
+			#case {"on"}
+			{
+				#variable loot 1
+			};
+			#case {"gr"}
+			{
+				#variable loot 2
+			}
+		}
+	};
+	#switch {$loot}
+	{
+		#case {0}
+		{
+			say looting is off
+		};
+		#case {1}
+		{
+			say looting is on;
+			#showme {tintinplusplus says you are looting $loott};
+			#showme {tintinplusplus says to change this use loottype <item> or a for all}
+		};
+		#case {2}
+		{
+			say looting is for group and that's good enough for me! say I am looting $loott;
+			#showme {tintinplusplus says to change this use loottype <item> or a for all}
 		}
 	}
 }

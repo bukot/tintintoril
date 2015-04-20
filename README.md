@@ -35,6 +35,11 @@ recent changes
                     
                     added alias {alpha} to facilitate some advanced features to
                     come.
+                    
+                    fixed infinite loop error with tloot alias
+                    
+               in combat.tt
+                    documented it, and cleaned up the targeting features.
 
 
 ----------------------------------------------------------------------------------
