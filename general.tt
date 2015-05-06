@@ -23,7 +23,8 @@
 	#nop /*      {mapping.tt}                                                 */;
 	#nop /*           loads with alias {loadmap <string>}                     */;
 	#nop /*                                                                   */;
-	#nop /*           {mstatic} alias as part of local alias {loadmap}        */;
+	#nop /*           {mapping.tt}{mstatic} alias is part of the local alias  */;
+	#nop /*           {loadmap}                                               */;
 	#nop /*                                                                   */;
 	#nop /*           must be present to make use of map features             */;
 	#nop /*                                                                   */;

@@ -180,6 +180,12 @@
 }
 {5}
 
+#ACTION {^Atenman stands here carefully watching.{(?: \(Shadowed\))?}}
+{
+	portto 2758
+}
+{5}
+
 #ACTION {^Beginning of the Main Complex{(?: \(Shadowed\))?}}
 {
 	portto smskull
@@ -752,11 +758,8 @@
 #ACTION {^{Wayward House Inn(?: \(Shadowed\))?}$}
 {
 	#class trans open;
-	#action {{Exits: - N(?:orth)? - Up?}}
-	{
-		portto sminn;
-		killclass trans
-	}{5};
+	#action {{^Exits: - N(?:orth)? - Up?}}{portto sminn;killclass trans}{5};
+	#action {{^Exits:}} {killclass trans} {6};
 	#class trans close
 }
 {5}

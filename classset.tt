@@ -10,7 +10,8 @@
 	#nop /*                                                                   */;
 	#nop /*      general.tt                                                   */;
 	#nop /*           alias {load}                                            */;
-	#nop /*                used to load the appropriate class and race files  */;
+	#nop /*                used to load the appropriate class, race, and      */;
+	#nop /*                character files  */;
 	#nop /*                                                                   */;
 	#nop /*           alias {setme}                                           */;
 	#nop /*                used to set the value of the current character     */;
@@ -30,7 +31,9 @@
 
 #ACTION {Score information for %w}
 {
-	setme %1
+	format {name} {%l} {%1};
+	setme $name;
+	load {$name}
 }
 {5}
 

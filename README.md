@@ -11,7 +11,7 @@ and there are refrences to files and methods that don't exist yet.
 As those files are made stable they will appear here.
 <pre>
 recent changes
-
+2015-05-06
                in mapmistake.tt
                     adapted wall error triggers to not undo when map is in static
                     mode.
@@ -40,6 +40,11 @@ recent changes
                     
                in combat.tt
                     documented it, and cleaned up the targeting features.
+                    
+               in classset.tt
+                    now makes the name set to $me lowercase and tries to load
+                    a file for that character incase we have character specific
+                    info.
 
 
 ----------------------------------------------------------------------------------
