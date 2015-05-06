@@ -1,17 +1,38 @@
 #CLASS {cleric} OPEN
 
+#ALIAS {%i{buffcast ([a-z]+)}}
+{
+	#if {"$statscleric[%2]" != ""}
+	{
+		#if {"$buffname" == "self"}
+		{
+			#variable {buffname} {$me}
+		};
+		#echo {$buffname};
+		#if {@chkstat{{$buffname} {statuses}}}
+		{
+			#variable {buff[name]} {$buffname};
+			#variable {buff[spell]} {%2};
+			#variable {buff[say]} {%2};
+			load bufftrack
+		}
+	}
+}
+{5}
+
+#ALIAS {^word}
+{
+	load mapport;
+	cast 'word of recall'
+}
+{5}
+
 #ALIAS {arm}
 {
 	#variable {buffname} {@btarg{%1}};
 	#unvariable result;
 	cast 'arm' $buffname;
-	#if {@chkstat{{$buffname} {statuses}}}
-	{
-		#variable {buff[name]} {$buffname};
-		#variable {buff[spell]} {arm};
-		#variable {buff[say]} {arm};
-		load bufftrack
-	};
+	bufcast arm;
 	#unvariable {buffname}
 }
 {5}
@@ -21,13 +42,7 @@
 	#variable {buffname} {@btarg{%1}};
 	#unvariable result;
 	cast 'bless' $buffname;
-	#if {@chkstat{{$buffname} {statuses}}}
-	{
-		#variable {buff[name]} {$buffname};
-		#variable {buff[spell]} {blss};
-		#variable {buff[say]} {blss};
-		load bufftrack
-	};
+	buffcast blss;
 	#unvariable {buffname}
 }
 {5}
@@ -309,14 +324,8 @@
 {
 	#variable {buffname} {@btarg{%1}};
 	#unvariable result;
-	vt $buffname;
-	#if {@chkstat{{$buffname} {statuses}}}
-	{
-		#variable {buff[name]} {$buffname};
-		#variable {buff[spell]} {vit};
-		#variable {buff[say]} {vit};
-		load bufftrack
-	};
+	cast 'vit' $buffname;
+	buffcast vit;
 	#unvariable {buffname}
 }
 {5}
@@ -324,13 +333,6 @@
 #ALIAS {vs}
 {
 	cast 'vigorize serious' @btarg{%1}
-}
-{5}
-
-#ALIAS {word}
-{
-	load mapport;
-	cast 'word of recall'
 }
 {5}
 
@@ -375,6 +377,7 @@
 	{
 		#echo {casting 'protection from $pspell' at @btarg{%3}};
 		cast 'protection from $pspell' @btarg{%3};
+		buffcast $pspell;
 		#unvariable pspell
 	};
 	#else
@@ -437,5 +440,6 @@
 }
 
 #VARIABLE         {cleric}  {1}
+#VARIABLE         {statscleric}  {{arm}{arm|armor}{blss}{bless}{vit}{vit|vitality}}
 
 #CLASS {cleric} CLOSE

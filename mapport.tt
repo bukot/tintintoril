@@ -29,6 +29,18 @@
 }
 {5}
 
+#ACTION {^A Dark and Dreary Shop{(?: \(Shadowed\))?}}
+{
+	portto 14925
+}
+{5}
+
+#ACTION {^A Dwarven Mortuary{(?: \(Shadowed\))?}}
+{
+	portto 18660
+}
+{5}
+
 #ACTION {^A Forgotten Burial Chamber{(?: \(Shadowed\))?}}
 {
 	portto wdskull
@@ -53,9 +65,28 @@
 }
 {5}
 
+#ACTION {^A Shadowy Shop{(?: \(Shadowed\))?}}
+{
+	portto 16428
+}
+{5}
+
+#ACTION {^A Small Chamber{(?: \(Shadowed\))?}}
+{
+	#class trans open;
+	#action {Exits: - E(?:ast)?  - S(?:outh)? - W(?:est)?} {portto 18559}#class trans close
+}
+{5}
+
 #ACTION {^A Small Platform Overlooking the Elder Brain{(?: \(Shadowed\))?}}
 {
 	portto 9908
+}
+{5}
+
+#ACTION {^A Small Shop{(?: \(Shadowed\))?}}
+{
+	portto 14774
 }
 {5}
 
@@ -65,9 +96,27 @@
 }
 {5}
 
+#ACTION {^A Street Along the Southern Edge of a Large Rift{(?: \(Shadowed\))?}}
+{
+	portto 14742
+}
+{5}
+
+#ACTION {^A Very Old Graveyard{(?: \(Shadowed\))?}}
+{
+	portto 18511
+}
+{5}
+
 #ACTION {^A Warded Arena{(?: \(Shadowed\))?}}
 {
 	portto 488
+}
+{5}
+
+#ACTION {^A Wide Farm Lane on a Long Rise{(?: \(Shadowed\))?}}
+{
+	portto 8019
 }
 {5}
 
@@ -119,6 +168,12 @@
 }
 {5}
 
+#ACTION {^At the Base of Narbondel{(?: \(Shadowed\))?}}
+{
+	portto 14755
+}
+{5}
+
 #ACTION {^At the Southern Shore of Darklake{(?: \(Shadowed\))?}}
 {
 	portto 10447
@@ -131,9 +186,33 @@
 }
 {5}
 
+#ACTION {^Bend around a Huge Boulder{(?: \(Shadowed\))?}}
+{
+	portto 6422
+}
+{5}
+
 #ACTION {^Dead End in the Forest{(?: \(Shadowed\))?}}
 {
 	portto 9378
+}
+{5}
+
+#ACTION {^Dhellorn and Dirizin{(?: \(Shadowed\))?}}
+{
+	portto 14509
+}
+{5}
+
+#ACTION {^Elstearn's Escorts{(?: \(Shadowed\))?}}
+{
+	portto 14746
+}
+{5}
+
+#ACTION {^Entrance to the Temple of Tymora{(?: \(Shadowed\))?}}
+{
+	portto 6873
 }
 {5}
 
@@ -149,6 +228,12 @@
 }
 {5}
 
+#ACTION {^Gemstars{(?: \(Shadowed\))?}}
+{
+	portto 14798
+}
+{5}
+
 #ACTION {^Hall of Divination{(?: \(Shadowed\))?}$}
 {
 	portto 1069
@@ -161,9 +246,21 @@
 }
 {5}
 
+#ACTION {^Illitree's Inn{(?: \(Shadowed\))?}}
+{
+	portto 14783
+}
+{5}
+
 #ACTION {^In Calimport Harbor (Water){(?: \(Shadowed\))?}}
 {
 	portto 17583
+}
+{5}
+
+#ACTION {^In The Fields Surrounding Lake Donigarten{(?: \(Shadowed\))?}}
+{
+	portto 16407
 }
 {5}
 
@@ -173,15 +270,66 @@
 }
 {5}
 
+#ACTION {^Intersection in the Calimshan Road{(?: \(Shadowed\))?}}
+{
+	portto 8160
+}
+{5}
+
+#ACTION {^Large Sinkhole on the Fields of Death{(?: \(Shadowed\))?}}
+{
+	portto 18305
+}
+{5}
+
+#ACTION {^Lloth's Web{(?:\(Shadowed\))?}}
+{
+	#class trans open;
+	#action {{^Exits: - S(?:outh)? - W(?:est)?$}}{portto 14481}{5};
+	#action {{^Exits: - North - East  - South$}}{portto 14487}{5};
+	#class trans close
+}
+{5}
+
+#ACTION {^Marshela of the Flowers{(?: \(Shadowed\))?}}
+{
+	portto 14514
+}
+{5}
+
+#ACTION {^Minstrelwish Perfumery{(?: \(Shadowed\))?}}
+{
+	portto 14495
+}
+{5}
+
+#ACTION {^Narbondel's Shadow{(?: \(Shadowed\))?}}
+{
+	portto 14923
+}
+{5}
+
 #ACTION {^On a Marble Slab{(?: \(Shadowed\))?}}
 {
 	portto 10453
 }
 {5}
 
+#ACTION {^Outside the Crumbling City Walls{(?: \(Shadowed\))?}}
+{
+	portto 14172
+}
+{5}
+
 #ACTION {^Outside the Southern Gates of Bryn Shander{(?: \(Shadowed\))?}}
 {
 	portto 5149
+}
+{5}
+
+#ACTION {^Phaeril One-Hand{(?: \(Shadowed\))?}}
+{
+	portto 16422
 }
 {5}
 
@@ -203,15 +351,39 @@
 }
 {5}
 
+#ACTION {^The Black Dragon Gate{(?: \(Shadowed\))?}}
+{
+	portto 6447
+}
+{5}
+
 #ACTION {^The Blue Bottle{(?: \(Shadowed\))?}}
 {
 	portto 158
 }
 {5}
 
+#ACTION {^The Circle of Contest{(?: \(Shadowed\))?}}
+{
+	portto 8047
+}
+{5}
+
 #ACTION {^The City Gates of the City of Beluir{(?: \(Shadowed\))?}}
 {
 	portto 10933
+}
+{5}
+
+#ACTION {^The Desparn-Jaanta Intersection{(?: \(Shadowed\))?}}
+{
+	portto 6591
+}
+{5}
+
+#ACTION {^The Drisbalev-Jaanta Intersection{(?: \(Shadowed\))?}}
+{
+	portto 6559
 }
 {5}
 
@@ -235,6 +407,54 @@
 }
 {5}
 
+#ACTION {^The Entrance to a Glowing Cavern{(?: \(Shadowed\))?}}
+{
+	portto 14473
+}
+{5}
+
+#ACTION {^The Garden-Lights Intersection{(?: \(Shadowed\))?}}
+{
+	portto 6649
+}
+{5}
+
+#ACTION {^The Great Square of Wonders{(?: \(Shadowed\))?}}
+{
+	portto 6850
+}
+{5}
+
+#ACTION {^The Grontor-Jaanta T-Intersection{(?: \(Shadowed\))?}}
+{
+	portto 6555
+}
+{5}
+
+#ACTION {^The Helm-Belltoll Intersection{(?: \(Shadowed\))?}}
+{
+	portto 6637
+}
+{5}
+
+#ACTION {^The Home of Seipora Rein{(?: \(Shadowed\))?}}
+{
+	portto 2761
+}
+{5}
+
+#ACTION {^The House of Shunn Tahaladar{(?: \(Shadowed\))?}}
+{
+	portto 14771
+}
+{5}
+
+#ACTION {^The House of the Tuek'tharm Family{(?: \(Shadowed\))?}}
+{
+	portto 14488
+}
+{5}
+
 #ACTION {^The Inn of Restful Contemplation{(?: \(Shadowed\))?}}
 {
 	portto ixinn
@@ -247,11 +467,49 @@
 }
 {5}
 
+#ACTION {^The Lights-Belltoll Intersection{(?: \(Shadowed\))?}}
+{
+	portto 6640
+}
+{5}
+
+#ACTION {^The Main Road Through Southern Westwall{(?: \(Shadowed\))?}}
+{
+	#class trans open;
+	#action {{^Exits: - E(?:ast)?  - S(?:outh)? *$}}{portto 14532}{5};
+	#class trans close
+}
+{5}
+
+#ACTION {^The Merchant's Gate{(?: \(Shadowed\))?}}
+{
+	portto 6677
+}
+{5}
+
+#ACTION {^The North Harbor Gate{(?: \(Shadowed\))?}}
+{
+	portto 6970
+}
+{5}
+
 #ACTION {^The Practice Room{(?: \(Shadowed\))?}}
 {
 	#class {trans} OPEN;
 	#action {^A holy cleric guildguard stands here praying.}{portto 4339};
 	#class {trans} close
+}
+{5}
+
+#ACTION {^The Pride of Menzoberranzan{(?: \(Shadowed\))?}}
+{
+	portto 14505
+}
+{5}
+
+#ACTION {^The Reception Hall of the Blade and Stars Inn{(?: \(Shadowed\))?}}
+{
+	portto 7019
 }
 {5}
 
@@ -273,15 +531,100 @@
 }
 {5}
 
+#ACTION {^The Saints-Lights Intersection{(?: \(Shadowed\))?}}
+{
+	portto 6656
+}
+{5}
+
+#ACTION {^The Songs-Lights Intersection{(?: \(Shadowed\))?}}
+{
+	portto 6646
+}
+{5}
+
+#ACTION {^The Southwestern Corner of the Wall Road{(?: \(Shadowed\))?}}
+{
+	portto 6520
+}
+{5}
+
+#ACTION {^The Tasty Carcass{(?: \(Shadowed\))?}}
+{
+	portto 3871
+}
+{5}
+
 #ACTION {^The Temple Dedicated to Ao{(?: \(Shadowed\))?}}
 {
 	portto 2760
 }
 {5}
 
+#ACTION {^The Tower of Lord Salavon Sage{(?: \(Shadowed\))?}}
+{
+	#class trans open;
+	#action {Exits: - D(?:own)?} {portto 18569}#class trans close
+}
+{5}
+
+#ACTION {^The Trade-Wonders Intersection{(?: \(Shadowed\))?}}
+{
+	portto 6810
+}
+{5}
+
 #ACTION {^The Upstairs of the Wayward House Inn{(?: \(Shadowed\))?}}
 {
 	portto smrent
+}
+{5}
+
+#ACTION {^The Veranza-Helm Intersection{(?: \(Shadowed\))?}}
+{
+	portto 6476
+}
+{5}
+
+#ACTION {^The Veranza-Lights T-Intersection{(?: \(Shadowed\))?}}
+{
+	portto 6618
+}
+{5}
+
+#ACTION {^The Watchful Shield Square{(?: \(Shadowed\))?}}
+{
+	portto 6726
+}
+{5}
+
+#ACTION {^The Windspell-Lights Intersection{(?: \(Shadowed\))?}}
+{
+	portto 6643
+}
+{5}
+
+#ACTION {^The Wonders-Garden T-Intersection{(?: \(Shadowed\))?}}
+{
+	portto 6826
+}
+{5}
+
+#ACTION {^The Wonders-Jaanta Intersection{(?: \(Shadowed\))?}}
+{
+	portto 6579
+}
+{5}
+
+#ACTION {^The Wonders-Veranza T-Intersection{(?: \(Shadowed\))?}}
+{
+	portto 6615
+}
+{5}
+
+#ACTION {^The shop of Thaelara Oblare{(?: \(Shadowed\))?}}
+{
+	portto 14760
 }
 {5}
 
@@ -310,6 +653,12 @@
 }
 {5}
 
+#ACTION {^ylchantras Furfeathers{(?: \(Shadowed\))?}}
+{
+	portto 14914
+}
+{5}
+
 #ACTION {^{A Cobblestone Path(?: \(Shadowed\))?}}
 {
 	#nop /*	create a temporary class for this port since there are several rooms			*/;
@@ -318,7 +667,6 @@
 	#nop;
 	#class trans open;
 	#action {^A grinning skull rests here.}{portto bgskull;#class trans kill}{5};
-	#action {^< %dh/%dH} {#class trans kill}{1};
 	#class trans close
 }
 {5}
@@ -403,7 +751,13 @@
 
 #ACTION {^{Wayward House Inn(?: \(Shadowed\))?}$}
 {
-	portto sminn
+	#class trans open;
+	#action {{Exits: - N(?:orth)? - Up?}}
+	{
+		portto sminn;
+		killclass trans
+	}{5};
+	#class trans close
 }
 {5}
 

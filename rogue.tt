@@ -19,8 +19,16 @@
 	#nop /*           of auto garroting.                                      */;
 	#nop /*                                                                   */;
 	#nop /*      {bs <target>}                                                */;
-	#nop /*           backstab the target                                     */;
-	}
+	#nop /*           backstab the target                                     */
+}
+{1}
+
+#ACTION {%i{(?:agrow sends .* sprawling with a powerful bash.)|(is sent sprawling)}}
+{
+	#echo {***cir***};
+	cir
+}
+{5}
 
 #ACTION {{.* does a nifty move, flipping you onto your back!}}
 {
@@ -32,9 +40,21 @@
 }
 {5}
 
+#ACTION {{And just for the attempt, you fall down.}}
+{
+	st
+}
+{5}
+
 #ACTION {{As your poison takes effect, (.*?) appears to go blind!}}
 {
-	gsay %1 is poison blind!
+	gsay %2 is poison blind!
+}
+{5}
+
+#ACTION {{You try to trip .+, only to sprawl completely THROUGH .+.}}
+{
+	st
 }
 {5}
 

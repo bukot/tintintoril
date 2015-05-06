@@ -113,6 +113,14 @@
 	#nop /*           but allows it to be restarted automatically.            */;
 	#nop /*                                                                   */;
 	#nop /*                                                                   */;
+	#nop /* functions set by class                                            */;
+	#nop /*      {btarg}                                                      */;
+	#nop /*           expects no or one parameter.  will normalize a word to  */;
+	#nop /*           all lower case, substitute the value of the t<num> if a */;
+	#nop /*           number is supplied, of if absent substitute self as the */;
+	#nop /*           result                                                  */;
+	#nop /*                                                                   */;
+	#nop /*                                                                   */;
 	#nop /* variables set by class                                            */;
 	#nop /*      {caller}                                                     */;
 	#nop /*           used to determine if condition caller is active         */;
@@ -150,6 +158,9 @@
 	#nop /*           initiated here to allow testing it's value in           */;
 	#nop /*           general.tt                                              */;
 	#nop /*                                                                   */;
+	#nop /*      {me}                                                         */;
+	#nop /*           name of the currently loaded character                  */;
+	#nop /*                                                                   */;
 	#nop /*      {speechon}                                                   */;
 	#nop /*           used to determine if the speech routine has been called */;
 	#nop /*           yet                                                     */;
@@ -162,7 +173,7 @@
 
 #ACTION {%* briefly reveals a red aura}
 {
-	gsay %1 is cursed!;
+	gsay for your casting pleasure %1 is cursed!;
 	#showme $me says %1 is cursed!
 }
 {5}
@@ -176,7 +187,7 @@
 
 #ACTION {%* suddenly looks speechless!}
 {
-	gsay %1 is being weally weally quite (silenced);
+	gsay %1 is being weally weally quite (%1 silenced);
 	#showme $me says %1 is silenced;
 	#class silence kill
 }
@@ -184,7 +195,7 @@
 
 #ACTION {%w has just given you %w consent.}
 {
-	group %1 Let's go get ded!
+	group %1 We are headed straight to the scene of our death!
 }
 {5}
 
@@ -264,8 +275,8 @@
 	#class glistadd kill;
 	#if {$classcheck}
 	{
-		#variable classcheck 0;
-		score
+		score;
+		#variable classcheck 0
 	};
 	#unvariable pextra
 }
@@ -327,6 +338,32 @@
 }
 {5}
 
+#ACTION {~%i{^((?:\x1B\[(?:;?\d{1,3})+(?:m|K))*(?:.*)(?:\x1B\[(?:;?\d{1,3})+(?:m|K))* (?:(?:\x1B\[(?:;?\d{1,3})+(?:m|K))*\(H\)(?:\x1B\[(?:;?\d{1,3})+(?:m|K))* )?(?:\x1B\[(?:;?\d{1,3})+(?:m|K))*(?:(?:group-says?)|(?:(?:group-)?projects? ')).*)}}
+{
+	#format timestamp {%t} {{%H:%M:%S}};
+	#line log chatlog.txt {%0 :: $timestamp};
+	#unvariable timestamp;
+	#variable {saytxt} {%1};
+	#replace {saytxt} {{\x1B.*?[m|K]}}{};
+	#replace {saytxt}{'}{};
+	#replace {saytxt}{"}{};
+	#if {$speechon}
+	{
+		#nop
+	};
+	#else
+	{
+		#variable {speechon}{1};
+		#run speech espeak;
+		#speech #kill;
+		#session -
+	};
+	#speech {$saytxt}#nop /* stop disabling here                                                             */;
+	#unvariable {saytxt};
+	#unvariable statorlist
+}
+{6}
+
 #ALIAS {%i{astat (.+)}}
 {
 	tell katumi astat %2
@@ -387,7 +424,6 @@
 #ALIAS {%i{loot(?: (.*))?$}}
 {
 	#variable {ltarg} {corpse};
-	#showme %2;
 	#regexp {%2} {{([0-9]+)}} {#var ltarg &1.corpse};
 	#regexp {%2} {%i{([0-9]*[a-zA-Z\.]+)}} {#var ltarg &1};
 	#if {$loot == 2}
@@ -474,24 +510,7 @@
 
 #ALIAS {%i{tloot ?(off?|on|gr(?:o(?:up?)?)?)?.*}}
 {
-	#regexp {%2} {{(of|on|gr)}} 
-	{
-		#switch {"&2"}
-		{
-			#case {"of"}
-			{
-				#variable loot 0
-			};
-			#case {"on"}
-			{
-				#variable loot 1
-			};
-			#case {"gr"}
-			{
-				#variable loot 2
-			}
-		}
-	};
+	#regexp {%2} {{(of|on|gr)}} {#switch {"&2"}{#case {"of"}{#variable loot 0};#case {"on"}{#variable loot 1};#case {"gr"}{#variable loot 2}}};
 	#switch {$loot}
 	{
 		#case {0}
@@ -501,13 +520,13 @@
 		#case {1}
 		{
 			say looting is on;
-			#showme {tintinplusplus says you are looting $loott};
-			#showme {tintinplusplus says to change this use loottype <item> or a for all}
+			#showme {you say you are looting $loott};
+			#showme {you say to change this use loottype <item> or a for all}
 		};
 		#case {2}
 		{
 			say looting is for group and that's good enough for me! say I am looting $loott;
-			#showme {tintinplusplus says to change this use loottype <item> or a for all}
+			#showme {you say to change this use loottype <item> or a for all}
 		}
 	}
 }
@@ -600,7 +619,7 @@
 	#if {"%1" != ""}
 	{
 		#format {btname} {%l} {%1};
-		#regexp {"$btname"} {{[1-9]}} {#if {&t[%1]}{#return $t[%1]};#else {#var {result} {self}}};
+		#regexp {"$btname"} {{(\d+) *}} {#if {&t[&2]}{#return $t[&2]};#else {#var {result} {self}}};
 		#else
 		{
 			#if {"$btname" == "me"}
@@ -674,6 +693,7 @@
 #TAB              {mixxillezissiy}
 #TAB              {nilebbeple}
 #TAB              {zenpegeble}
+#TAB 					{ulosa}
 #VARIABLE         {caller}  {0}
 #VARIABLE         {class}  {}
 #VARIABLE         {classcheck}  {0}
@@ -683,6 +703,7 @@
 #VARIABLE         {loott}  {all}
 #VARIABLE         {mapdir}  {}
 #VARIABLE         {mapname}  {}
+#VARIABLE         {me}  {}
 #VARIABLE         {race}  {}
 #VARIABLE         {speechon}  {0}
 #VARIABLE         {ttdir}  {}

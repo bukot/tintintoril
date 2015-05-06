@@ -43,8 +43,13 @@
 	#nop /*           stores the target information in array format           */;
 	#nop /*                                                                   */;
 }
-{5}
+{1}
 
+
+#act {{is too huge for you to trip! You go crashing to the ground.}$}
+{
+st
+}
 #ACTION {You stagger, and fall to your knees!}
 {
 	st

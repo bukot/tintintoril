@@ -8,17 +8,21 @@
 	#nop /*      a .tt file for each class and race must exist and it's name  */;
 	#nop /*           must be all lowercase.  substitute an "_" for spaces    */;
 	#nop /*                                                                   */;
-	#nop /*      {load} alias                                                 */;
-	#nop /*           from general.tt used to load the appropriate class and  */;
-	#nop /*           race files                                              */;
+	#nop /*      general.tt                                                   */;
+	#nop /*           alias {load}                                            */;
+	#nop /*                used to load the appropriate class and race files  */;
 	#nop /*                                                                   */;
-	#nop /*      {class} var                                                  */;
-	#nop /*           variable should be set in general.tt for proper         */;
-	#nop /*           containment and reset of variable                       */;
+	#nop /*           alias {setme}                                           */;
+	#nop /*                used to set the value of the current character     */;
+	#nop /*                from the results of score                          */;
 	#nop /*                                                                   */;
-	#nop /*      {race} var                                                   */;
-	#nop /*           variable should be set in general.tt for proper         */;
-	#nop /*           containment and reset of variable                       */;
+	#nop /*           var {class}                                             */;
+	#nop /*                variable should be set in general.tt for proper    */;
+	#nop /*                containment and reset of variable                  */;
+	#nop /*                                                                   */;
+	#nop /*           var {race}                                              */;
+	#nop /*                variable should be set in general.tt for proper    */;
+	#nop /*                containment and reset of variable                  */;
 	#nop /*                                                                   */;
 	#nop /* variables set by class                                            */
 }

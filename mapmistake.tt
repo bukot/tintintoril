@@ -21,7 +21,7 @@
 
 #ACTION {Alas, you cannot go that way. . . .}
 {
-	#if {$mapstatic == 0}
+	#if {!$mapstatic}
 	{
 		mundo
 	}
@@ -58,7 +58,7 @@
 
 #ACTION {Stepping off %* at this height might not be such a good idea.}
 {
-	#if {$mapstatic == 0}
+	#if {!$mapstatic}
 	{
 		mundo
 	}
