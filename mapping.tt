@@ -24,7 +24,7 @@
 	#nop /*                                                                   */;
 	#nop /*                                                                   */;
 	#nop /* aliases and usage                                                 */;
-	#nop /*      {disembark}                                                  */;
+	#nop /*      disembark                                                    */;
 	#nop /*           exits the map and activates mapport.tt so that we don't */;
 	#nop /*           have to do fancy matching and map tricks to get to the  */;
 	#nop /*           right room after a ship voyage.  does require that all  */;
@@ -32,118 +32,130 @@
 	#nop /*           will pause until we enter a listed room just like       */;
 	#nop /*           teleporting.                                            */;
 	#nop /*                                                                   */;
-	#nop /*      {en <hole|worm|rift|well|portal>}                            */;
+	#nop /*      en <hole|worm|rift|well|portal>                              */;
 	#nop /*           exits the map and activates mapport.tt so that we don't */;
 	#nop /*           mess up the map when we teleport.                       */;
 	#nop /*                                                                   */;
-	#nop /*      {jump <n|s|e|w|u|d>}                                         */;
+	#nop /*      jump <n|s|e|w|u|d>                                           */;
 	#nop /*           used to track movement in rooms where jump is a valid   */;
 	#nop /*           move method. full direction of the any abbreviation for */;
 	#nop /*           them are acceptable for the parameter                   */;
 	#nop /*                                                                   */;
-	#nop /*      {mavoid <room num/name>}                                     */;
+	#nop /*      mavoid <room num/name>                                       */;
 	#nop /*           sets the avoid flag in the map for the current room, or */;
 	#nop /*           for the <room num/name> if specified.                   */;
 	#nop /*           useful for floor less rooms when using mrun to move.    */;
 	#nop /*                                                                   */;
-	#nop /*      {mcolor <rd|shop|inn|bank| >}                                */;
+	#nop /*      mcolor <rd|shop|inn|bank| >                                  */;
 	#nop /*           set the color of the room on the map.  leave the        */;
 	#nop /*           pramameter blank for normal white.                      */;
 	#nop /*                                                                   */;
-	#nop /*      {mdoor <n|s|e|w|u|d> <word>}                                 */;
+	#nop /*      mdoor <n|s|e|w|u|d> <word>                                   */;
 	#nop /*           creates a simple door on the map with attending command */;
 	#nop /*           to open it when moved through. is one directional and   */;
 	#nop /*           must be done on both sides of the door. direction can be*/;
 	#nop /*           full word or any abbreviation                           */;
 	#nop /*                                                                   */;
-	#nop /*      {mfind <note|name|nn> <string>}                              */;
+	#nop /*      mdrag set <drag string>                                      */;
+	#nop /*           sets the command that will be used when mdrag <dir> is  */;
+	#nop /*           used.                                                   */;
+	#nop /*                                                                   */;         
+	#nop /*      mdrag <dir>                                                  */;
+	#nop /*           allows the mapper to follow you when you are dragging.  */;
+	#nop /*           must use mdrag set first to work properly               */;
+	#nop /*                                                                   */;
+	#nop /*      mfind <note|name|nn> <string>                                */;
 	#nop /*           finds all the rooms where the string is at least part   */;
 	#nop /*           of the chosen field (nn for name and notes)             */;
 	#nop /*                                                                   */;
-	#nop /*      {mgoto <room name/num>}                                      */;
+	#nop /*      mgoto <room name/num>                                        */;
 	#nop /*           move the current room in the map to the room with the   */;
 	#nop /*           name that best matches the parameter supplied           */;
 	#nop /*                                                                   */;
-	#nop /*      {mhide <n|s|e|w|u|d>}                                        */;
+	#nop /*      mhide <n|s|e|w|u|d>                                          */;
 	#nop /*           hides the map on one side of an exit on the map.        */;
 	#nop /*           useful when rooms overlap severely and stretching won't */;
 	#nop /*           work. directions can be full word or any abbreviation.  */;
 	#nop /*                                                                   */;
-	#nop /*      {mmakeport <two word command> <room name/num>}               */;
+	#nop /*      mmakeport <two word command> <room name/num>                 */;
 	#nop /*           makes a map based portal linking one way between two    */;
 	#nop /*           rooms.  ie: mmakeport en crack 123                      */;
 	#nop /*                       mmakeport open 2.chest sminn                */;
 	#nop /*                                                                   */;
-	#nop /*      {mmove <exit>}                                               */;
+	#nop /*      mmove <exit>                                                 */;
 	#nop /*           shortcut to #map move <exit>.  exit can be any defined  */;
 	#nop /*           exit for the current room                               */;
 	#nop /*                                                                   */;
-	#nop /*      {mpath <room num>}                                           */;
+	#nop /*      mpath <room num>                                             */;
 	#nop /*           finds a room in the map and creates a visible trail on  */;
 	#nop /*           the display to follow by manually walking               */;
 	#nop /*                                                                   */;
-	#nop /*      {mportals <on|off>}                                          */;
+	#nop /*      mportals <on|off>                                            */;
 	#nop /*           make rooms with portals avoid rooms so that when people */;
 	#nop /*           are following you you don't scrape them off on a portal */;
 	#nop /*                                                                   */;
-	#nop /*      {mportloc <string>}                                          */;
+	#nop /*      mportloc <string>                                            */;
 	#nop /*           creates a simply entry in mapport.tt string must be the */;
 	#nop /*           room name of the room you want to match.                */;
 	#nop /*                                                                   */;
-	#nop /*      {mrun <room name/num>}                                       */;
+	#nop /*      mrun <room name/num>                                         */;
 	#nop /*           find the quickest path to the named room, turn off map  */;
 	#nop /*           writing to prevent lagging, and enter all move commands */;
 	#nop /*           needed to get from current loc to chosen room in map    */;
 	#nop /*                                                                   */;
-	#nop /*      {msave}                                                      */;
+	#nop /*      msave                                                        */;
 	#nop /*           saves the current map file to $mapname                  */;
 	#nop /*                                                                   */;
-	#nop /*      {mset <note|name> <string>}                                  */;
+	#nop /*      mset <note|name> <string>                                    */;
 	#nop /*           set the name/note field in the map for the current room */;
 	#nop /*           abbreviations are allowed with n being the shortest for */;
 	#nop /*           name, and no being the shortest for note                */;
 	#nop /*                                                                   */;
-	#nop /*      {mstatic <on|off>}                                           */;
+	#nop /*      mstatic <on|off>                                             */;
 	#nop /*           sets the map's static feature to control if walking     */;
 	#nop /*           will create, or link new rooms.                         */;
 	#nop /*                                                                   */;
-	#nop /*      {mstr <n|s|e|w|u|d>}                                         */;
+	#nop /*      mstr <n|s|e|w|u|d>                                           */;
 	#nop /*           insert a void room in the given direction to stretch    */;
 	#nop /*           the map for visual reasons.  parameter can be the full  */;
 	#nop /*           direction name all the way down to the letters shown    */;
 	#nop /*                                                                   */;
-	#nop /*      {mundo}                                                      */;
+	#nop /*      mundo                                                        */;
 	#nop /*           undoes the last map move/addition.  as far as I can     */;
 	#nop /*           tell deletions can't be undone.                         */;
 	#nop /*                                                                   */;
-	#nop /*      {mupdate}                                                    */;
+	#nop /*      mupdate                                                      */;
 	#nop /*           Updates the file being used as output to display the    */;
 	#nop /*           map using tail.                                         */;
 	#nop /*                                                                   */;
-	#nop /*      {unloadmap <n>}                                              */;
+	#nop /*      unloadmap <n>                                                */;
 	#nop /*           unloads the map and all the mapping classes. if n is    */;
 	#nop /*           specified it does not save it first.  if omitted the    */;
 	#nop /*           map is saved first                                      */;
 	#nop /*                                                                   */;
 	#nop /*                                                                   */;
 	#nop /* variables set by class                                            */;
-	#nop /*      {backflee}                                                   */;
+	#nop /*      backflee                                                     */;
 	#nop /*           used to store the last direction fled or escaped in     */;
 	#nop /*                                                                   */;
-	#nop /*      {mapcount}                                                   */;
+	#nop /*      mapcount                                                     */;
 	#nop /*           used to count moves made for save timing                */;
 	#nop /*                                                                   */;
-	#nop /*      {mapcountmax}                                                */;
+	#nop /*      mapcountmax                                                  */;
 	#nop /*           number to count to with mapcount                        */;
 	#nop /*                                                                   */;
-	#nop /*      {mapdispdims}                                                */;
+	#nop /*      mapdispdims                                                  */;
 	#nop /*           <width>x<height> of the map to output to file to tail   */;
 	#nop /*                                                                   */;
-	#nop /*      {mapsave}                                                    */;
+	#nop /*      mapdrag                                                      */;
+	#nop /*           used to hold the drag string for mdrag is set by        */;
+	#nop /*           mdrag set.                                              */;
+	#nop /*                                                                   */;
+	#nop /*      mapsave                                                      */;
 	#nop /*           used internally to determine if map file should be      */;
 	#nop /*           written every mapcountmax moves or is writing paused    */;
 	#nop /*                                                                   */;
-	#nop /*      {mapstatic}                                                  */;
+	#nop /*      mapstatic                                                    */;
 	#nop /*           used to track the status of the state of the static     */;
 	#nop /*           flag for the mapper                                     */;
 	#nop /*                                                                   */
@@ -262,10 +274,27 @@
 }
 {5}
 
-#ALIAS {%i{mdoor (n(?:o(?:r(?:th?)?)?)?|s(?:o(?:u(?:th?)?)?)?|e(?:a(?:st?)?)?|w(?:e(?:st?)?)?|up?|d(?:o(?:wn?)?)?)} %w}
+#ALIAS {%i{mdoor ((?:\w+ (?:[0-9]{0,2}\.)?\w*)|n(?:o(?:r(?:th?)?)?)?|s(?:o(?:u(?:th?)?)?)?|e(?:a(?:st?)?)?|w(?:e(?:st?)?)?|up?|d(?:o(?:wn?)?)?)} %w}
 {
 	#map dig %2;
 	#map exit %2 command {open %3 %2;%2}
+}
+{5}
+
+#ALIAS {%i{mdrag ((?:\w+ (?:[0-9]{0,2}\.)?\w*)|n(?:o(?:r(?:th?)?)?)?|s(?:o(?:u(?:th?)?)?)?|e(?:a(?:st?)?)?|w(?:e(?:st?)?)?|up?|d(?:o(?:wn?)?)?)$}}
+{
+	mmove %2;
+	drag $mapdrag %2
+}
+{5}
+
+#ALIAS {%i{mdrag ?set (.*)}}
+{
+	#regexp {%1} {^c(?:l(?:e(?:ar?)?)?)?$} {#var {mapdrag} {}};
+	#else
+	{
+		#variable {mapdrag} {%1}
+	}
 }
 {5}
 
@@ -460,6 +489,7 @@
 #VARIABLE         {mapcount}  {0}
 #VARIABLE         {mapcountmax}  {30}
 #VARIABLE         {mapdispdims}  {110x24}
+#VARIABLE         {mapdrag}  {}
 #VARIABLE         {mapping}  {1}
 #VARIABLE         {mapsave}  {1}
 #VARIABLE         {mapstatic}  {}

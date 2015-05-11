@@ -31,9 +31,10 @@
 
 #ACTION {Score information for %w}
 {
-	format {name} {%l} {%1};
+	#format {name} {%l} {%1};
 	setme $name;
-	load {$name}
+	load $name;
+	#unvar name
 }
 {5}
 

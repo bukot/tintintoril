@@ -11,6 +11,17 @@ and there are refrences to files and methods that don't exist yet.
 As those files are made stable they will appear here.
 <pre>
 recent changes
+2015-05-11
+               in mapping.tt
+                    added alias <mdrag> to allow the map to follow you when you
+                    are dragging corpses.  released in a partial push
+                    
+                    changed <mdrag> to work with a stored string for easier drags
+                    
+                    added <mdrag set> to create the string used by mdrag.  for now
+                    enter the string as drag targ for singles or 
+                    drag targ drag targ... for chain dragging.
+
 2015-05-06
                in mapmistake.tt
                     adapted wall error triggers to not undo when map is in static

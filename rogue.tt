@@ -48,6 +48,7 @@
 
 #ACTION {{As your poison takes effect, (.*?) appears to go blind!}}
 {
+	#showme {you say %2 is poison blind!};
 	gsay %2 is poison blind!
 }
 {5}
