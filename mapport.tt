@@ -138,6 +138,12 @@
 }
 {5}
 
+#ACTION {^At Bowshot Ride and Ghostwalk{(?: \(Shadowed\))?}}
+{
+	portto 42
+}
+{5}
+
 #ACTION {^At Moonway and Ghostwalk{(?: \(Shadowed\))?}}
 {
 	portto 20

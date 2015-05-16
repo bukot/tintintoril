@@ -23,12 +23,17 @@
 }
 {1}
 
-#ACTION {%i{(?:agrow sends .* sprawling with a powerful bash.)|(is sent sprawling)}}
+#ACTION {%i{(?:tezzan sends .* sprawling with a powerful bash.)|(is sent sprawling)}}
 {
 	#echo {***cir***};
 	cir
 }
 {5}
+
+#actio {Your disguise falls apart!}
+{
+	#showme you say disguise is out!!
+}
 
 #ACTION {{.* does a nifty move, flipping you onto your back!}}
 {
@@ -36,6 +41,18 @@
 	#if {$autogar}
 	{
 		gar $enemy
+	}
+}
+{5}
+
+#ACTION {{(?:.+ clambers? to \w+ feet)|(?:A .+ rises to \w+ feet.)}}
+{
+	#if {&roguetrip}
+	{
+		#if {$roguetrip}
+		{
+			trip
+		}
 	}
 }
 {5}
@@ -50,6 +67,12 @@
 {
 	#showme {you say %2 is poison blind!};
 	gsay %2 is poison blind!
+}
+{5}
+
+#ACTION {{You manage to, with complete incompetence, throw yourself head first directly into the ground!}}
+{
+	st
 }
 {5}
 
@@ -142,6 +165,19 @@
 }
 {5}
 
+#ALIAS {{autotrip (on|off)}}
+{
+	#if {"%2" == "on"}
+	{
+		#variable {roguetrip} {1}
+	};
+	#else
+	{
+		#variable {roguetrip} {0}
+	}
+}
+{5}
+
 #MACRO {\eOP}
 {
 	say Ches
@@ -150,5 +186,6 @@
 #VARIABLE         {autogar}  {0}
 #VARIABLE         {lastpoison}  {}
 #VARIABLE         {rogue}  {1}
+#VARIABLE         {roguetrip}  {0}
 
 #CLASS {rogue} CLOSE

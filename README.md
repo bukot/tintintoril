@@ -11,17 +11,27 @@ and there are refrences to files and methods that don't exist yet.
 As those files are made stable they will appear here.
 <pre>
 recent changes
+               in mapping.tt
+                    &lt;mdrag set&gt; now accepts only accepts a comma seperated list of
+                    items to be dragged.
+                    
+                    fixed bugs with drag and escape following
+
+
+----------------------------------------------------------------------------------
 2015-05-11
                in mapping.tt
-                    added alias <mdrag> to allow the map to follow you when you
+                    added alias &lt;mdrag&gt; to allow the map to follow you when you
                     are dragging corpses.  released in a partial push
                     
-                    changed <mdrag> to work with a stored string for easier drags
+                    changed &lt;mdrag&gt; to work with a stored string for easier drags
                     
-                    added <mdrag set> to create the string used by mdrag.  for now
+                    added &lt;mdrag set&gt; to create the string used by mdrag.  for now
                     enter the string as drag targ for singles or 
                     drag targ drag targ... for chain dragging.
 
+
+----------------------------------------------------------------------------------
 2015-05-06
                in mapmistake.tt
                     adapted wall error triggers to not undo when map is in static
@@ -39,7 +49,7 @@ recent changes
                     mavoid will now accept an optional room num or name
                
                in general.tt
-                    minor change to {logon <string>} to prevent erroneous sends to
+                    minor change to {logon &lt;string&gt;} to prevent erroneous sends to
                     the mud
                     
                     fixed chat trigger to catch a red shape messages correctly
@@ -72,9 +82,9 @@ recent changes
                     
                     made map go to static mode on load by default
                     
-                    added loottype <word> <a> to get all or coins, or what ever
-                    you want to specify.  <a> is optional and will get all.<word>
-                    if omitted will just get <word> or 1.<word>
+                    added loottype &lt;word&gt; &lt;a&gt; to get all or coins, or what ever
+                    you want to specify.  &lt;a&gt; is optional and will get all.&lt;word&gt;
+                    if omitted will just get &lt;word&gt; or 1.&lt;word&gt;
                     
                     tloot now reports looter to mud and locally tells you what
                     you are looting
@@ -84,11 +94,11 @@ recent changes
                     aliases
                     
                in combat.tt
-                    revamped alias t<digit> for targeting to work better and
+                    revamped alias t&lt;digit&gt; for targeting to work better and
                     report via local says
 
                in rogue.tt
-                    changed app alias to app <wep> <poison> if poison is
+                    changed app alias to app &lt;wep&gt; &lt;poison&gt; if poison is
                     omitted it will default to the last poison used.  if no other
                     poison was used previously throws an error.
                     
@@ -106,7 +116,7 @@ recent changes
                     changed mapupdate to mupdate to normalize commands contained
                     in this file
                     
-                    added mstatic <on|off> alias to prevent some mapping mishaps
+                    added mstatic &lt;on|off&gt; alias to prevent some mapping mishaps
                     have not worked on mapmistake.tt to take static mode into 
                     account yet.  use static mode with caution!
                     

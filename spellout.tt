@@ -1,5 +1,11 @@
 #CLASS {spellout} OPEN
 
+#ACTION {Animals find you appetizing again.}
+{
+	repout The hamsters are coming to get me! pf animals
+}
+{5}
+
 #ACTION {You are exhausted as your adrenaline level returns to normal.}
 {
 	repout adrenalize~~psionicist
@@ -18,15 +24,15 @@
 }
 {5}
 
-#ACTION {You stop floating.}
-{
-	repout lev~~psionicist
-}
-{5}
-
 #ACTION {You no longer feel able to protect yourself from hostile environments.}
 {
 	repout body control~~psionicist
+}
+{5}
+
+#ACTION {You stop floating.}
+{
+	repout lev~~psionicist
 }
 {5}
 
@@ -201,22 +207,9 @@
 	#nop /*	provide clarity for editing and reading.							*/;
 	#nop /*	var class needs to be set for each character best practice 	*/;
 	#nop /*	would be to use the classset.tt and the class var from    	*/;
-	#nop /*  general.tt
-	#nop;
+	#nop /*  general.tt #nop;
 	#variable {outspell} {%1};
-	#regexp {$outspell} {{(.*)~~(.*)}} 
-	{
-		#variable classes {&3};
-		#regexp {&3} {$class}
-		{
-			#nop
-		};
-		#else
-		{
-			gsay &2 out!
-		};
-		#variable outspell {&2}
-	};
+	#regexp {$outspell} {{(.*)~~(.*)}} {#variable classes {&3};#regexp {&3} {$class}{#nop};#else {gsay &2 out!};#variable outspell {&2}};
 	#else
 	{
 		gsay $outspell out!

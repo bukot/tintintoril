@@ -58,7 +58,8 @@
 	#nop /*                                                                   */;
 	#nop /*      mdrag set <drag string>                                      */;
 	#nop /*           sets the command that will be used when mdrag <dir> is  */;
-	#nop /*           used.                                                   */;
+	#nop /*           used. <drag string> should be a comma sep list of items */;
+	#nop /*           to drag                                                 */;
 	#nop /*                                                                   */;         
 	#nop /*      mdrag <dir>                                                  */;
 	#nop /*           allows the mapper to follow you when you are dragging.  */;
@@ -281,22 +282,36 @@
 }
 {5}
 
-#ALIAS {%i{mdrag ((?:\w+ (?:[0-9]{0,2}\.)?\w*)|n(?:o(?:r(?:th?)?)?)?|s(?:o(?:u(?:th?)?)?)?|e(?:a(?:st?)?)?|w(?:e(?:st?)?)?|up?|d(?:o(?:wn?)?)?)$}}
+#ALIAS {%i{mdrag ((?:\w+ (?:[0-9]{0,2}\.)?\w*)|n(?:o(?:r(?:th?)?)?)?|s(?:o(?:u(?:th?)?)?)?|e(?:a(?:st?)?)?|w(?:e(?:st?)?)?|up?|d(?:o(?:wn?)?)?)}$}
 {
 	mmove %2;
 	$mapdrag %2
 }
 {5}
 
-#ALIAS {%i{mdrag ?set (.*)}}
+#ALIAS {%i{mdrag set (.*)}}
 {
 	#regexp {%2} {^c(?:l(?:e(?:ar?)?)?)?$} {#var {mapdrag} {}};
 	#else
 	{
-		#variable {mapdrag} {%2}
+		#var {mapdrag} {};
+		#var {mapdragholder} {%2};
+		#replace {mapdragholder} {,} {;};
+		#foreach {$mapdragholder} {i}
+		{
+			#if {"$mapdrag" != ""}
+			{
+				#var {mapdrag} {$mapdrag drag $i}
+			};
+			#else
+			{
+				#var {mapdrag} {drag $i}
+			};
+			#unvar mapdragholder
+		}
 	}
 }
-{5}
+{4}
 
 #ALIAS {%i{mfind  ?(no(?:te?)?|n(?:a(?:m(?:e)?)?)?|nn) (.*)}}
 {
