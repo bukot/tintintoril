@@ -29,6 +29,18 @@
 }
 {5}
 
+#ACTION {^A Chamber of Execution in Zhentil Keep{(?: \(Shadowed\))?}}
+{
+	portto 19893
+}
+{5}
+
+#ACTION {^A Damp Tunnel Under a Huge Fallen Tree.{(?: \(Shadowed\))?}}
+{
+	portto 20821
+}
+{5}
+
 #ACTION {^A Dark and Dreary Shop{(?: \(Shadowed\))?}}
 {
 	portto 14925
@@ -62,6 +74,12 @@
 #ACTION {^A Guard Post in the Underdark Bazaar{(?: \(Shadowed\))?}}
 {
 	portto 13249
+}
+{5}
+
+#ACTION {^A Magnificent Courtyard{(?: \(Shadowed\))?}}
+{
+	portto 19747
 }
 {5}
 
@@ -138,6 +156,12 @@
 }
 {5}
 
+#ACTION {^Arcane-Blade Intersection{(?: \(Shadowed\))?}}
+{
+	portto 19724
+}
+{5}
+
 #ACTION {^At Bowshot Ride and Ghostwalk{(?: \(Shadowed\))?}}
 {
 	portto 42
@@ -147,6 +171,18 @@
 #ACTION {^At Moonway and Ghostwalk{(?: \(Shadowed\))?}}
 {
 	portto 20
+}
+{5}
+
+#ACTION {^At Sunset Lane and Highaxe Lane{(?: \(Shadowed\))?}}
+{
+	portto 219
+}
+{5}
+
+#ACTION {^At Sunset Lane and Rallowglass Ride{(?: \(Shadowed\))?}}
+{
+	portto 53
 }
 {5}
 
@@ -210,6 +246,12 @@
 }
 {5}
 
+#ACTION {^Below a Massively Vaulted Dome Ceiling{(?: \(Shadowed\))?}}
+{
+	portto 64
+}
+{5}
+
 #ACTION {^Bend around a Huge Boulder{(?: \(Shadowed\))?}}
 {
 	portto 6422
@@ -255,6 +297,12 @@
 #ACTION {^Gemstars{(?: \(Shadowed\))?}}
 {
 	portto 14798
+}
+{5}
+
+#ACTION {^Guild of Assassins{(?: \(Shadowed\))?}}
+{
+	portto 19909
 }
 {5}
 
@@ -351,6 +399,12 @@
 }
 {5}
 
+#ACTION {^Outside the Gates of Ghore{(?: \(Shadowed\))?}}
+{
+	portto 14951
+}
+{5}
+
 #ACTION {^Outside the Southern Gates of Bryn Shander{(?: \(Shadowed\))?}}
 {
 	portto 5149
@@ -381,6 +435,12 @@
 }
 {5}
 
+#ACTION {^The Aft Deck of the Spirit Raven{(?: \(Shadowed\))?}}
+{
+	portto 6161
+}
+{5}
+
 #ACTION {^The Black Dragon Gate{(?: \(Shadowed\))?}}
 {
 	portto 6447
@@ -402,6 +462,18 @@
 #ACTION {^The City Gates of the City of Beluir{(?: \(Shadowed\))?}}
 {
 	portto 10933
+}
+{5}
+
+#ACTION {^The Courtyard of Our Lord{(?: \(Shadowed\))?}}
+{
+	portto 19756
+}
+{5}
+
+#ACTION {^The Dark Courtyard{(?: \(Shadowed\))?}}
+{
+	portto 19891
 }
 {5}
 
@@ -503,6 +575,12 @@
 }
 {5}
 
+#ACTION {^The Main Deck Of The Captain's Cutlass{(?: \(Shadowed\))?}}
+{
+	portto 19416
+}
+{5}
+
 #ACTION {^The Main Road Through Southern Westwall{(?: \(Shadowed\))?}}
 {
 	#class trans open;
@@ -558,6 +636,18 @@
 #ACTION {^The Registration Desk of the Caravansary{(?: \(Shadowed\))?}}
 {
 	portto 13244
+}
+{5}
+
+#ACTION {^The Requiem{(?: \(Shadowed\))?}}
+{
+	portto 19449
+}
+{5}
+
+#ACTION {^The Roaring Dragon Inn{(?: \(Shadowed\))?}}
+{
+	portto 19829
 }
 {5}
 
@@ -680,6 +770,12 @@
 #ACTION {^Within Silverglen{(?: \(Shadowed\))?}}
 {
 	portto 562
+}
+{5}
+
+#ACTION {^cleric{(?: \(Shadowed\))?}}
+{
+	portto 64
 }
 {5}
 
