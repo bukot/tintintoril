@@ -12,13 +12,13 @@ As those files are made stable they will appear here.
 <pre>
 2015-08-27
                in mapping.tt
-                    {mdrag set} now accepts only accepts a comma seperated list of
-                    items to be dragged.
+                    {mdrag set} now accepts only a comma seperated list of items
+                    to be dragged.
                     
                     fixed bugs with drag and escape following
                     
-                    added alias for .<speedwalkdirs>  it will only process simple
-                    dirs nwseup and numbers for counts.  the map will follow along
+                    added alias for .(speedwalkdirs)  it will only process simple
+                    dirs newsud and numbers for counts.  the map will follow along
                     with the speedwalk. ie: .2nuses3d would send n;n;u;s;e;s;d;d;d
 
 
