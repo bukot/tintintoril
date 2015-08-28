@@ -241,6 +241,12 @@
 }
 {5}
 
+#ACTION {^At Blacklar Street and Auchtareen Lane{(?: \(Shadowed\))?}}
+{
+	portto 583
+}
+{5}
+
 #ACTION {^At Bowshot Ride and Ghostwalk{(?: \(Shadowed\))?}}
 {
 	portto 42
