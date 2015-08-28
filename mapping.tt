@@ -46,7 +46,7 @@
 	#nop /*           for the <room num/name> if specified.                   */;
 	#nop /*           useful for floor less rooms when using mrun to move.    */;
 	#nop /*                                                                   */;
-	#nop /*      mcolor <rd|shop|inn|bank| >                                  */;
+	#nop /*      mcolor <rd|shop|inn|bank|water>                              */;
 	#nop /*           set the color of the room on the map.  leave the        */;
 	#nop /*           pramameter blank for normal white.                      */;
 	#nop /*                                                                   */;
@@ -60,7 +60,7 @@
 	#nop /*           sets the command that will be used when mdrag <dir> is  */;
 	#nop /*           used. <drag string> should be a comma sep list of items */;
 	#nop /*           to drag                                                 */;
-	#nop /*                                                                   */;         
+	#nop /*                                                                   */;
 	#nop /*      mdrag <dir>                                                  */;
 	#nop /*           allows the mapper to follow you when you are dragging.  */;
 	#nop /*           must use mdrag set first to work properly               */;
@@ -163,6 +163,14 @@
 }
 {1}
 
+#ACTION {%i{You (?:escape|flee) ([nsewud])(?:or?u?th|e?a?st|p|own)ward!}}
+{
+	#nop /* makes sure we keep the map updated when running from a fight      /*;
+	#map move %2;
+	#variable backflee %2
+}
+{5}
+
 #ACTION {Suddenly the darkness falls revealing different surroundings.}
 {
 	#nop /*	this is the trigger for shifting to activate mapport             /*;
@@ -186,20 +194,53 @@
 }
 {5}
 
-#ACTION {{You (?:escape|flee) ([nNsSeEwWuUdD]?)\w*!}}
-{
-	#nop /* makes sure we keep the map updated when running from a fight      /*;
-	#map move %2;
-	#variable backflee %2
-}
-{5}
-
 #ACTION {{You follow \w* ([nNsSeEwWuUdD])\w*}}
 {
 	#nop /* makes sure we keep the map updated when following someone         /*;
 	#map move %2
 }
 {5}
+
+#ALIAS {.{[newsudNEWSUD0-9]+}}
+{
+	#variable {isdig} {0};
+	#variable {movestr} {};
+	#parse {%1} {thischar}
+	{
+		#regexp {$thischar} {{[0-9]}} {#if {$isdig}{#var {movestr}{$movestr$thischar}}{#var {movestr} {$movestr;#$thischar};#var {isdig} {1}}};
+		#regexp {$thischar} {{[newsudNEWSUD]}} {#if {$isdig}{#var {movestr} {$movestr $thischar};#var {isdig} {0}}{#var {movestr} {$movestr;$thischar}}}
+	};
+	#showme {$movestr};
+	$movestr;
+	#unvariable {movestr};
+	#unvariable {thischar};
+	#unvariable {isdig}
+}
+{5}
+
+#ALIAS {%i{mdrag set (.*)}}
+{
+	#regexp {%2} {^c(?:l(?:e(?:ar?)?)?)?$} {#var {mapdrag} {}};
+	#else
+	{
+		#variable {mapdrag} {};
+		#variable {mapdragholder} {%2};
+		#replace {mapdragholder} {,} {;};
+		#foreach {$mapdragholder} {i}
+		{
+			#if {"$mapdrag" != ""}
+			{
+				#variable {mapdrag} {$mapdrag drag $i}
+			};
+			#else
+			{
+				#variable {mapdrag} {drag $i}
+			};
+			#unvariable mapdragholder
+		}
+	}
+}
+{4}
 
 #ALIAS {%i{disembark}}
 {
@@ -245,30 +286,7 @@
 {
 	#variable {roomtype} {@mlowercase{%2}};
 	#unvariable {result};
-	#switch {"$roomtype"}
-	{
-		#case {"rd"}
-		{
-			#variable {rmcolr} {230}
-		};
-		#case {"shop"}
-		{
-			#variable {rmcolr} {160}
-		};
-		#case {"inn"}
-		{
-			#variable {rmcolr} {150}
-		};
-		#case {"bank"}
-		{
-			#variable {rmcolr} {130}
-		};
-		#default
-		{
-			#variable {rmcolr} {170}
-		}
-	};
-	#map set roomcolor <$rmcolr>;
+	#map set roomcolor <$mcolor[$roomtype]>;
 	#unvariable rmcolr;
 	#unvariable roomtype;
 	mupdate
@@ -288,30 +306,6 @@
 	$mapdrag %2
 }
 {5}
-
-#ALIAS {%i{mdrag set (.*)}}
-{
-	#regexp {%2} {^c(?:l(?:e(?:ar?)?)?)?$} {#var {mapdrag} {}};
-	#else
-	{
-		#var {mapdrag} {};
-		#var {mapdragholder} {%2};
-		#replace {mapdragholder} {,} {;};
-		#foreach {$mapdragholder} {i}
-		{
-			#if {"$mapdrag" != ""}
-			{
-				#var {mapdrag} {$mapdrag drag $i}
-			};
-			#else
-			{
-				#var {mapdrag} {drag $i}
-			};
-			#unvar mapdragholder
-		}
-	}
-}
-{4}
 
 #ALIAS {%i{mfind  ?(no(?:te?)?|n(?:a(?:m(?:e)?)?)?|nn) (.*)}}
 {
@@ -360,7 +354,7 @@
 	#foreach {488;1069} {room}
 	{
 		#map at $room #MAP get roomflag lavoid;
-		#if {($lavoid && "%2" == "off") || ($lavoid == "0"  && "%2" == "on")}
+		#if {("$lavoid" == "1" && "%2" == "on") || ("$lavoid" == "0"  && "%2" == "off")}
 		{
 			#map at $room #MAP roomflag avoid
 		};
@@ -503,10 +497,11 @@
 #VARIABLE         {backflee}  {}
 #VARIABLE         {mapcount}  {0}
 #VARIABLE         {mapcountmax}  {30}
-#VARIABLE         {mapdispdims}  {110x24}
+#VARIABLE         {mapdispdims}  {145x32}
 #VARIABLE         {mapdrag}  {}
 #VARIABLE         {mapping}  {1}
 #VARIABLE         {mapsave}  {1}
 #VARIABLE         {mapstatic}  {}
+#VARIABLE         {mcolor}  {{bank}{130}{default}{170}{inn}{150}{rd}{230}{shop}{160}{water}{240}}
 
 #CLASS {mapping} CLOSE

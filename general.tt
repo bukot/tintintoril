@@ -72,6 +72,12 @@
 	#nop /*           parameter a is used to denote all.<target> if used      */;
 	#nop /*           if omitted it will default to 1.<target>                */;
 	#nop /*                                                                   */;
+	#nop /*      {questlog <on|off|cont>}                                     */;
+	#nop /*           start html logging to a file named quest for quest text */;
+	#nop /*           capture.  on clears the current content and starts.     */;
+	#nop /*           cont appends to the current content and starts.         */;
+	#nop /*           off stops logging.                                      */;
+	#nop /*                                                                   */;
 	#nop /*      {resetclass <word>}                                          */;
 	#nop /*           kills the class named <word>.tt and reloads it from     */;
 	#nop /*           disk.  depends on saveclass from same file              */;
@@ -118,7 +124,7 @@
 	#nop /*      {btarg}                                                      */;
 	#nop /*           expects no or one parameter.  will normalize a word to  */;
 	#nop /*           all lower case, substitute the value of the t<num> if a */;
-	#nop /*           number is supplied, of if absent substitute self as the */;
+	#nop /*           number is supplied, or if absent substitute self as the */;
 	#nop /*           result                                                  */;
 	#nop /*                                                                   */;
 	#nop /*                                                                   */;
@@ -188,7 +194,7 @@
 
 #ACTION {%* suddenly looks speechless!}
 {
-	gsay %1 is being weally weally quite (%1 silenced);
+	gsay %1 is being weally weally quiet (%1 silenced);
 	#showme $me says %1 is silenced;
 	#class silence kill
 }
@@ -200,9 +206,16 @@
 }
 {5}
 
+#ACTION {You feel informed:}
+{
+	#config log plain;
+	#log append id.txt;
+	#action {{^< (?:(\d+)h)?\/?(?:(\d+)H)? ?(?:(\d+)p)?\/?(?:(\d+)P)? ?(?:(\d+)v)?\/?(?:(\d+)V)? ?(.+)? }} {#log off;#config log raw;#unact {{^< (?:(\d+)h)?\/?(?:(\d+)H)? ?(?:(\d+)p)?\/?(?:(\d+)P)? ?(?:(\d+)v)?\/?(?:(\d+)V)? ?(.+)? }}}{1}
+}
+{5}
+
 #ACTION {You have learned something new about %*!}
 {
-	gsay %1 up!;
 	#showme {you say %1 up!}
 }
 {5}
@@ -245,7 +258,7 @@
 }
 {5}
 
-#ACTION {{< (?:(\d+)h)?\/?(?:(\d+)H)? ?(?:(\d+)p)?\/?(?:(\d+)P)? ?(?:(\d+)v)?\/?(?:(\d+)V)? ?(.+)? >}}
+#ACTION {{^< (?:(\d+)h)?\/?(?:(\d+)H)? ?(?:(\d+)p)?\/?(?:(\d+)P)? ?(?:(\d+)v)?\/?(?:(\d+)V)? ?(.+)? >}}
 {
 	#nop echo {:1: %1 :2: %2 :3: %3 :4: %4 :5: %5 :6: %6 :7: %7 :8: %8 :9: %9 :10: %10 :};
 	#variable {pextra} {%8};
@@ -277,19 +290,34 @@
 	#if {$classcheck}
 	{
 		score;
+		assoc chat nilebbeple;
 		#variable classcheck 0
 	};
-	#unvariable pextra
+	#if {$inventorygrab}
+	{
+		#variable inventorygrab 0;
+		killclass inventorygrab
+	};
+	#else
+	{
+		#unvariable pextra
+	}
 }
 {5}
 
-#ACTION {~%i{^((?:\x1B\[(?:;?\d{1,3})+(?:m|K))*(?:a red shape|\w+)(?:\x1B\[(?:;?\d{1,3})+(?:m|K))* (?:(?:\x1B\[(?:;?\d{1,3})+(?:m|K))*\(H\)(?:\x1B\[(?:;?\d{1,3})+(?:m|K))* )?(?:\x1B\[(?:;?\d{1,3})+(?:m|K))*(?:says?|tells?|group-says?|OOC|GCC|NHC|LFG|shouts?|(?:(?:group-)?projects? ')|(?:responds to your petition)|(?:responds to your group)).*)}}
+#ACTION {{a nereid focuses her attention upon (.*), mucus seperating from her body}}
+{
+	#showme you say %2 charmed
+}
+{5}
+
+#ACTION {~%i{^((?:\x1B\[(?:;?\d{1,3})+(?:m|K))*(?:a red shape|\w+)(?:\x1B\[(?:;?\d{1,3})+(?:m|K))* (?:(?:\x1B\[(?:;?\d{1,3})+(?:m|K))*\(H\)(?:\x1B\[(?:;?\d{1,3})+(?:m|K))* )?(?:\x1B\[(?:;?\d{1,3})+(?:m|K))*(?:says?|tells?|ASSOC::?|group-says?|OOC|GCC|NHC|LFG|shouts?|(?:(?:group-)?projects? ')|(?:responds to your petition)|(?:responds to your group)).*)}}
 {
 	#nop /* the following regex willperform the same match without capturing  */;
 	#nop /* ansi substitute the following for everything between {} in the    */;
 	#nop /* action line above                                                 */;
-	#nop /* %i{^(\w+ (?:\(H\) )?(?:says?|tells?|group-says?|OOC|GCC|NHC|LFG|shouts?|(?:(?:group-)?projects? ')|(?:responds to your petition)|(?:responds to your group)).*)} */;
-	#format timestamp {%t} {{%H:%M:%S}};
+	#nop /* %i{^(\w+ (?:\(H\) )?(?:says?|tells?|ASSOC::?|group-says?|OOC|GCC|NHC|LFG|shouts?|(?:(?:group-)?projects? ')|(?:responds to your petition)|(?:responds to your group)).*)} */;
+	#format timestamp {%t} {{%m-%d-%y %H:%M:%S}};
 	#line log chatlog.txt {%0 :: $timestamp};
 	#unvariable timestamp;
 	#variable {saytxt} {%1};
@@ -452,6 +480,44 @@
 }
 {5}
 
+#ALIAS {%i{oepn .*}}
+{
+	open %2
+}
+{5}
+
+#ALIAS {%i{opne .*}}
+{
+	open %2
+}
+{5}
+
+#ALIAS {%i{questlog (on|cont|off)}}
+{
+	#if {"%2" == "on"}
+	{
+		#showme {you say quest logging is now on};
+		#config log html;
+		#log overwrite quest
+	};
+	#else
+	{
+		#if {"%2" == "cont"}
+		{
+			#showme {you say quest logging is now continuing};
+			#config log html;
+			#log append quest
+		};
+		#else
+		{
+			#showme {you say quest logging is now off};
+			#log off;
+			#config log raw
+		}
+	}
+}
+{5}
+
 #ALIAS {%i{resetclass (\w+)}}
 {
 	#class %2 kill;
@@ -470,6 +536,13 @@
 #ALIAS {%i{setme (\w+)}}
 {
 	#format {me} {%l} {%2}
+}
+{5}
+
+#ALIAS {%i{speechoff}}
+{
+	#speech #zap;
+	#unvariable speechon
 }
 {5}
 
@@ -516,11 +589,11 @@
 	{
 		#case {0}
 		{
-			say looting is off
+			#showme {you say looting is off}
 		};
 		#case {1}
 		{
-			say looting is on;
+			#showme {you say say looting is on};
 			#showme {you say you are looting $loott};
 			#showme {you say to change this use loottype <item> or a for all}
 		};
@@ -576,25 +649,6 @@
 }
 {5}
 
-#ALIAS {oepn}
-{
-	open
-}
-{5}
-
-#ALIAS {opne}
-{
-	open
-}
-{5}
-
-#ALIAS {speechoff}
-{
-	#speech #zap;
-	#unvariable speechon
-}
-{5}
-
 #EVENT {PROGRAM START}
 {
 	#split
@@ -602,6 +656,7 @@
 
 #EVENT {SESSION CONNECTED}
 {
+	load inventorylist;
 	load combat;
 	load spellout;
 	load statwin
@@ -693,8 +748,8 @@
 #TAB              {lilithelle}
 #TAB              {mixxillezissiy}
 #TAB              {nilebbeple}
+#TAB              {ulosa}
 #TAB              {zenpegeble}
-#TAB 					{ulosa}
 #VARIABLE         {caller}  {0}
 #VARIABLE         {class}  {}
 #VARIABLE         {classcheck}  {0}
