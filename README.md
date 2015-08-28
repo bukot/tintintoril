@@ -10,12 +10,16 @@ this is still a beta build.  Many changes may happen sporadically,
 and there are refrences to files and methods that don't exist yet.
 As those files are made stable they will appear here.
 <pre>
-recent changes
+2015-08-27
                in mapping.tt
                     {mdrag set} now accepts only accepts a comma seperated list of
                     items to be dragged.
                     
                     fixed bugs with drag and escape following
+                    
+                    added alias for .<speedwalkdirs>  it will only process simple
+                    dirs nwseup and numbers for counts.  the map will follow along
+                    with the speedwalk. ie: .2nuses3d would send n;n;u;s;e;s;d;d;d
 
 
 ----------------------------------------------------------------------------------
