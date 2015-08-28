@@ -1,307 +1,36 @@
 #CLASS {psionicist} OPEN
 
+#alias {{autotrans (on|off)}}
+{
+	#switch {"%2"}
+	{
+		#case {"on"}
+		{
+			#var psiautotrans {1}
+		};
+		#default
+		{
+			#var psiautotrans {0}
+		}
+	};
+	#if {$psiautotrans}
+	{#showme {you say auto transport is on!};
+	};
+	#else
+	{
+		#showme {you say auto transport is off!};
+	}
+}
+
 #ALIAS {adr}
 {
 	adre me
 }
 {5}
 
-#ALIAS {bbtick}
-{
-	#math {timing} {$timing + 4}
-}
-{5}
-
 #ALIAS {bc}
 {
 	bodyc me
-}
-{5}
-
-#ALIAS {boybbop}
-{
-	#variable {timing} {4};
-	o followers emote harmonizes 'Oh oh oh oh oh';
-	bbtick;
-	#delay {$timing} {o followers emote sings off key 'Yeah'};
-	bbtick;
-	#delay {$timing} {o boy emote sings 'You have so many relationships in this life'};
-	bbtick;
-	#delay {$timing} {o 2.boy emote sings 'Only one or two will last'};
-	bbtick;
-	#delay {$timing} {o boy emote sings 'You go through all the pain and strife'};
-	bbtick;
-	#delay {$timing} {o 2.boy emote sings 'Then you turn your back and they're gone so fast'};
-	bbtick;
-	#delay {$timing} {o boy emote sings 'Oh yeah'};
-	bbtick;
-	#delay {$timing} {o 2.boy emote sings 'And they're gone so fast, yeah'};
-	bbtick;
-	#delay {$timing} {o boy emote sings 'Oh'};
-	bbtick;
-	#delay {$timing} {o 2.boy emote sings 'So hold on the ones who really care'};
-	bbtick;
-	#delay {$timing} {o boy emote sings 'In the end they'll be the only ones there'};
-	bbtick;
-	#delay {$timing} {o 2.boy emote sings 'And when you get old and start losing your hair'};
-	bbtick;
-	#delay {$timing} {o boy emote sings 'Tell me who will still care'};
-	bbtick;
-	#delay {$timing} {o 2.boy emote sings 'Can you tell me who will still care?'};
-	bbtick;
-	#delay {$timing} {o boy emote sings 'Oh care'};
-	bbtick;
-	#delay {$timing} {o followers emote harmonizes 'Mmmbop, ba duba dop';emote looks uncomfortable.};
-	bbtick;
-	#delay {$timing} {o followers emote harmonizes 'Ba du bop, ba duba dop'};
-	bbtick;
-	#delay {$timing} {o followers emote harmonizes 'Ba du bop, ba duba dop'};
-	bbtick;
-	#delay {$timing} {o followers emote harmonizes 'Ba du'};
-	bbtick;
-	#delay {$timing} {o followers emote harmonizes 'Yeah';emote holds the sides of his head as if in pain.};
-	bbtick;
-	#delay {$timing} {o followers emote harmonizes 'Mmmbop, ba duba dop'};
-	bbtick;
-	#delay {$timing} {o followers emote harmonizes 'Ba du bop, Ba du dop'};
-	bbtick;
-	#delay {$timing} {o followers emote harmonizes 'Ba du bop, Ba du dop'};
-	bbtick;
-	#delay {$timing} {o followers emote harmonizes 'Ba du'};
-	bbtick;
-	#delay {$timing} {o followers emote harmonizes 'Yeah'};
-	bbtick;
-	#delay {$timing} {o followers emote harmonizes 'Oh yeah'};
-	bbtick;
-	#delay {$timing} {o followers emote harmonizes 'In an Mmmbop they're gone'};
-	bbtick;
-	#delay {$timing} {o followers emote harmonizes 'Yeah yeah';emote seems to be having trouble, but is struggling to exert it's self.};
-	bbtick;
-	#delay {$timing} {o followers emote harmonizes 'Plant a seed, plant a flower, plant a rose'};
-	bbtick;
-	#delay {$timing} {o followers emote harmonizes 'You can plant any one of those'};
-	bbtick;
-	#delay {$timing} {o followers emote harmonizes 'Keep planting to find out which one grows'};
-	bbtick;
-	#delay {$timing} {o followers emote harmonizes 'It's a secret no one knows'};
-	bbtick;
-	#delay {$timing} {o followers emote harmonizes 'It's a secret no one knows'};
-	bbtick;
-	#delay {$timing} {o followers emote harmonizes 'Oh, no one knows'};
-	bbtick;
-	#delay {$timing} {o followers emote harmonizes 'Mmmbop, ba duba dop'};
-	bbtick;
-	#delay {$timing} {o followers emote harmonizes 'Ba du bop, ba duba dop'};
-	bbtick;
-	#delay {$timing} {o followers emote harmonizes 'Ba du bop, ba duba dop'};
-	bbtick;
-	#delay {$timing} {o followers emote harmonizes 'Ba du, yeah'};
-	bbtick;
-	#delay {$timing} {o followers emote harmonizes 'Mmmbop, ba duba dop'};
-	bbtick;
-	#delay {$timing} {o followers emote harmonizes 'Ba du bop, Ba du dop'};
-	bbtick;
-	#delay {$timing} {o followers emote harmonizes 'Ba du bop, Ba du dop'};
-	bbtick;
-	#delay {$timing} {o followers emote harmonizes 'Ba du, yeah'};
-	bbtick;
-	#delay {$timing} {o followers emote harmonizes 'Oh'};
-	bbtick;
-	#delay {$timing} {o followers emote harmonizes 'Yeah oh'};
-	bbtick;
-	#delay {$timing} {o followers emote harmonizes 'In an mmm bop they're gone'};
-	bbtick;
-	#delay {$timing} {o followers emote harmonizes 'Oh yeah oh'};
-	bbtick;
-	#delay {$timing} {o followers emote harmonizes 'In an mmmbop they're gone'};
-	bbtick;
-	#delay {$timing} {o followers emote harmonizes 'In an mmm bop they're not there'};
-	bbtick;
-	#delay {$timing} {o followers emote harmonizes 'In an mmmbop they're gone'};
-	bbtick;
-	#delay {$timing} {o followers emote harmonizes 'In an mmm bop they're not there'};
-	bbtick;
-	#delay {$timing} {o followers emote harmonizes 'In an mmmbop they're gone'};
-	bbtick;
-	#delay {$timing} {o followers emote harmonizes 'In an mmmbop they're not there'};
-	bbtick;
-	#delay {$timing} {o followers emote harmonizes 'In an mmmbop they're gone'};
-	bbtick;
-	#delay {$timing} {o followers emote harmonizes 'In an mmmbop they're not there'};
-	bbtick;
-	#delay {$timing} {o followers emote harmonizes 'Until you lose your hair'};
-	bbtick;
-	#delay {$timing} {o followers emote harmonizes 'Oh';emote shouts out 'ENOUGH!';o followers emote falls silent and still.};
-	bbtick;
-	#delay {$timing} {say I don't know who made you "sing" that crap but you can thank them for this!;emote concentrates.};
-	bbtick;
-	#delay {$timing} {o boy emote starts to spasm and does the Mash Potato towards $me;drain boy};
-	bbtick;
-	bbtick;
-	bbtick;
-	#delay {$timing} {o boy emote spasms and does the worm to $me;drain boy};
-	bbtick;
-	bbtick;
-	bbtick;
-	#delay {$timing} {o boy emote goes stiff and does the robot to $me;drain boy};
-	bbtick;
-	bbtick;
-	bbtick;
-	#delay {$timing} {o boy emote starts sweating and does the goodbye shuffle to $me waiving all the way;drain boy;say sorry about that I think we caught some interference from another psionic source.  My appologies.}
-}
-{5}
-
-#ALIAS {boyblonely}
-{
-	#variable {timing} {4};
-	o followers emote harmonizes 'Show me the meaning of being lonely';
-	bbtick;
-	#delay {$timing} {o 2.boy emote sings 'So many words for the broken heart'};
-	bbtick;
-	#delay {$timing} {o 2.boy emote sings 'It's hard to see in a crimson love'};
-	bbtick;
-	#delay {$timing} {o 2.boy emote sings 'So hard to breathe'};
-	bbtick;
-	#delay {$timing} {o 2.boy emote sings 'Walk with me, and maybe'};
-	bbtick;
-	#delay {$timing} {o 2.boy emote sings 'Nights of light so soon become'};
-	bbtick;
-	#delay {$timing} {o 2.boy emote sings 'Wild and free I could feel the sun'};
-	bbtick;
-	#delay {$timing} {o 2.boy emote sings 'Your every wish will be done they tell me'};
-	bbtick;
-	#delay {$timing} {o followers emote harmonizes 'Show me the meaning of being lonely'};
-	bbtick;
-	#delay {$timing} {o followers emote harmonizes 'Is this the feeling I need to walk with?'};
-	bbtick;
-	#delay {$timing} {o followers emote harmonizes 'Tell me why I can't be there where you are'};
-	bbtick;
-	#delay {$timing} {o followers emote harmonizes 'There's something missing in my heart'};
-	bbtick;
-	#delay {$timing} {o 2.boy emote sings 'Life goes on as it never ends'};
-	bbtick;
-	#delay {$timing} {o 2.boy emote sings 'Eyes of stone observe the trends'};
-	bbtick;
-	#delay {$timing} {o 2.boy emote sings 'They never say forever gaze if only'};
-	bbtick;
-	#delay {$timing} {o 2.boy emote sings 'Guilty roads to an endless love';o followers emote harmonizes 'endless love'};
-	bbtick;
-	#delay {$timing} {o 2.boy emote sings 'There's no control'};
-	bbtick;
-	#delay {$timing} {o 2.boy emote sings 'Are you with me now?'};
-	bbtick;
-	#delay {$timing} {o 2.boy emote sings 'Your every wish will be done'};
-	bbtick;
-	#delay {$timing} {o 2.boy emote sings 'They tell me'};
-	bbtick;
-	#delay {$timing} {o followers emote harmonizes 'Show me the meaning of being lonely'};
-	bbtick;
-	#delay {$timing} {o followers emote harmonizes 'Is this the feeling I need to walk with?'};
-	bbtick;
-	#delay {$timing} {o followers emote harmonizes 'Tell me why I can't be there where you are'};
-	bbtick;
-	#delay {$timing} {o followers emote harmonizes 'There's something missing in my heart'};
-	bbtick;
-	#delay {$timing} {o 2.boy emote sings 'There's nowhere to run'};
-	bbtick;
-	#delay {$timing} {o 2.boy emote sings 'I have no place to go'};
-	bbtick;
-	#delay {$timing} {o 2.boy emote sings 'Surrender my heart, body, and soul'};
-	bbtick;
-	#delay {$timing} {o 2.boy emote sings 'How can it be'};
-	bbtick;
-	#delay {$timing} {o 2.boy emote sings 'You're asking me'};
-	bbtick;
-	#delay {$timing} {o 2.boy emote sings 'To feel the things you never show?'};
-	bbtick;
-	#delay {$timing} {o 2.boy emote sings 'You are missing in my heart'};
-	bbtick;
-	#delay {$timing} {o 2.boy emote sings 'Tell me why can't I be there where you are?'};
-	bbtick;
-	#delay {$timing} {o followers emote harmonizes 'Show me the meaning of being lonely'};
-	bbtick;
-	#delay {$timing} {o followers emote harmonizes 'Is this the feeling I need to walk with?'};
-	bbtick;
-	#delay {$timing} {o followers emote harmonizes 'Tell me why I can't be there where you are'};
-	bbtick;
-	#delay {$timing} {o followers emote harmonizes 'There's something missing in my heart'};
-	bbtick
-}
-{5}
-
-#ALIAS {boybsong}
-{
-	#variable {timing} {4};
-	o followers emote harmonizes 'oooOOOooooHhh';
-	o followers emote slides back into dim lighting and falls into a slow two step rhythm;
-	#delay {$timing} {o 2.boy emote steps forward into a stark spotlight on a darkened fore stage and sings 'Declaration of my feelings for you'};
-	bbtick;
-	#delay {$timing} {o 2.boy emote sings 'Elaboration on those feelings'};
-	bbtick;
-	#delay {$timing} {o 2.boy emote sings 'Description of how long these feelings have existed'};
-	bbtick;
-	#delay {$timing} {o 2.boy emote sings 'Belief that no one else could';o followers emote harmonizes 'feel the same as I'};
-	bbtick;
-	#delay {$timing} {o 2.boy emote sings 'Reminiscence of the pleasant times we shared';o 4.boy emote sings in a deep base 'They were sooooo nice'};
-	bbtick;
-	#delay {$timing} {o 2.boy emote sings 'And our relationship's perfection'};
-	bbtick;
-	#delay {$timing} {o 2.boy emote sings 'Recounting of the steps that led to our love's dissolution'};
-	bbtick;
-	#delay {$timing} {o 2.boy emote sings 'Mostly involving my';o followers emote harmonizes 'unfaithfulness and lies'};
-	bbtick;
-	#delay {$timing} {o 2.boy emote sings 'Penitent admission of wrongdoing'};
-	bbtick;
-	#delay {$timing} {o 2.boy emote sings 'Discovery of the depth of my affection'};
-	bbtick;
-	#delay {$timing} {o 2.boy emote sings 'Regret over the lateness of my epiphany';o 2.boy emote slides back in step with the rest of the lack sleep boys};
-	bbtick;
-	#delay {$timing} {o followers emote begins a series of overly choreographed moves in time with the chorus;o followers emote harmonizes 'Title of the song'};
-	bbtick;
-	#delay {$timing} {o followers emote harmonizes 'Naive expression of love'};
-	bbtick;
-	#delay {$timing} {o followers emote harmonizes 'Reluctance to accept that you are gone'};
-	bbtick;
-	#delay {$timing} {o followers emote harmonizes 'Request to turn back time'};
-	bbtick;
-	#delay {$timing} {o followers emote harmonizes 'And rectify my wrongs'};
-	bbtick;
-	#delay {$timing} {o followers emote harmonizes 'Repetition of the title of the song'};
-	bbtick;
-	#delay {$timing} {o 2.boy emote steps forward into a stark spotlight on a darkened fore stage and sings 'Enumeration of my various transgressive actions'};
-	bbtick;
-	#delay {$timing} {o 2.boy emote sings 'Of insufficient motivation'};
-	bbtick;
-	#delay {$timing} {o 2.boy emote sings 'Realization that these actions led to your departure'};
-	bbtick;
-	#delay {$timing} {o 2.boy emote sings 'And my resultant lack of sleep and appetite'; o 4.boy emote sings in a deep base 'I miss food'};
-	bbtick;
-	#delay {$timing} {o 2.boy emote sings 'Renunciation of my past insensitive behavior'};
-	bbtick;
-	#delay {$timing} {o followers emote harmonizes 'Promise of my reformation'};
-	bbtick;
-	#delay {$timing} {o 2.boy emote sings 'Reassurance that you still are foremost in my thoughts now';o 1.boy emote sings in a high falsetto 'You are my number one NOW.'};
-	bbtick;
-	#delay {$timing} {o 2.boy emote sings 'Need for instruction how to gain your trust again'};
-	bbtick;
-	#delay {$timing} {o 2.boy emote sings 'Request for reconciliation'};
-	bbtick;
-	#delay {$timing} {o 2.boy emote sings 'Listing of the numerous tasks that I'd perform'};
-	bbtick;
-	#delay {$timing} {o 2.boy emote sings 'Of physical and emotional compensation';o 2.boy emote slides back in step with the rest of the lack sleep boys};
-	bbtick;
-	#delay {$timing} {o followers emote begins a series of overly choreographed moves in time with the chorus;o followers emote harmonizes 'Oh, title of the song'};
-	bbtick;
-	#delay {$timing} {o followers emote harmonizes 'Naive expression of love'};
-	bbtick;
-	#delay {$timing} {o followers emote harmonizes 'Reluctance to accept that you are gone'};
-	bbtick;
-	#delay {$timing} {o followers emote harmonizes 'Request to turn back time'};
-	bbtick;
-	#delay {$timing} {o followers emote harmonizes 'And rectify my wrongs'};
-	bbtick;
-	#delay {$timing} {o followers emote harmonizes 'Repetition of the title of the song'};
-	#unvariable timing
 }
 {5}
 
@@ -379,6 +108,6 @@
 }
 
 #VARIABLE         {class}  {psionicist}
-#VARIABLE         {timing}  {268}
+#var psiautotrans 0
 
 #CLASS {psionicist} CLOSE

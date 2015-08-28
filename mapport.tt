@@ -29,9 +29,21 @@
 }
 {5}
 
+#ACTION {^A Cabin of Blue Crystal{(?: \(Shadowed\))?}}
+{
+	portto 22479
+}
+{5}
+
 #ACTION {^A Chamber of Execution in Zhentil Keep{(?: \(Shadowed\))?}}
 {
 	portto 19893
+}
+{5}
+
+#ACTION {^A Crossing on the Shining Creek (Water){(?: \(Shadowed\))?}}
+{
+	portto 934
 }
 {5}
 
@@ -47,6 +59,12 @@
 }
 {5}
 
+#ACTION {^A Decorative Room{(?: \(Shadowed\))?}}
+{
+	portto 21600
+}
+{5}
+
 #ACTION {^A Dwarven Mortuary{(?: \(Shadowed\))?}}
 {
 	portto 18660
@@ -55,13 +73,19 @@
 
 #ACTION {^A Forgotten Burial Chamber{(?: \(Shadowed\))?}}
 {
-	portto wdskull
+	portto 15475
+}
+{5}
+
+#ACTION {^A Frozen Trail Approaching the Ice Mountains{(?: \(Shadowed\))?}}
+{
+	portto 3996
 }
 {5}
 
 #ACTION {^A Golden Moonwell{(?: \(Shadowed\))?}}
 {
-	portto 16253
+	portto 21889
 }
 {5}
 
@@ -83,6 +107,24 @@
 }
 {5}
 
+#ACTION {^A Pass into the Ice Mountains{(?: \(Shadowed\))?}}
+{
+	portto 8747
+}
+{5}
+
+#ACTION {^A Rising Shaft of Bubbles (Airy){(?: \(Shadowed\))?}}
+{
+	portto 20992
+}
+{5}
+
+#ACTION {^A Rushing Maelstrom{(?: \(Shadowed\))?}}
+{
+	portto 19382
+}
+{5}
+
 #ACTION {^A Shadowy Shop{(?: \(Shadowed\))?}}
 {
 	portto 16428
@@ -92,7 +134,8 @@
 #ACTION {^A Small Chamber{(?: \(Shadowed\))?}}
 {
 	#class trans open;
-	#action {Exits: - E(?:ast)?  - S(?:outh)? - W(?:est)?} {portto 18559}#class trans close
+	#action {Exits: - E(?:ast)?  - S(?:outh)? - W(?:est)?} {portto 18559};
+	#class trans close
 }
 {5}
 
@@ -120,6 +163,18 @@
 }
 {5}
 
+#ACTION {^A Switchback Trail Descending into the Lurkwood{(?: \(Shadowed\))?}}
+{
+	portto 8735
+}
+{5}
+
+#ACTION {^A Trail Near Mirar Creek{(?: \(Shadowed\))?}}
+{
+	portto 938
+}
+{5}
+
 #ACTION {^A Very Old Graveyard{(?: \(Shadowed\))?}}
 {
 	portto 18511
@@ -132,9 +187,21 @@
 }
 {5}
 
+#ACTION {^A Waterfilled Chamber{(?: \(Shadowed\))?}}
+{
+	portto 22248
+}
+{5}
+
 #ACTION {^A Wide Farm Lane on a Long Rise{(?: \(Shadowed\))?}}
 {
 	portto 8019
+}
+{5}
+
+#ACTION {^A beautiful well of glowing blue stones rests here.{(?: \(Shadowed\))?}}
+{
+	portto 4018
 }
 {5}
 
@@ -150,15 +217,27 @@
 }
 {5}
 
-#ACTION {^An Upper Floor Practice Room{(?: \(Shadowed\))?}}
+#ACTION {^Along Newhaven Way Before an Eerie City{(?: \(Shadowed\))?}}
 {
-	portto 587
+	portto 22127
 }
 {5}
 
-#ACTION {^Arcane-Blade Intersection{(?: \(Shadowed\))?}}
+#ACTION {^Amila Benol's Office{(?: \(Shadowed\))?}}
 {
-	portto 19724
+	portto 22180
+}
+{5}
+
+#ACTION {^An Intersection of Crude Forest Trails{(?: \(Shadowed\))?}}
+{
+	portto 1436
+}
+{5}
+
+#ACTION {^An Upper Floor Practice Room{(?: \(Shadowed\))?}}
+{
+	portto 587
 }
 {5}
 
@@ -240,6 +319,12 @@
 }
 {5}
 
+#ACTION {^Before the Doors of Ice Crag Castle{(?: \(Shadowed\))?}}
+{
+	portto 4167
+}
+{5}
+
 #ACTION {^Beginning of the Main Complex{(?: \(Shadowed\))?}}
 {
 	portto smskull
@@ -258,6 +343,12 @@
 }
 {5}
 
+#ACTION {^Bottom of Vilnar's Point{(?: \(Shadowed\))?}}
+{
+	portto 11739
+}
+{5}
+
 #ACTION {^Dead End in the Forest{(?: \(Shadowed\))?}}
 {
 	portto 9378
@@ -273,6 +364,12 @@
 #ACTION {^Elstearn's Escorts{(?: \(Shadowed\))?}}
 {
 	portto 14746
+}
+{5}
+
+#ACTION {^Entrance to Chrysalis{(?: \(Shadowed\))?}}
+{
+	portto 21957
 }
 {5}
 
@@ -339,6 +436,24 @@
 #ACTION {^Inn of the Golden God{(?: \(Shadowed\))?}}
 {
 	portto gnomeinn
+}
+{5}
+
+#ACTION {^Inside the Eastern Gates of Waterdeep{(?: \(Shadowed\))?}}
+{
+	portto 1258
+}
+{5}
+
+#ACTION {^Inside the Northern Gates of Waterdeep{(?: \(Shadowed\))?}}
+{
+	portto 1239
+}
+{5}
+
+#ACTION {^Inside the Southern Gates of Waterdeep{(?: \(Shadowed\))?}}
+{
+	portto 1633
 }
 {5}
 
@@ -417,6 +532,18 @@
 }
 {5}
 
+#ACTION {^Picket Gates of the Hamlet of Grunwald{(?: \(Shadowed\))?}}
+{
+	portto 3994
+}
+{5}
+
+#ACTION {^Quinan Varnaed's Room{(?: \(Shadowed\))?}}
+{
+	portto 22218
+}
+{5}
+
 #ACTION {^Rhyester's Matins{(?: \(Shadowed\))?}}
 {
 	portto 573
@@ -453,6 +580,36 @@
 }
 {5}
 
+#ACTION {^The Bone Throne{(?: \(Shadowed\))?}}
+{
+	portto 5782
+}
+{5}
+
+#ACTION {^The Central Hall of Heroes{(?: \(Shadowed\))?}}
+{
+	portto 5764
+}
+{5}
+
+#ACTION {^The Chamber of Death{(?: \(Shadowed\))?}}
+{
+	portto 5793
+}
+{5}
+
+#ACTION {^The Chamber of the Master Warrior{(?: \(Shadowed\))?}}
+{
+	portto 3879
+}
+{5}
+
+#ACTION {^The Chrysalis Pub And Eatery{(?: \(Shadowed\))?}}
+{
+	portto 21979
+}
+{5}
+
 #ACTION {^The Circle of Contest{(?: \(Shadowed\))?}}
 {
 	portto 8047
@@ -465,9 +622,27 @@
 }
 {5}
 
+#ACTION {^The Commons Square of Waterdeep{(?: \(Shadowed\))?}}
+{
+	portto 1250
+}
+{5}
+
+#ACTION {^The Coral Reef Fortress Gates{(?: \(Shadowed\))?}}
+{
+	portto 18262
+}
+{5}
+
 #ACTION {^The Courtyard of Our Lord{(?: \(Shadowed\))?}}
 {
 	portto 19756
+}
+{5}
+
+#ACTION {^The Craggy Foothills of the Ice Mountains{(?: \(Shadowed\))?}}
+{
+	portto 4002
 }
 {5}
 
@@ -483,9 +658,27 @@
 }
 {5}
 
+#ACTION {^The Djinn's Lamp{(?: \(Shadowed\))?}}
+{
+	portto 14401
+}
+{5}
+
+#ACTION {^The Dragon Silk Intersection{(?: \(Shadowed\))?}}
+{
+	portto 1374
+}
+{5}
+
 #ACTION {^The Drisbalev-Jaanta Intersection{(?: \(Shadowed\))?}}
 {
 	portto 6559
+}
+{5}
+
+#ACTION {^The Elemental Anteroom{(?: \(Shadowed\))?}}
+{
+	portto 21621
 }
 {5}
 
@@ -509,15 +702,51 @@
 }
 {5}
 
+#ACTION {^The Elemental Room of Air{(?: \(Shadowed\))?}}
+{
+	portto 21616
+}
+{5}
+
+#ACTION {^The Elemental Room of Earth{(?: \(Shadowed\))?}}
+{
+	portto 21614
+}
+{5}
+
+#ACTION {^The Elemental Room of Fire{(?: \(Shadowed\))?}}
+{
+	portto 21620
+}
+{5}
+
+#ACTION {^The Elemental Room of Water{(?: \(Shadowed\))?}}
+{
+	portto 21612
+}
+{5}
+
 #ACTION {^The Entrance to a Glowing Cavern{(?: \(Shadowed\))?}}
 {
 	portto 14473
 }
 {5}
 
+#ACTION {^The Forest of Nightmares{(?: \(Shadowed\))?}}
+{
+	portto 22399
+}
+{5}
+
 #ACTION {^The Garden-Lights Intersection{(?: \(Shadowed\))?}}
 {
 	portto 6649
+}
+{5}
+
+#ACTION {^The Great Market Square of Waterdeep{(?: \(Shadowed\))?}}
+{
+	portto 1246
 }
 {5}
 
@@ -530,6 +759,30 @@
 #ACTION {^The Grontor-Jaanta T-Intersection{(?: \(Shadowed\))?}}
 {
 	portto 6555
+}
+{5}
+
+#ACTION {^The Hall of Many Pillars{(?: \(Shadowed\))?}}
+{
+	portto 5787
+}
+{5}
+
+#ACTION {^The Hall of Sleeping Kings{(?: \(Shadowed\))?}}
+{
+	portto 21473
+}
+{5}
+
+#ACTION {^The Hall of the Light{(?: \(Shadowed\))?}}
+{
+	portto 22233
+}
+{5}
+
+#ACTION {^The Haunted Stone{(?: \(Shadowed\))?}}
+{
+	portto 22373
 }
 {5}
 
@@ -569,6 +822,12 @@
 }
 {5}
 
+#ACTION {^The Lair of Worms{(?: \(Shadowed\))?}}
+{
+	portto 18440
+}
+{5}
+
 #ACTION {^The Lights-Belltoll Intersection{(?: \(Shadowed\))?}}
 {
 	portto 6640
@@ -595,9 +854,27 @@
 }
 {5}
 
+#ACTION {^The Murky Depths{(?: \(Shadowed\))?}}
+{
+	portto 20988
+}
+{5}
+
 #ACTION {^The North Harbor Gate{(?: \(Shadowed\))?}}
 {
 	portto 6970
+}
+{5}
+
+#ACTION {^The Northern Edge of the Plateau of Dragons{(?: \(Shadowed\))?}}
+{
+	portto 22386
+}
+{5}
+
+#ACTION {^The Port of Caer Corwell{(?: \(Shadowed\))?}}
+{
+	portto 21801
 }
 {5}
 
@@ -618,6 +895,12 @@
 #ACTION {^The Reception Hall of the Blade and Stars Inn{(?: \(Shadowed\))?}}
 {
 	portto 7019
+}
+{5}
+
+#ACTION {^The Reception Hall of the Three Kegs Inn{(?: \(Shadowed\))?}}
+{
+	portto 7068
 }
 {5}
 
@@ -651,15 +934,39 @@
 }
 {5}
 
+#ACTION {^The Rushing Waters of the Pale River{(?: \(Shadowed\))?}}
+{
+	portto 20993
+}
+{5}
+
 #ACTION {^The Saints-Lights Intersection{(?: \(Shadowed\))?}}
 {
 	portto 6656
 }
 {5}
 
+#ACTION {^The Scriptorium{(?: \(Shadowed\))?}}
+{
+	portto 95
+}
+{5}
+
+#ACTION {^The Skin Tailor's Shop{(?: \(Shadowed\))?}}
+{
+	portto 21324
+}
+{5}
+
 #ACTION {^The Songs-Lights Intersection{(?: \(Shadowed\))?}}
 {
 	portto 6646
+}
+{5}
+
+#ACTION {^The Southern Edge of the Plateau of Dragons{(?: \(Shadowed\))?}}
+{
+	portto 22387
 }
 {5}
 
@@ -712,9 +1019,21 @@
 }
 {5}
 
+#ACTION {^The Viperstongue Reception{(?: \(Shadowed\))?}}
+{
+	portto 8140
+}
+{5}
+
 #ACTION {^The Watchful Shield Square{(?: \(Shadowed\))?}}
 {
 	portto 6726
+}
+{5}
+
+#ACTION {^The Western Hall of Heroes{(?: \(Shadowed\))?}}
+{
+	portto 5765
 }
 {5}
 
@@ -736,9 +1055,33 @@
 }
 {5}
 
+#ACTION {^The Wonders-Saints Intersection{(?: \(Shadowed\))?}}
+{
+	portto 6784
+}
+{5}
+
+#ACTION {^The Wonders-Sinnyard Intersection{(?: \(Shadowed\))?}}
+{
+	portto 6800
+}
+{5}
+
 #ACTION {^The Wonders-Veranza T-Intersection{(?: \(Shadowed\))?}}
 {
 	portto 6615
+}
+{5}
+
+#ACTION {^The altar to the Spider God Selvetarm lies beneath the idol.{(?: \(Shadowed\))?}}
+{
+	portto 21457
+}
+{5}
+
+#ACTION {^The corpse of a thief lies against the wall covered in ancient cobwebs.{(?: \(Shadowed\))?}}
+{
+	portto 21639
 }
 {5}
 
@@ -757,13 +1100,19 @@
 
 #ACTION {^Thethla's Inn{(?: \(Shadowed\))?}}
 {
-	portto mhinn
+	portto 15174
+}
+{5}
+
+#ACTION {^Top of Vilnar's Point{(?: \(Shadowed\))?}}
+{
+	portto 11743
 }
 {5}
 
 #ACTION {^Ultrumm's Music Conservatory{(?: \(Shadowed\))?}}
 {
-	portto 586
+	portto 5902
 }
 {5}
 

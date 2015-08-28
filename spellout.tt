@@ -1,68 +1,32 @@
 #CLASS {spellout} OPEN
 
-#ACTION {Animals find you appetizing again.}
-{
-	repout The hamsters are coming to get me! pf animals
-}
-{5}
-
-#ACTION {You are exhausted as your adrenaline level returns to normal.}
-{
-	repout adrenalize~~psionicist
-}
-{5}
-
-#ACTION {You feel more vulnerable to psionic attack.}
-{
-	repout tower~~psionicist
-}
-{5}
-
-#ACTION {You lose your catlike gait.}
-{
-	repout catfall~~psionicist
-}
-{5}
-
-#ACTION {You no longer feel able to protect yourself from hostile environments.}
-{
-	repout body control~~psionicist
-}
-{5}
-
-#ACTION {You stop floating.}
-{
-	repout lev~~psionicist
-}
-{5}
-
-#ACTION {Your body size returns to normal.}
-{
-	repout expansion~~psionicist
-}
-{5}
-
-#ACTION {Your skin becomes softer as your flesh armor fades away.}
-{
-	repout flesharmor~~psionicist
-}
-{5}
-
-#ACTION {^A wave of exhaustion washes over you as your divine power fades.$}
+#ACTION {^A wave of exhaustion washes over you as your divine power fades.}
 {
 	repout divine power~~cleric
 }
 {5}
 
-#ACTION {^Earthbound again.$}
+#ACTION {^Animals find you appetizing again.}
 {
-	repout Hmmph!  Gravity is working.  fly
+	repout Prot From Animals
 }
 {5}
 
-#ACTION {^Invisible things vanish again.$}
+#ACTION {^Earthbound again.}
 {
-	repout di
+	repout Fly
+}
+{5}
+
+#ACTION {^Evil things appear more threatening.}
+{
+	repout Prot From Evil~~cleric
+}
+{5}
+
+#ACTION {^Invisible things vanish again.}
+{
+	repout Detect Invis
 }
 {5}
 
@@ -72,7 +36,13 @@
 }
 {5}
 
-#ACTION {^The elemental ward protecting you shudders and dissappears.$}
+#ACTION {^The elemental ward protecting you shudders and disappears.}
+{
+	repout Elemental Ward
+}
+{5}
+
+#ACTION {^The elemental ward protecting you shudders and dissappears.}
 {
 	repout elemental ward
 }
@@ -84,15 +54,33 @@
 }
 {5}
 
-#ACTION {^The healing aura surrounding you shimmers and winks out of existence.$}
+#ACTION {^The healing aura surrounding you shimmers and winks out of existence.}
 {
 	repout healing aura~~cleric
 }
 {5}
 
-#ACTION {^The world speeds up around you.$}
+#ACTION {^The opaque shield around your body fades.}
 {
-	repout haste
+	repout Missile Shield
+}
+{5}
+
+#ACTION {^The world speeds up around you.}
+{
+	repout Haste
+}
+{5}
+
+#ACTION {^Those damned paladins are after you again.}
+{
+	repout Prot From Good~~cleric
+}
+{5}
+
+#ACTION {^Undead love you once more.}
+{
+	repout Prot From Undead
 }
 {5}
 
@@ -102,87 +90,201 @@
 }
 {5}
 
+#ACTION {^You are exhausted as your adrenaline level returns to normal.}
+{
+	repout adrenalize~~psionicist;
+	#if {"class" == "psionicist" && autobuff}
+	{
+		adr
+	}
+}
+{5}
+
 #ACTION {^You feel chilly.}
 {
 	repout pfc~~cleric
 }
 {5}
 
-#ACTION {^You feel less basic.$}
+#ACTION {^You feel less basic.}
 {
 	repout pfa~~cleric
 }
 {5}
 
-#ACTION {^You feel less blessed.$}
+#ACTION {^You feel less blessed.}
 {
-	repout bless~~cleric
+	repout Bless~~cleric
 }
 {5}
 
-#ACTION {^You feel less transparent.$}
+#ACTION {^You feel less transparent.}
 {
-	repout OH CRAP! They can see me!  invis
+	repout Invis
 }
 {5}
 
-#ACTION {^You feel less wooden.$}
+#ACTION {^You feel less wooden.}
 {
-	repout WOOF WOOF WOOF!  bark
+	repout Barkskin
 }
 {5}
 
-#ACTION {^Your body returns to its normal size.$}
+#ACTION {^You feel more vulnerable to psionic attack.}
 {
-	repout Why did everyone just shrink? reduce
+	repout tower~~psionicist;
+	#if {"class" == "psionicist" && autobuff}
+	{
+		tower
+	}
 }
 {5}
 
-#ACTION {^Your body shimmers and sheds its elemental form, returning to normal.$}
+#ACTION {^You lose your catlike gait.}
 {
-	repout elemental form
+	repout catfall~~psionicist;
+	#if {"class" == "psionicist" && autobuff}
+	{
+		cat me
+	}
 }
 {5}
 
-#ACTION {^Your displaced form snaps back to your physical location!$}
+#ACTION {^You no longer feel able to protect yourself from hostile environments.}
 {
-	repout displace
+	repout body control~~psionicist;
+	#if {"class" == "psionicist" && autobuff}
+	{
+		bc
+	}
 }
 {5}
 
-#ACTION {^Your dragon scales melt back into your regular flesh.$}
+#ACTION {^You no longer feel cut off from the rest of the world...}
 {
-	repout dscale
+	repout Sequester
 }
 {5}
 
-#ACTION {^Your flesh loses its stony texture.$}
+#ACTION {^You stop floating.}
 {
-	repout stone
+	repout lev~~psionicist
 }
 {5}
 
-#ACTION {^Your form stops blurring.$}
+#ACTION {^Your bloodstream returns to normal.}
 {
-	repout blur
+	repout Slow Poison~~cleric
 }
 {5}
 
-#ACTION {^Your globe shimmers, and fades into the air.$}
+#ACTION {^Your body becomes like stone as the paralyzation takes effect.}
 {
-	repout globe
+	badeffect you say you are paralized
 }
 {5}
 
-#ACTION {^Your magic armor fades away.$}
+#ACTION {^Your body returns to its normal size.}
 {
-	repout armor~~cleric
+	repout Reduce/Enlarge
 }
 {5}
 
-#ACTION {^Your magical blue flame winks out of existence.$}
+#ACTION {^Your body shimmers and sheds its elemental form, returning to normal.}
+{
+	repout Elemental Embodiment
+}
+{5}
+
+#ACTION {^Your body size returns to normal.}
+{
+	repout expansion~~psionicist;
+	#if {"class" == "psionicist" && autobuff}
+	{
+		exp
+	}
+}
+{5}
+
+#ACTION {^Your displaced form snaps back to your physical location!}
+{
+	repout Displace
+}
+{5}
+
+#ACTION {^Your dragon scales melt back into your regular flesh.}
+{
+	repout Dragonscales
+}
+{5}
+
+#ACTION {^Your flesh loses its stony texture.}
+{
+	repout Stone Skin~~psionicist
+}
+{5}
+
+#ACTION {^Your form stops blurring.}
+{
+	repout Blur
+}
+{5}
+
+#ACTION {^Your globe shimmers, and fades into the air.}
+{
+	repout Globe
+}
+{5}
+
+#ACTION {^Your image is no longer displaced.}
+{
+	repout Displace
+}
+{5}
+
+#ACTION {^Your magic armor fades away.}
+{
+	repout Armor~~cleric
+}
+{5}
+
+#ACTION {^Your magical blue flame winks out of existence.}
 {
 	repout mage flame
+}
+{5}
+
+#ACTION {^Your magical shield shudders and vanishes.}
+{
+	repout Energy Shield
+}
+{5}
+
+#ACTION {^Your mental barrier blinks out of existence.}
+{
+	repout Nondetect
+}
+{5}
+
+#ACTION {^Your mind seems vulnerable again.}
+{
+	repout Mind Blank
+}
+{5}
+
+#ACTION {^Your shadowy scale armor dissipates into nothingness.}
+{
+	repout Phantom Armor
+}
+{5}
+
+#ACTION {^Your skin becomes softer as your flesh armor fades away.}
+{
+	repout flesharmor~~psionicist;
+	#if {"class" == "psionicist" && autobuff}
+	{
+		fla
+	}
 }
 {5}
 
@@ -194,7 +296,13 @@
 
 #ACTION {^Your vitality drains away.}
 {
-	repout vit~~cleric,druid
+	repout Vitality~~cleric
+}
+{5}
+
+#ALIAS {badeffect %*}
+{
+	#showme {%1}
 }
 {5}
 
@@ -207,16 +315,18 @@
 	#nop /*	provide clarity for editing and reading.							*/;
 	#nop /*	var class needs to be set for each character best practice 	*/;
 	#nop /*	would be to use the classset.tt and the class var from    	*/;
-	#nop /*  general.tt #nop;
+	#nop /*   general.tt #nop;
 	#variable {outspell} {%1};
 	#regexp {$outspell} {{(.*)~~(.*)}} {#variable classes {&3};#regexp {&3} {$class}{#nop};#else {gsay &2 out!};#variable outspell {&2}};
 	#else
 	{
 		gsay $outspell out!
 	};
-	#showme $me says $outspell out!
+	#showme $me says $outspell out!;
+	#unvar outspell
 }
 {5}
 
+#VARIABLE         {autobuff}  {0}
 
 #CLASS {spellout} CLOSE

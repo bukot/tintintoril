@@ -1,10 +1,22 @@
 #CLASS {cleric} OPEN
 
+#ACTION {Your prayers are complete.}
+{
+	st
+}
+{5}
+
+#ACTION {{(\w+) drools? down \w+'?s? chin.}}
+{
+	#showme You say %2 is para
+}
+{5}
+
 #ALIAS {%i{buffcast ([a-z]+)}}
 {
 	#if {"$statscleric[%2]" != ""}
 	{
-		#if {"$buffname" == "self"}
+		#if {"$buffname" == "self" || "$buffname" == "me"}
 		{
 			#variable {buffname} {$me}
 		};
@@ -260,8 +272,7 @@
 	say ressing $resname;
 	t $resname Hear me $resname!  prepare thyself. I have decided your battle is not over. Gods permitting you shall rejoin the living where you fell. I must have your consent so make your decision NOW!;
 	t $resname \(You're getting ressed.  If you don\'t consent me I will move on to the next in line.  Also, I\'ll taunt you publicly!\);
-	consent $resname;
-	cast 'resu' %1;
+	#delay {8} resu %1;
 	#unvariable resname
 }
 {5}
@@ -336,7 +347,7 @@
 }
 {5}
 
-#ALIAS {%i{pf ?(ga|g|e|a|f|l|c|u)\w*(?: (\w+))?}}
+#ALIAS {%i{pf ?(ga|g|e|a|l|c|u)\w*(?: (\w+))?}}
 {
 	#switch {"%2"}
 	{
@@ -440,6 +451,7 @@
 }
 
 #VARIABLE         {cleric}  {1}
-#VARIABLE         {statscleric}  {{arm}{arm|armor}{blss}{bless}{vit}{vit|vitality}}
+#VARIABLE         {statcleric}  {{arm}{arm|armor}{blss}{bless}{vit}{vit|vitality}}
+#VARIABLE         {statsdisp}  {{arm}{blss}{vit}{}}
 
 #CLASS {cleric} CLOSE

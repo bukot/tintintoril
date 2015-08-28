@@ -23,8 +23,9 @@
 }
 {1}
 
-#ACTION {%i{(?:tezzan sends .* sprawling with a powerful bash.)|(is sent sprawling)}}
+#ACTION {%i{(?:sends .* sprawling with a powerful bash.)|(is sent sprawling)|(?:avoids being bashed by .*?, who loses his balance and falls.)}}
 {
+	asst;
 	#echo {***cir***};
 	cir
 }
@@ -65,12 +66,12 @@
 
 #ACTION {{As your poison takes effect, (.*?) appears to go blind!}}
 {
-	#showme {you say %2 is poison blind!};
-	gsay %2 is poison blind!
+	#showme {you say %2 is poison blind!}
 }
 {5}
 
-#ACTION {{You manage to, with complete incompetence, throw yourself head first directly into the ground!}}
+#ACTION {{(?:You manage to, with complete incompetence, throw yourself head first directly into the ground!)|(?:Unfortunately, a /w+ proves to be quite agile (?:his|her|it)
+self, and you go down as well.)}}
 {
 	st
 }

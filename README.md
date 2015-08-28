@@ -10,6 +10,11 @@ this is still a beta build.  Many changes may happen sporadically,
 and there are refrences to files and methods that don't exist yet.
 As those files are made stable they will appear here.
 <pre>
+post release full refresh
+               after creating a release I refreshed all the files in my git.
+               I found that several files were not updating propperly, and felt
+               this was the best way to make sure all files were up to date and
+               as ready to be used as possible.
 2015-08-27
                in mapping.tt
                     {mdrag set} now accepts only a comma seperated list of items

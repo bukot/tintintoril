@@ -51,13 +51,23 @@
 			#case {1}
 			{
 				shi;
-				#variable sp 2
+				#math {sp} {$sp + 1}
 			};
 			#case {2}
 			{
 				kc;
-				#variable sp 1
+				#math {sp} {$sp + 1}
+			};
+			#case {3}
+			{
+				headbu;
+				#math {sp} {$sp + 1}
 			}
+		};
+		#if {$sp > 3}
+		{
+			#var {sp} 1;
+			#var sp
 		}
 	}
 }
@@ -103,9 +113,9 @@
 }
 {5}
 
-#ALIAS {shield %w}
+#ALIAS {{shield(?: (\w*))}}
 {
-	#switch {"%1"}
+	#switch {"%2"}
 	{
 		#case {"on"}
 		{
@@ -113,9 +123,19 @@
 		};
 		#case {"off"}
 		{
-			#variable {sp}{0}
+			#variable {sp} {0}
 		}
-	}
+	};
+	#if {$sp}
+	{
+		#var sayshield on
+	};
+	#else
+	{
+		#var sayshield off
+	};
+	#showme You say shieldpunch/kick/headbutt is $sayshield when bashing;
+	#unvar sayshield
 }
 {5}
 
