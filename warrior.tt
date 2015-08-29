@@ -1,5 +1,44 @@
 #CLASS {warrior} OPEN
 
+#ACTION {Aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa warrior.tt$}
+{
+	#nop /* this action can be removed but is used to document the file and   */;
+	#nop /* it's functionality.                                               */;
+	#nop /*                                                                   */;
+	#nop /* external dependencies...                                          */;
+	#nop /*      combat.tt                                                    */;
+	#nop /*           var {t[]} used for targeting certain skills             */;
+	#nop /*           don't spam switch opponents with asst                   */;
+	#nop /*                                                                   */;
+	#nop /*                                                                   */;
+	#nop /* aliases and usage                                                 */;
+	#nop /*      {shi}                                                        */;
+	#nop /*           shield punches engaged mob                              */;
+	#nop /*                                                                   */;
+	#nop /*      {autobash <on/off/blank>}                                    */;
+	#nop /*           turns autobash triggers on or off and reports the       */;
+	#nop /*           status on use.                                          */;
+	#nop /*                                                                   */;
+	#nop /*      {autosp <on/off/blank>}                                      */;
+	#nop /*                                                                   */;
+	#nop /*      {resc <digit>}                                               */;
+	#nop /*           rescues the target number from the targeting scripts    */;
+	#nop /*           in combat.tt                                            */;
+	#nop /*                                                                   */;
+	#nop /*                                                                   */;
+	#nop /* variables set by class                                            */;
+	#nop /*      {bash}  {0}                                                  */;
+	#nop /*           is autobash on                                          */;
+	#nop /*                                                                   */;
+	#nop /*      {warior} {1}                                                 */;
+	#nop /*           sets a var to identify that the warior script is loaded */;
+	#nop /*                                                                   */;
+	#nop /*      {sp}  {0}                                                    */;
+	#nop /*           is shield punch and other extra attacks on for bashing  */;
+	#nop /*                                                                   */
+}
+{1}
+
 #ACTION {%* avoids your bash, you topple over and fall to the ground.$}
 {
 	st
@@ -66,9 +105,9 @@
 		};
 		#if {$sp > 3}
 		{
-			#var {sp} 1;
-			#var sp
-		}
+			#variable {sp} 1
+		};
+		#variable sp
 	}
 }
 {5}
@@ -85,9 +124,15 @@
 }
 {5}
 
-#ALIAS {autobash %w}
+#ALIAS {shi}
 {
-	#switch {"%1"}
+	shieldpunch
+}
+{5}
+
+#ALIAS {{autobash(?: (\w+))?}}
+{
+	#switch {"%2"}
 	{
 		#case {"on"}
 		{
@@ -97,23 +142,21 @@
 		{
 			#variable bash 0
 		}
-	}
+	};
+	#if {$bash}
+	{
+		#variable saystat on
+	};
+	#else
+	{
+		#variable saystat off
+	};
+	#showme You say bashing is $saystat when bashing;
+	#unvariable saystat
 }
 {5}
 
-#ALIAS {resc %d}
-{
-	rescue $t[%1]
-}
-{5}
-
-#ALIAS {shi}
-{
-	shieldpunch
-}
-{5}
-
-#ALIAS {{shield(?: (\w*))}}
+#ALIAS {{autosp(?: (\w+))?}}
 {
 	#switch {"%2"}
 	{
@@ -128,20 +171,26 @@
 	};
 	#if {$sp}
 	{
-		#var sayshield on
+		#variable saystat on
 	};
 	#else
 	{
-		#var sayshield off
+		#variable saystat off
 	};
-	#showme You say shieldpunch/kick/headbutt is $sayshield when bashing;
-	#unvar sayshield
+	#showme You say shieldpunch/kick/headbutt is $saystat when bashing;
+	#unvariable saystat
+}
+{5}
+
+#ALIAS {{resc \d}}
+{
+	rescue $t[%2]
 }
 {5}
 
 #GAG              {You miss %*}
-#VARIABLE         {bash}  {1}
-#VARIABLE         {warior} {1}
+#VARIABLE         {bash}  {0}
 #VARIABLE         {sp}  {0}
+#VARIABLE         {warior}  {1}
 
 #CLASS {warrior} CLOSE

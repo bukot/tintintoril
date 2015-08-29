@@ -385,7 +385,7 @@
 	#map run {$mroomname};
 	t $me $mroomname;
 	mupdate;
-	#map write $mapname;
+	msave;
 	#unvariable mroomname
 }
 {5}

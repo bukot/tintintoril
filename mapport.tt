@@ -634,6 +634,12 @@
 }
 {5}
 
+#ACTION {^The Concourse Entering Griffon's Nest{(?: \(Shadowed\))?}}
+{
+	portto 3828
+}
+{5}
+
 #ACTION {^The Coral Reef Fortress Gates{(?: \(Shadowed\))?}}
 {
 	portto 18262
@@ -895,6 +901,12 @@
 #ACTION {^The Pride of Menzoberranzan{(?: \(Shadowed\))?}}
 {
 	portto 14505
+}
+{5}
+
+#ACTION {^The Reception Desk at the Uthgardt Inn{(?: \(Shadowed\))?}}
+{
+	portto 3837
 }
 {5}
 
