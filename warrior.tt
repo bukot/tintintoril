@@ -90,16 +90,19 @@
 			#case {1}
 			{
 				shi;
+				#echo shield punch;
 				#math {sp} {$sp + 1}
 			};
 			#case {2}
 			{
-				kc;
+				kick;
+				#echo kick;
 				#math {sp} {$sp + 1}
 			};
 			#case {3}
 			{
 				headbu;
+				#echo headbutt;
 				#math {sp} {$sp + 1}
 			}
 		};
@@ -107,7 +110,6 @@
 		{
 			#variable {sp} 1
 		};
-		#variable sp
 	}
 }
 {5}
@@ -151,7 +153,7 @@
 	{
 		#variable saystat off
 	};
-	#showme You say bashing is $saystat when bashing;
+	#showme You say auto bashing is $saystat;
 	#unvariable saystat
 }
 {5}
