@@ -253,6 +253,12 @@
 }
 {5}
 
+#ACTION {^At Brightbuckler Street and Ghostwalk{(?: \(Shadowed\))?}}
+{
+	portto 25
+}
+{5}
+
 #ACTION {^At Moonway and Ghostwalk{(?: \(Shadowed\))?}}
 {
 	portto 20

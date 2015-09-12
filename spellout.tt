@@ -118,6 +118,12 @@
 }
 {5}
 
+#ACTION {^You feel less destructive.}
+{
+	repout dark wrath
+}
+{5}
+
 #ACTION {^You feel less transparent.}
 {
 	repout Invis

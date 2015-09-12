@@ -137,6 +137,12 @@
 }
 {5}
 
+#ALIAS {dmag}
+{
+	quaff illuminated pouch
+}
+{5}
+
 #ALIAS {dp}
 {
 	cast 'divine p' @btarg{%1}
@@ -146,28 +152,6 @@
 #ALIAS {fh}
 {
 	cast 'full heal' @btarg{%1}
-}
-{5}
-
-#ALIAS {flygear {on|off}}
-{
-	#switch {"%1"}
-	{
-		#case {"on"}
-		{
-			rem mask;
-			rem crown;
-			rem mold;
-			wear helm
-		};
-		#case {"off"}
-		{
-			rem helm;
-			wear mask;
-			wear crown;
-			wear mold
-		}
-	}
 }
 {5}
 
@@ -264,16 +248,17 @@
 }
 {5}
 
-#ALIAS {res}
+#ALIAS {{res ([0-9a-zA-Z.]+)}}
 {
-	#variable {resname} {%1};
+	#variable {resname} {%2};
 	#replace {resname} {{[\.0-9]*}} {};
 	#format {resname} {%n} {$resname};
 	say ressing $resname;
 	t $resname Hear me $resname!  prepare thyself. I have decided your battle is not over. Gods permitting you shall rejoin the living where you fell. I must have your consent so make your decision NOW!;
 	t $resname \(You're getting ressed.  If you don\'t consent me I will move on to the next in line.  Also, I\'ll taunt you publicly!\);
-	#delay {8} resu %1;
-	#unvariable resname
+	t $resname consent $me;
+	#delay {8} {resu @btarg{%2}};
+	#unvariable {resname}
 }
 {5}
 
@@ -282,7 +267,7 @@
 	#variable {resname} {@btarg{%1}};
 	t $resname   The gods have decided you were not worthy of the rewards you were granted, and that you must re-prove your worth.  I am going to do what I can for this vessel and place you back in it. (res failed.  I'm going to revive you.);
 	cast 'revi' $resname;
-	#unvariable resname
+	#unvariable {resname}
 }
 {5}
 
@@ -334,7 +319,7 @@
 #ALIAS {vit}
 {
 	#variable {buffname} {@btarg{%1}};
-	#unvariable result;
+	#unvariable {result};
 	cast 'vit' $buffname;
 	buffcast vit;
 	#unvariable {buffname}
@@ -389,7 +374,7 @@
 		#echo {casting 'protection from $pspell' at @btarg{%3}};
 		cast 'protection from $pspell' @btarg{%3};
 		buffcast $pspell;
-		#unvariable pspell
+		#unvariable {pspell}
 	};
 	#else
 	{
@@ -407,7 +392,20 @@
 	#if {"%1" != ""}
 	{
 		#class etarg open;
-		#action {^Exits:}{#var {castok} {0}#class etarg open;#act {%1}{#var {castok} {1}};#act {{< \d*h/\d*H \d*v\d*V T:}}{#class etarg kill;};#class etarg close;};
+		#action {^Exits:}
+		{
+			#var {castok} {0};
+			#class etarg open;
+			#act {%1}
+			{
+				#var {castok} {1}
+			};
+			#act {{< \d*h/\d*H \d*v\d*V T:}}
+			{
+				#class etarg kill
+			};
+			#class etarg close
+		};
 		#class etarg close;
 		l;
 		#if {"%1" == "me"}
@@ -419,7 +417,7 @@
 		{
 			#if {$castok}
 			{
-				#unvariable castok;
+				#unvariable {castok};
 				#return %1
 			};
 			#else
@@ -442,12 +440,12 @@
 			#return neg
 		}
 	};
-	#unvariable stest
+	#unvariable {stest}
 }
 
 #MACRO {\eOS}
 {
-	quaff illuminated sacl
+	quaff illuminated pouch
 }
 
 #VARIABLE         {cleric}  {1}

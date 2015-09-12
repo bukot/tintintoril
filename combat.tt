@@ -1,55 +1,5 @@
 #CLASS {combat} OPEN
 
-#ACTION {Aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa general.tt$}
-{
-	#nop /* this action can be removed but is used to document the file and   */;
-	#nop /* it's functionality.                                               */;
-	#nop /*                                                                   */;
-	#nop /* external dependencies...                                          */;
-	#nop /*      general.tt                                                   */;
-	#nop /*           var {enemy} used to determine if we are in combat so we */;
-	#nop /*           don't spam switch opponents with asst                   */;
-	#nop /*                                                                   */;
-	#nop /*                                                                   */;
-	#nop /* aliases and usage                                                 */;
-	#nop /*      {t<number> <name|none>}                                      */;
-	#nop /*           this is the targeting system. values are stored in an   */;
-	#nop /*           array type variable named t.                            */;
-	#nop /*           the name is optional if omitted will report the current */;
-	#nop /*           value of t<number> if "none" is supplied as the name it */;
-	#nop /*           will clear it otherwise it sets t<number> to the given  */;
-	#nop /*           name                                                    */;
-	#nop /*                                                                   */;
-	#nop /*      {tclear}                                                     */;
-	#nop /*           clears the target list                                  */;
-	#nop /*                                                                   */;
-	#nop /*      {tl}                                                         */;
-	#nop /*           displays all values stored in the target list           */;
-	#nop /*                                                                   */;
-	#nop /*      {asst <name|num>}                                            */;
-	#nop /*           assist that can accept a name or tnumber.  if the       */;
-	#nop /*           <name|num> is omitted it defaults to target 1 <1>       */;
-	#nop /*           you only supply the number                              */;
-	#nop /*                                                                   */;
-	#nop /*                                                                   */;
-	#nop /* variables set by class                                            */;
-	#nop /*      {combat}                                                     */;
-	#nop /*           variable used to test for combat class being loaded     */;
-	#nop /*                                                                   */;
-	#nop /*      {doasst}                                                     */;
-	#nop /*           used to track if asst should fire the assist or not     */;
-	#nop /*                                                                   */;
-	#nop /*      {t}                                                          */;
-	#nop /*           stores the target information in array format           */;
-	#nop /*                                                                   */;
-}
-{1}
-
-
-#act {{is too huge for you to trip! You go crashing to the ground.}$}
-{
-st
-}
 #ACTION {You stagger, and fall to your knees!}
 {
 	st
@@ -82,6 +32,18 @@ st
 {5}
 
 #ACTION {{.* tripping you.$}}
+{
+	st
+}
+{5}
+
+#ACTION {{Unfortunately, .+ proves to be quite agile \w+, and you go down as well.}}
+{
+	st
+}
+{5}
+
+#ACTION {{is too huge for you to trip! You go crashing to the ground.}$}
 {
 	st
 }
@@ -121,7 +83,7 @@ st
 		{
 			#if {"$ttest2" != ""}
 			{
-				#variable {t[$ttest1]} {$ttest2};
+				#variable {t[$ttest1]} {$ttest2}
 			}
 		}
 	};

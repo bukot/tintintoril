@@ -1,27 +1,5 @@
 #CLASS {psionicist} OPEN
 
-#alias {{autotrans (on|off)}}
-{
-	#switch {"%2"}
-	{
-		#case {"on"}
-		{
-			#var psiautotrans {1}
-		};
-		#default
-		{
-			#var psiautotrans {0}
-		}
-	};
-	#if {$psiautotrans}
-	{#showme {you say auto transport is on!};
-	};
-	#else
-	{
-		#showme {you say auto transport is off!};
-	}
-}
-
 #ALIAS {adr}
 {
 	adre me
@@ -40,6 +18,93 @@
 }
 {5}
 
+#alias {dorift %w %w}
+{
+	#if {$psiautotrans}
+	{
+		#class autotrans open;
+		#var {riftcaller} {%2};
+		#line {substitute} {variables} {
+			#act {{You can open a planar rift only to: (.+) planes!}}
+			{
+				t $riftcaller pick a valid plane! &2;
+				killclass autotrans;
+			}{1};
+		};
+			#act {{You open a planar rift to(?: the)? \w+ plane!}}
+			{
+				
+				killclass autotrans;
+			}{1};
+		#class autotrans close;
+		#unvar {riftcaller};
+		rift %1;
+		sit;
+		rest;
+		med;
+	};
+}
+
+#ALIAS {{do(?:hole|worm) (\w+) (\w+)}}
+{
+	#if {$psiautotrans}
+	{
+		#class autotrans open;
+		#var {holecaller} {%3};
+		#if {"%2" == "me"}
+		{
+			#var {holetarg} {$holecaller};
+		};
+		#else
+		{
+			#var {holetarg} {%2};
+		};
+		#line {substitute} {variables} {
+			#act {You fail to find your target on this plane.}
+			{
+				#showme {t $holecaller you are not on the same plane I am.};
+				t $holecaller you are not on the same plane I am.;
+				killclass autotrans;
+			}{1};
+			#act {You fail to locate your targets.}
+			{
+				#showme {t $holecaller can't locate that target ($holetarg).};
+				t $holecaller can't locate that target ($holetarg).;
+				killclass autotrans;
+			}{1};
+			#act {Something prevents your projections from completing}
+			{
+				#showme {t $holecaller you are in a !tele area.};
+				t $holecaller you are in a !tele area.;
+				killclass autotrans;
+			}{1};
+			#act {You open a wormhole!}
+			{
+				killclass autotrans;
+				killclass autotransmessages;
+			}{1};
+			#class autotrans close;
+			#class autotransmessages open;
+			#act {No-one by that name here...}
+			{
+				gcc $holecaller you are invis or hidden and your target was messed up!  Dummeh!;
+				killclass autotransmessages;
+			}{1};
+			#act {%i{^you tell .+}}
+			{
+				killclass autotransmessages;
+				#showme $holetarg;
+			}{1};
+		};
+		#class autotransmessages close;
+		hole $holetarg;
+		sit;
+		rest;
+		med;
+	};
+}
+{5}
+
 #ALIAS {ds}
 {
 	dangers
@@ -55,6 +120,12 @@
 #ALIAS {fla}
 {
 	flesha me
+}
+{5}
+
+#ALIAS {hole}
+{
+	worm
 }
 {5}
 
@@ -102,12 +173,38 @@
 }
 {5}
 
+#ALIAS {{autotrans (on|off)}}
+{
+	#switch {"%2"}
+	{
+		#case {"on"}
+		{
+			#variable psiautotrans {1};
+			#tic {traslive} {pose} {90};
+		};
+		#default
+		{
+			#variable psiautotrans {0};
+			#untic {traslive};
+		}
+	};
+	#if {$psiautotrans}
+	{
+		#showme {you say auto transport is on!}
+	};
+	#else
+	{
+		#showme {you say auto transport is off!}
+	}
+}
+{5}
+
 #MACRO {\eOP}
 {
 	shift ix
 }
 
-#VARIABLE         {class}  {psionicist}
-#var psiautotrans 0
+#VARIABLE         {class} {psionicist}
+#VARIABLE         {psiautotrans}  {0}
 
 #CLASS {psionicist} CLOSE
