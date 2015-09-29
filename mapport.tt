@@ -205,9 +205,21 @@
 }
 {5}
 
+#ACTION {^A creaky wooden watch tower rises up above the swamp.{(?: \(Shadowed\))?}}
+{
+	portto 15374
+}
+{5}
+
 #ACTION {^A dark guildmaster stands here ready to teach someone.{(?: \(Shadowed\))?}}
 {
 	portto 12233
+}
+{5}
+
+#ACTION {^A marsh laden house boat floats here amongst muck.{(?: \(Shadowed\))?}}
+{
+	portto 15387
 }
 {5}
 
@@ -259,9 +271,21 @@
 }
 {5}
 
+#ACTION {^At Moonway and Auchtareen Lane{(?: \(Shadowed\))?}}
+{
+	portto 13
+}
+{5}
+
 #ACTION {^At Moonway and Ghostwalk{(?: \(Shadowed\))?}}
 {
 	portto 20
+}
+{5}
+
+#ACTION {^At Mulgate Avenue and Auctareen Lane{(?: \(Shadowed\))?}}
+{
+	portto 5
 }
 {5}
 
@@ -361,6 +385,12 @@
 }
 {5}
 
+#ACTION {^Chamber of Bashing{(?: \(Shadowed\))?}}
+{
+	portto 23440
+}
+{5}
+
 #ACTION {^Dead End in the Forest{(?: \(Shadowed\))?}}
 {
 	portto 9378
@@ -385,6 +415,12 @@
 }
 {5}
 
+#ACTION {^Entrance to the Faang Amusement Park{(?: \(Shadowed\))?}}
+{
+	portto 21740
+}
+{5}
+
 #ACTION {^Entrance to the Temple of Tymora{(?: \(Shadowed\))?}}
 {
 	portto 6873
@@ -394,6 +430,18 @@
 #ACTION {^Everdusk Hall{(?: \(Shadowed\))?}}
 {
 	portto 572
+}
+{5}
+
+#ACTION {^Faelfaril's Inn{(?: \(Shadowed\))?}}
+{
+	portto 5449
+}
+{5}
+
+#ACTION {^Ferry Launch on the Northern Shore of the Chionthar River{(?: \(Shadowed\))?}}
+{
+	portto 7016
 }
 {5}
 
@@ -568,6 +616,12 @@
 }
 {5}
 
+#ACTION {^Tavern On The Bog{(?: \(Shadowed\))?}}
+{
+	portto 15366
+}
+{5}
+
 #ACTION {^Temple of Silver Stars{(?: \(Shadowed\))?}}
 {
 	portto 570
@@ -589,6 +643,12 @@
 #ACTION {^The Blue Bottle{(?: \(Shadowed\))?}}
 {
 	portto 158
+}
+{5}
+
+#ACTION {^The Body of Shar{(?: \(Shadowed\))?}}
+{
+	portto 4327
 }
 {5}
 
@@ -744,6 +804,12 @@
 }
 {5}
 
+#ACTION {^The Elf Innards Inn{(?: \(Shadowed\))?}}
+{
+	portto 17923
+}
+{5}
+
 #ACTION {^The Entrance to a Glowing Cavern{(?: \(Shadowed\))?}}
 {
 	portto 14473
@@ -825,6 +891,12 @@
 #ACTION {^The House of the Tuek'tharm Family{(?: \(Shadowed\))?}}
 {
 	portto 14488
+}
+{5}
+
+#ACTION {^The Import Shop of Faang{(?: \(Shadowed\))?}}
+{
+	portto 17901
 }
 {5}
 
@@ -1134,9 +1206,21 @@
 }
 {5}
 
+#ACTION {^Ugg's Bat Bakery{(?: \(Shadowed\))?}}
+{
+	portto 17985
+}
+{5}
+
 #ACTION {^Ultrumm's Music Conservatory{(?: \(Shadowed\))?}}
 {
 	portto 5902
+}
+{5}
+
+#ACTION {^Western Entrance to the Faang Market Caves{(?: \(Shadowed\))?}}
+{
+	portto 17819
 }
 {5}
 
