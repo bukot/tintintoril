@@ -403,6 +403,12 @@
 }
 {5}
 
+#ACTION {^Eastern Entrance to the Faang Market Caves{(?: \(Shadowed\))?}}
+{
+	portto 17839
+}
+{5}
+
 #ACTION {^Elstearn's Escorts{(?: \(Shadowed\))?}}
 {
 	portto 14746
@@ -424,6 +430,18 @@
 #ACTION {^Entrance to the Temple of Tymora{(?: \(Shadowed\))?}}
 {
 	portto 6873
+}
+{5}
+
+#ACTION {^Entry Hall of the House Hlaund Manor{(?: \(Shadowed\))?}}
+{
+	portto 13025
+}
+{5}
+
+#ACTION {^Entry Hall of the House Zauviir Manor{(?: \(Shadowed\))?}}
+{
+	portto 13026
 }
 {5}
 
@@ -496,6 +514,12 @@
 #ACTION {^Inn of the Golden God{(?: \(Shadowed\))?}}
 {
 	portto gnomeinn
+}
+{5}
+
+#ACTION {^Inside a Large Sinkhole{(?: \(Shadowed\))?}}
+{
+	portto 2769
 }
 {5}
 
@@ -610,6 +634,12 @@
 }
 {5}
 
+#ACTION {^Sarrakis' Spice House{(?: \(Shadowed\))?}}
+{
+	portto 13007
+}
+{5}
+
 #ACTION {^Solonor's Square{(?: \(Shadowed\))?}}
 {
 	portto 4083
@@ -634,9 +664,21 @@
 }
 {5}
 
+#ACTION {^The Black Altar of Vhaeraun{(?: \(Shadowed\))?}}
+{
+	portto 12927
+}
+{5}
+
 #ACTION {^The Black Dragon Gate{(?: \(Shadowed\))?}}
 {
 	portto 6447
+}
+{5}
+
+#ACTION {^The Black Sun Jewelers{(?: \(Shadowed\))?}}
+{
+	portto 13012
 }
 {5}
 
@@ -816,9 +858,21 @@
 }
 {5}
 
+#ACTION {^The Entry Hall of the House Aleanrahel Manorissiy{(?: \(Shadowed\))?}}
+{
+	portto 12935
+}
+{5}
+
 #ACTION {^The Forest of Nightmares{(?: \(Shadowed\))?}}
 {
 	portto 22399
+}
+{5}
+
+#ACTION {^The Foyer of the House Rilynt'Tar Manor{(?: \(Shadowed\))?}}
+{
+	portto 13024
 }
 {5}
 
@@ -1012,6 +1066,12 @@
 }
 {5}
 
+#ACTION {^The Redleaf Perfumers{(?: \(Shadowed\))?}}
+{
+	portto 12968
+}
+{5}
+
 #ACTION {^The Registration Desk of the Caravansary{(?: \(Shadowed\))?}}
 {
 	portto 13244
@@ -1045,6 +1105,12 @@
 #ACTION {^The Scriptorium{(?: \(Shadowed\))?}}
 {
 	portto 95
+}
+{5}
+
+#ACTION {^The Shop of Unearthly Arcana{(?: \(Shadowed\))?}}
+{
+	portto 13013
 }
 {5}
 
@@ -1112,6 +1178,12 @@
 #ACTION {^The Veranza-Lights T-Intersection{(?: \(Shadowed\))?}}
 {
 	portto 6618
+}
+{5}
+
+#ACTION {^The Viper's Fang{(?: \(Shadowed\))?}}
+{
+	portto 13011
 }
 {5}
 
@@ -1215,6 +1287,12 @@
 #ACTION {^Ultrumm's Music Conservatory{(?: \(Shadowed\))?}}
 {
 	portto 5902
+}
+{5}
+
+#ACTION {^Vraxilen's Blade Shop{(?: \(Shadowed\))?}}
+{
+	portto 13006
 }
 {5}
 
