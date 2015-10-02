@@ -628,6 +628,12 @@
 }
 {5}
 
+#ACTION {^Raazt Nal'fayzen Armorers{(?: \(Shadowed\))?}}
+{
+	portto 13004
+}
+{5}
+
 #ACTION {^Rhyester's Matins{(?: \(Shadowed\))?}}
 {
 	portto 573
@@ -664,6 +670,12 @@
 }
 {5}
 
+#ACTION {^The Battle Chanting Room{(?: \(Shadowed\))?}}
+{
+	portto 23691
+}
+{5}
+
 #ACTION {^The Black Altar of Vhaeraun{(?: \(Shadowed\))?}}
 {
 	portto 12927
@@ -673,6 +685,12 @@
 #ACTION {^The Black Dragon Gate{(?: \(Shadowed\))?}}
 {
 	portto 6447
+}
+{5}
+
+#ACTION {^The Black Mask Tavern{(?: \(Shadowed\))?}}
+{
+	portto 13104
 }
 {5}
 
@@ -852,6 +870,12 @@
 }
 {5}
 
+#ACTION {^The End of the Slag Tube{(?: \(Shadowed\))?}}
+{
+	portto 16793
+}
+{5}
+
 #ACTION {^The Entrance to a Glowing Cavern{(?: \(Shadowed\))?}}
 {
 	portto 14473
@@ -936,6 +960,12 @@
 }
 {5}
 
+#ACTION {^The House Zauviir Barracks{(?: \(Shadowed\))?}}
+{
+	portto 13106
+}
+{5}
+
 #ACTION {^The House of Shunn Tahaladar{(?: \(Shadowed\))?}}
 {
 	portto 14771
@@ -957,6 +987,12 @@
 #ACTION {^The Inn of Restful Contemplation{(?: \(Shadowed\))?}}
 {
 	portto ixinn
+}
+{5}
+
+#ACTION {^The Instrument Workshop{(?: \(Shadowed\))?}}
+{
+	portto 23692
 }
 {5}
 
@@ -1033,6 +1069,12 @@
 #ACTION {^The Pride of Menzoberranzan{(?: \(Shadowed\))?}}
 {
 	portto 14505
+}
+{5}
+
+#ACTION {^The Purple Rothe Stables{(?: \(Shadowed\))?}}
+{
+	portto 13109
 }
 {5}
 
@@ -1132,9 +1174,21 @@
 }
 {5}
 
+#ACTION {^The Southern Fountain Plaza{(?: \(Shadowed\))?}}
+{
+	portto 1590
+}
+{5}
+
 #ACTION {^The Southwestern Corner of the Wall Road{(?: \(Shadowed\))?}}
 {
 	portto 6520
+}
+{5}
+
+#ACTION {^The Spider's Bane Emporium{(?: \(Shadowed\))?}}
+{
+	portto 13005
 }
 {5}
 
