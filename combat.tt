@@ -1,0 +1,193 @@
+#CLASS {combat} OPEN
+
+#ACTION {You fail miserably in your attempt to disarm}
+{
+	#class wepget open;
+	#action {{.+ (warmaul|sword|axe|mace|club|greatsword|dagger) .+ lands on the floor.}}{get %%2;wield %%2;killclass wepget;}#class wepget close
+}
+{5}
+
+#ACTION {%i{^$t[1] (?:.* (?:wounds|misses))|(?:sends .* sprawling with a powerful bash.)|(is sent sprawling)|(?:avoids being bashed by .*?, who loses his balance and falls.)}}
+{
+	#if {$autoass}
+	{
+		asst;
+		#if {"$rogueassist" == "1"}
+		{
+			#echo {***cir***};
+			cir;
+		};
+	};
+}
+{4}
+
+#ACTION {You stagger, and fall to your knees!}
+{
+	st
+}
+{5}
+
+#ACTION {^Assist whom?$}
+{
+	#variable {doasst} {1}
+}
+{5}
+
+#ACTION {^That person is not fighting anyone.$}
+{
+	#variable {doasst} {1}
+}
+{5}
+
+#ACTION {^You manage to, with complete incompetence, throw yourself head first directly into the ground!}
+{
+	#nop /* trip fail trigger                                           */;
+	st
+}
+{5}
+
+#ACTION {{.* sends you sprawling.$}}
+{
+	st
+}
+{5}
+
+#ACTION {{.* tripping you.$}}
+{
+	st
+}
+{5}
+
+#ACTION {{Unfortunately, .+ proves to be quite agile \w+, and you go down as well.}}
+{
+	st
+}
+{5}
+
+#ACTION {{is too huge for you to trip! You go crashing to the ground.}$}
+{
+	st
+}
+{5}
+
+#ALIAS {%i{^t([0-9]+)(?: (\w*))?$}}
+{
+	#variable {ttest1} {%2};
+	#variable {ttest2} {%3};
+	#variable {ttest3} {$t.%2};
+	#if {"$ttest2" != ""}
+	{
+		#if {"$ttest3" != ""}
+		{
+			#line {substitute} {variable} {#unsubstitute {~%i%%1$ttest3%%2}}
+		};
+		#if {"$ttest2" != "none"}
+		{
+			#if {$ttest1 == 1}
+			{
+				#line {substitute} {variable} {#substitute {~%i%%1$ttest2%%2} {%%1<134><488>(t1)$ttest2<088>%%2}}
+			};
+			#else
+			{
+				#line {substitute} {variable} {#substitute {~%i%%1$ttest2%%2} {%%1<130>(t$ttest1)<088>$ttest2%%2}}
+			}
+		};
+		#else
+		{
+			#showme <168>Target $ttest1 ($ttest3) is now: $ttest2
+		};
+		#if {"$ttest2" == "none"}
+		{
+			#unvariable t[$ttest1]
+		};
+		#else
+		{
+			#if {"$ttest2" != ""}
+			{
+				#variable {t[$ttest1]} {$ttest2}
+			}
+		}
+	};
+	#showme {you say target$ttest1 is $t.$ttest1};
+	#unvariable ttest1;
+	#unvariable ttest2;
+	#unvariable ttest3
+}
+{5}
+
+#ALIAS {%i{^tclear$}}
+{
+	#foreach {$t} {tcli}
+	{
+		#regexp {$tcli} {{[0-9]+$}} {t$tcli none}
+	};
+	#unvariable {tcli}
+}
+{5}
+
+#ALIAS {%i{^tl$}}
+{
+	#foreach {$t} {tli}
+	{
+		#regexp {$tli} {{[0-9]+$}} {t$tli}
+	};
+	#unvariable {tli}
+}
+{5}
+
+#ALIAS {{asst(?: (\d*))?}}
+{
+	#nop doasst is reset in general in the prompt capture trigger;
+	#if {$doasst}
+	{
+		#if {%2 && "$t[%2]" != ""}
+		{
+			ass $t[%2];
+			#if {&autobash && "$autobash" == "1"}
+			{
+				bash;
+			};
+			#variable {doasst} {0}
+		};
+		#else
+		{
+			ass $t[1];
+			#if {&autobash && "$autobash" == "1"}
+			{
+				bash;
+			};
+			#variable {doasst} {0}
+		}
+	};
+}
+{5}
+
+#alias {%i{autoass(?:i(?:st?)?)? ?(on|off)?}}
+{
+	#var {asstrep} {off};
+	
+	#if {"%2" == "on"}
+	{
+		#var {autoass} {1};
+	};
+	
+	#if {"%2" == "off"}
+	{
+		#var {autoass} {0};
+	};
+	
+	#if {$autoass}
+	{
+		#var {asstrep} {on};
+	};
+	
+	#showme {you say autoassit is $asstrep};
+	#unvar {asstrep};
+}
+
+#VARIABLE         {combat}  {1}
+#VARIABLE         {doasst}  {1}
+#var {autoass} {0}
+#VARIABLE         {t}  {}
+
+#CLASS {combat} CLOSE
