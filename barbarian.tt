@@ -1,9 +1,0 @@
-#class barbarian open;
-
-
-#ACTION {In your haste to slam people around, you slip and fall!}
-{
-	st
-}
-{5}
-#class barbarian close;
