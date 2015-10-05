@@ -29,6 +29,12 @@
 }
 {5}
 
+#ACTION {^A Blood-Speckled Shop{(?: \(Shadowed\))?}}
+{
+	portto 17822
+}
+{5}
+
 #ACTION {^A Cabin of Blue Crystal{(?: \(Shadowed\))?}}
 {
 	portto 22479
@@ -217,6 +223,12 @@
 }
 {5}
 
+#ACTION {^A glowing ruby colored pool sits here reflecting the light.{(?: \(Shadowed\))?}}
+{
+	portto 23750
+}
+{5}
+
 #ACTION {^A marsh laden house boat floats here amongst muck.{(?: \(Shadowed\))?}}
 {
 	portto 15387
@@ -385,6 +397,12 @@
 }
 {5}
 
+#ACTION {^Bottom of a Large Sphere of Air{(?: \(Shadowed\))?}}
+{
+	portto 23738
+}
+{5}
+
 #ACTION {^Chamber of Bashing{(?: \(Shadowed\))?}}
 {
 	portto 23440
@@ -409,6 +427,12 @@
 }
 {5}
 
+#ACTION {^Edge of a Sphere of Fire{(?: \(Shadowed\))?}}
+{
+	portto 22505
+}
+{5}
+
 #ACTION {^Elstearn's Escorts{(?: \(Shadowed\))?}}
 {
 	portto 14746
@@ -418,6 +442,12 @@
 #ACTION {^Entrance to Chrysalis{(?: \(Shadowed\))?}}
 {
 	portto 21957
+}
+{5}
+
+#ACTION {^Entrance to the Cave of Masters{(?: \(Shadowed\))?}}
+{
+	portto 23890
 }
 {5}
 
@@ -475,6 +505,12 @@
 }
 {5}
 
+#ACTION {^Great Worm Hole{(?: \(Shadowed\))?}}
+{
+	portto 23748
+}
+{5}
+
 #ACTION {^Guild of Assassins{(?: \(Shadowed\))?}}
 {
 	portto 19909
@@ -508,6 +544,12 @@
 #ACTION {^In The Fields Surrounding Lake Donigarten{(?: \(Shadowed\))?}}
 {
 	portto 16407
+}
+{5}
+
+#ACTION {^In the Altar Room of the Ogre Father{(?: \(Shadowed\))?}}
+{
+	portto 17838
 }
 {5}
 
@@ -571,6 +613,12 @@
 #ACTION {^Minstrelwish Perfumery{(?: \(Shadowed\))?}}
 {
 	portto 14495
+}
+{5}
+
+#ACTION {^Music Room of Masters{(?: \(Shadowed\))?}}
+{
+	portto 23901
 }
 {5}
 
@@ -866,7 +914,7 @@
 
 #ACTION {^The Elf Innards Inn{(?: \(Shadowed\))?}}
 {
-	portto 17923
+	portto 17926
 }
 {5}
 
@@ -885,6 +933,12 @@
 #ACTION {^The Entry Hall of the House Aleanrahel Manorissiy{(?: \(Shadowed\))?}}
 {
 	portto 12935
+}
+{5}
+
+#ACTION {^The Faang Boat Shop{(?: \(Shadowed\))?}}
+{
+	portto 23829
 }
 {5}
 
@@ -1219,7 +1273,7 @@
 
 #ACTION {^The Upstairs of the Wayward House Inn{(?: \(Shadowed\))?}}
 {
-	portto smrent
+	portto 23799
 }
 {5}
 
@@ -1334,7 +1388,7 @@
 
 #ACTION {^Ugg's Bat Bakery{(?: \(Shadowed\))?}}
 {
-	portto 17985
+	portto 23845
 }
 {5}
 
