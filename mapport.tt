@@ -163,6 +163,12 @@
 }
 {5}
 
+#ACTION {^A Strange Oasis{(?: \(Shadowed\))?}}
+{
+	portto 24327
+}
+{5}
+
 #ACTION {^A Street Along the Southern Edge of a Large Rift{(?: \(Shadowed\))?}}
 {
 	portto 14742
