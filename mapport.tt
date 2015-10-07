@@ -1392,6 +1392,12 @@
 }
 {5}
 
+#ACTION {^Top of a Flattened Stalagmite{(?: \(Shadowed\))?}}
+{
+	portto 24336
+}
+{5}
+
 #ACTION {^Ugg's Bat Bakery{(?: \(Shadowed\))?}}
 {
 	portto 23845
