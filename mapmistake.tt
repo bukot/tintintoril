@@ -19,6 +19,12 @@
 }
 {5}
 
+#ACTION {A powerful force seems to block you...nothing happens.}
+{
+	mundo
+}
+{5}
+
 #ACTION {Alas, you cannot go that way. . . .}
 {
 	#if {!$mapstatic}
@@ -27,10 +33,6 @@
 	}
 }
 {5}
-#act {You collapse under your carried load!}
-{
-	mundo
-}
 
 #ACTION {Nah... You feel too relaxed to do that...}
 {
@@ -84,6 +86,12 @@
 {5}
 
 #ACTION {You are too exhausted.}
+{
+	mundo
+}
+{5}
+
+#ACTION {You collapse under your carried load!}
 {
 	mundo
 }

@@ -7,11 +7,11 @@
 }
 {5}
 
-#ACTION {%i{^$t[1] (?:.* (?:wounds|misses))|(?:sends .* sprawling with a powerful bash.)|(is sent sprawling)|(?:avoids being bashed by .*?, who loses his balance and falls.)}}
+#ACTION {%i{^(?:($t[1]|$t[2]|$t[3]|$t[4]|$t[5]|$t[6]|$t[7]) (?:.* (?:wounds|misses))|(?:sends .* sprawling with a powerful bash.)|(is sent sprawling)|(?:avoids being bashed by .*?, who loses his balance and falls.)|(?:.* (?:wounds|misses) ($t[1]|$t[2]|$t[3]|$t[4]|$t[5]|$t[6]|$t[7])))}}
 {
 	#if {$autoass}
 	{
-		asst;
+		asst %2;
 		#if {"$rogueassist" == "1"}
 		{
 			#echo {***cir***};
@@ -187,7 +187,7 @@
 
 #VARIABLE         {combat}  {1}
 #VARIABLE         {doasst}  {1}
-#var {autoass} {0}
+#VARIABLE         {autoass} {0}
 #VARIABLE         {t}  {}
 
 #CLASS {combat} CLOSE

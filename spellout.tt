@@ -1,5 +1,11 @@
 #CLASS {spellout} OPEN
 
+#ACTION {You can see normally again!}
+{
+	repout not blind no mo!
+}
+{5}
+
 #ACTION {^A wave of exhaustion washes over you as your divine power fades.}
 {
 	repout divine power~~cleric
@@ -93,9 +99,19 @@
 #ACTION {^You are exhausted as your adrenaline level returns to normal.}
 {
 	repout adrenalize~~psionicist;
-	#if {"class" == "psionicist" && autobuff}
+	#if {"$class" == "psionicist" && $autobuff}
 	{
 		adr
+	}
+}
+{5}
+
+#ACTION {^You feel a little confused as your augmented knowledge of battle tactics fades.}
+{
+	repout battle trance~~psionicist;
+	#if {"$autotrance" == "1"}
+	{
+		battle
 	}
 }
 {5}
@@ -139,7 +155,7 @@
 #ACTION {^You feel more vulnerable to psionic attack.}
 {
 	repout tower~~psionicist;
-	#if {"class" == "psionicist" && autobuff}
+	#if {"$class" == "psionicist" && $autobuff}
 	{
 		tower
 	}
@@ -149,7 +165,7 @@
 #ACTION {^You lose your catlike gait.}
 {
 	repout catfall~~psionicist;
-	#if {"class" == "psionicist" && autobuff}
+	#if {"$class" == "psionicist" && $autobuff}
 	{
 		cat me
 	}
@@ -159,7 +175,7 @@
 #ACTION {^You no longer feel able to protect yourself from hostile environments.}
 {
 	repout body control~~psionicist;
-	#if {"class" == "psionicist" && autobuff}
+	#if {"$class" == "psionicist" && $autobuff}
 	{
 		bc
 	}
@@ -204,11 +220,7 @@
 
 #ACTION {^Your body size returns to normal.}
 {
-	repout expansion~~psionicist;
-	#if {"class" == "psionicist" && autobuff}
-	{
-		exp
-	}
+	repout expansion~~psionicist
 }
 {5}
 
@@ -287,7 +299,7 @@
 #ACTION {^Your skin becomes softer as your flesh armor fades away.}
 {
 	repout flesharmor~~psionicist;
-	#if {"class" == "psionicist" && autobuff}
+	#if {"$class" == "psionicist" && $autobuff}
 	{
 		fla
 	}
@@ -329,10 +341,12 @@
 		gsay $outspell out!
 	};
 	#showme $me says $outspell out!;
-	#unvar outspell
+	#unvariable outspell
 }
 {5}
 
 #VARIABLE         {autobuff}  {0}
+#VARIABLE         {autotrance}  {0}
+#VARIABLE         {battletr}  {0}
 
 #CLASS {spellout} CLOSE

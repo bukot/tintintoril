@@ -27,7 +27,7 @@
 	#nop /*                                                                   */;
 	#nop /*                                                                   */;
 	#nop /* variables set by class                                            */;
-	#nop /*      {bash}  {0}                                                  */;
+	#nop /*      {autobash}  {0}                                                  */;
 	#nop /*           is autobash on                                          */;
 	#nop /*                                                                   */;
 	#nop /*      {warior} {1}                                                 */;
@@ -47,13 +47,19 @@
 
 #ACTION {%* clambers to %w feet}
 {
-	#if {&bash}
+	#if {&autobash}
 	{
-		#if {$bash}
+		#if {$autobash}
 		{
 			bash
 		}
 	}
+}
+{5}
+
+#ACTION {%i{(?:$$t[1] sends .* sprawling with a powerful bash.)|(is sent sprawling)|(?:avoids being bashed by $$t[1], who loses his balance and falls.)|(?:$$t[1] attacks)}}
+{
+	asst
 }
 {5}
 
@@ -71,9 +77,9 @@
 
 #ACTION {You {clamber|rise} to your feet}
 {
-	#if {&bash}
+	#if {&autobash}
 	{
-		#if {$bash}
+		#if {$autobash}
 		{
 			bash
 		}
@@ -109,22 +115,42 @@
 		#if {$sp > 3}
 		{
 			#variable {sp} 1
-		};
+		}
 	}
 }
 {5}
 
 #ACTION {^You pass clean through}
 {
-	#if {&bash}
+	#if {&autobash}
 	{
-		#if {$bash}
+		#if {$autobash}
 		{
 			bash
 		}
 	}
 }
 {5}
+
+#alias {%i{bashset (n|p)(?:o(?:r(?:m(?:al?)?)?)?|o(?:w(?:e(?:rs?)?)?)?)?}}
+{
+	#switch {"%2"}
+	{
+		#case {"n"}
+		{
+			#var {bash} {bas};
+		};
+		#case {"p"}
+		{
+			#var {bash} {bh};
+		}
+	}
+}
+
+#alias {bash}
+{
+	$bash %1
+}
 
 #ALIAS {shi}
 {
@@ -138,14 +164,14 @@
 	{
 		#case {"on"}
 		{
-			#variable bash 1
+			#variable {autobash} {1};
 		};
 		#case {"off"}
 		{
-			#variable bash 0
+			#variable {autobash} {0};
 		}
 	};
-	#if {$bash}
+	#if {$autobash}
 	{
 		#variable saystat on
 	};
@@ -157,6 +183,34 @@
 	#unvariable saystat
 }
 {5}
+
+#ACTION {%i{(?:.* (?:wounds|misses) (?:$rlistcomp))|(?:sends (?:$rlistcomp) sprawling with a powerful bash.)|((?:$rlistcomp) is sent sprawling)|(?:(?:$rlistcomp) avoids being bashed by .*?, who loses his balance and falls.)}}
+{
+};
+
+#ali {%i{resl? (a|r) ([a-z]+)}}
+{
+	#var {rchklist} {0};
+	#list {rlist} {find} {%3} {rchklist};
+	#if {"%2" == "a" && "$rchklist" <= "0"}
+	{
+		#list {rlist} {add} {%3};
+	};
+	#if {"%2" == "r" && $rchklist <= 0}
+	{
+		#list {rlist} {delete} {$rchklist};
+	};
+	#list {rlist} {length} {rlistlen};
+	#var {rlistcomp} {};
+	#if {$rlistlen > 0}
+	{
+		#var {rlistcomp} {$rlist[1]};
+		#if {$rlistlen > 1}
+		{
+			#loop {2} {$rlistlen} {i} {#var {rlistcomp} {$rlistcomp|$rlist[$i]}};
+		};
+	};
+};
 
 #ALIAS {{autosp(?: (\w+))?}}
 {
@@ -191,8 +245,12 @@
 {5}
 
 #GAG              {You miss %*}
-#VARIABLE         {bash}  {0}
+#var {bash} {bas};
+#VARIABLE         {autobash}  {0}
 #VARIABLE         {sp}  {0}
+#VARIABLE         {warassist} {1}
 #VARIABLE         {warior}  {1}
+#var {rlist} {}
+#var {rlistcomp} {}
 
 #CLASS {warrior} CLOSE

@@ -18,35 +18,23 @@
 	#nop /*           if the on|off is omitted then it will report the status */;
 	#nop /*           of auto garroting.                                      */;
 	#nop /*                                                                   */;
+	#nop /*      {autotrip <on|off>}                                          */;
+	#nop /*           will re-trip a target they stand or if you miss         */;
+	#nop /*           if the on|off is omitted then it will report the status */;
+	#nop /*           of auto triping.                                        */;
+	#nop /*                                                                   */;
 	#nop /*      {bs <target>}                                                */;
 	#nop /*           backstab the target                                     */
 }
 {1}
 
-#ACTION {%i{(?:sends .* sprawling with a powerful bash.)|(is sent sprawling)|(?:avoids being bashed by .*?, who loses his balance and falls.)}}
-{
-	asst;
-	#echo {***cir***};
-	cir
-}
-{5}
-
-#actio {Your disguise falls apart!}
+#ACTION {Your disguise falls apart!}
 {
 	#showme you say disguise is out!!
 }
-
-#ACTION {{.* does a nifty move, flipping you onto your back!}}
-{
-	st;
-	#if {$autogar}
-	{
-		gar $enemy
-	}
-}
 {5}
 
-#ACTION {{(?:.+ clambers? to \w+ feet)|(?:A .+ rises to \w+ feet.)}}
+#ACTION {{(?:.+ clambers? to \w+ feet)|(?:.+ rises to \w+ feet.)}}
 {
 	#if {&roguetrip}
 	{
@@ -54,6 +42,22 @@
 		{
 			trip
 		}
+	}
+}
+{5}
+
+#ACTION {{(?:You manage to, with complete incompetence, throw yourself head first directly into the ground!)|(?:Unfortunately, a /w+ proves to be quite agile (?:his|her|it) self, and you go down as well.)}}
+{
+	st
+}
+{5}
+
+#ACTION {{.* does a nifty move, flipping you onto your back!}}
+{
+	st;
+	#if {$autogar}
+	{
+		gar $enemy
 	}
 }
 {5}
@@ -70,52 +74,89 @@
 }
 {5}
 
-#ACTION {{(?:You manage to, with complete incompetence, throw yourself head first directly into the ground!)|(?:Unfortunately, a /w+ proves to be quite agile (?:his|her|it)
-self, and you go down as well.)}}
-{
-	st
-}
-{5}
-
 #ACTION {{You try to trip .+, only to sprawl completely THROUGH .+.}}
 {
 	st
 }
 {5}
 
-#ALIAS {%i{app ([a-zA-Z.0-9]+)(?: ([a-zA-Z.0-9]+))?}}
+#ALIAS {%i{^cl (1$|2$|(?:[0-9]{0,2}\.)?[a-z]+$)}}
 {
+	#switch {"%2"}
+	{
+		#case {"1"}
+		{
+			cl primaryweapon
+		};
+		#case {"2"}
+		{
+			cl secondaryweapon
+		};
+		#default
+		{
+			clean %2
+		}
+	}
+}
+{5}
+
+#ALIAS {%i{app (1|2|(?:[0-9]{0,2}\.)?[a-z]+)(?: ((?:[0-9]{0,2}\.)?[a-z]+$))?}}
+{
+	#class {rogue} open;
 	#variable {rpoi} {%3};
+	#variable {rwep} {%2};
+	#class {rogue} close;
 	#if {"$rpoi" == "" && "$lastpoison" != ""}
 	{
-		#variable {rpoi} {$lastpoison}
+		#class {rogue} open;
+		#variable {dolast} {0};
+		#class {rogue} close;
+		#switch {"$rwep"}
+		{
+			#case {"1"}
+			{
+				#variable {dolast} {1}
+			};
+			#case {"2"}
+			{
+				#variable {dolast} {1}
+			}
+		};
+		#if {$dolast}
+		{
+			app $rwep $lastpoison[$rwep]
+		};
+		#else
+		{
+			#showme You say No poison was specified previously (specify a poison)!!
+		};
+		#unvariable {dolast}
 	};
 	#else
 	{
 		#if {"$rpoi" == ""}
 		{
 			#showme You say No poison was specified!!
-		}
-	};
-	#variable {rwep} {%2};
-	#echo {$rwep :: $rpoi};
-	#switch {"$rwep"}
-	{
-		#case {"1"}
-		{
-			apply $rpoi primaryweapon
 		};
-		#case {"2"}
+		#else
 		{
-			apply $rpoi secondaryweapon
-		};
-		#case {""}
-		{
-			apply $lastpoison $rwep
-		};
-		#default
-		{
-			apply $rpoi $rwep
+			#switch {"$rwep"}
+			{
+				#case {"1"}
+				{
+					#variable {lastpoison[1]} {$rpoi};
+					app primaryweapon $rpoi
+				};
+				#case {"2"}
+				{
+					#variable {lastpoison[2]} {$rpoi};
+					app secondaryweapon $rpoi
+				};
+				#default
+				{
+					apply $rpoi $rwep
+				}
+			}
 		}
 	};
 	#unvariable {rpoi};
@@ -123,46 +164,57 @@ self, and you go down as well.)}}
 }
 {5}
 
-#ALIAS {%i{autogar(?: (on|off?))?}}
+#ALIAS {%i{autogar ?(on|of)?f?}}
 {
 	#format {agp} {%l} {%2};
 	#switch {"$agp"}
 	{
 		#case {"on"}
 		{
-			#variable autogar 1;
-			autogar
+			#variable autogar 1
 		};
 		#case {"of"}
 		{
-			#variable autogar 0;
-			autogar
-		};
-		#default
-		{
-			#if {$autogar}
-			{
-				#showme {you say auto garrote is on}
-			};
-			#else
-			{
-				#showme {you say auto garrote is off}
-			}
+			#variable autogar 0
 		}
 	};
-	#unvariable {agp}
-}
-{5}
-
-#ALIAS {bs}
-{
-	backstab
+	#unvariable {agp};
+	#if {$autogar}
+	{
+		#showme {you say auto garrote is on}
+	};
+	#else
+	{
+		#showme {you say auto garrote is off}
+	}
 }
 {5}
 
 #ALIAS {hs}
 {
 	hamstring
+}
+{5}
+
+#ALIAS {{(get|rem)picks}}
+{
+	#switch {"%2"}
+	{
+		#case {"get"}
+		{
+			rem dagger;
+			get pouch sack;
+			get picks pouch;
+			hold picks
+		};
+		#case {"rem"}
+		{
+			rem picks;
+			put picks pouch;
+			put pouch sack;
+			wield dagger
+		}
+	}
 }
 {5}
 
@@ -175,7 +227,17 @@ self, and you go down as well.)}}
 	#else
 	{
 		#variable {roguetrip} {0}
-	}
+	};
+	#if {$roguetrip}
+	{
+		#variable triprep on
+	};
+	#else
+	{
+		#variable triprep off
+	};
+	#showme {you say autotrip is $triprep};
+	#unvariable triprep
 }
 {5}
 
@@ -187,6 +249,7 @@ self, and you go down as well.)}}
 #VARIABLE         {autogar}  {0}
 #VARIABLE         {lastpoison}  {}
 #VARIABLE         {rogue}  {1}
+#VARIABLE         {rogueassist}  {0}
 #VARIABLE         {roguetrip}  {0}
 
 #CLASS {rogue} CLOSE

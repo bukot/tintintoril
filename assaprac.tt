@@ -1,0 +1,52 @@
+#CLASS {assaprac} OPEN
+
+#ACTION {(N)ew character}
+{
+	#if {"$me" == "mixxillezissiy"}
+	{
+		6
+	};
+	#else
+	{
+		4
+	}
+}
+{5}
+
+#ACTION {You have successfully gained access to the Valkurian Blades association channel.}
+{
+	#if {"$me" == "ulosa"}
+	{
+		tloot on;
+		sneak;
+		hide;
+		mrun dancinggoat;
+		assas patron
+	};
+	#else
+	{
+		mrun sminn;
+		autotrans on;
+		sit;
+		rest;
+		cha;
+		med;
+		med;
+	}
+}
+{5}
+
+#ACTION {{(?:You get|corpse of .+ empty.|You may only attempt to assassinate someone once a day!|Assassinate who?)}}
+{
+	st;
+	put all.potion sack;
+	mrun smbank;
+	dep all;
+	mrun smrent;
+	rent
+}
+{5}
+
+#TICKER           {assprac}  {st;autotrans off;mrun smrent;rent}          {1800}
+
+#CLASS {assaprac} CLOSE

@@ -107,6 +107,18 @@
 }
 {5}
 
+#ACTION {^A Jagged Trench in the Ocean Floor{(?: \(Shadowed\))?}}
+{
+	portto 25148
+}
+{5}
+
+#ACTION {^A Long Stinking Tunnel{(?: \(Shadowed\))?}}
+{
+	portto 11894
+}
+{5}
+
 #ACTION {^A Magnificent Courtyard{(?: \(Shadowed\))?}}
 {
 	portto 19747
@@ -250,6 +262,12 @@
 #ACTION {^Along Newhaven Way Before an Eerie City{(?: \(Shadowed\))?}}
 {
 	portto 22127
+}
+{5}
+
+#ACTION {^Along a Beach on the Bay{(?: \(Shadowed\))?}}
+{
+	portto 25134
 }
 {5}
 
@@ -448,6 +466,12 @@
 #ACTION {^Entrance to Chrysalis{(?: \(Shadowed\))?}}
 {
 	portto 21957
+}
+{5}
+
+#ACTION {^Entrance to a Duergar Settlement{(?: \(Shadowed\))?}}
+{
+	portto 24726
 }
 {5}
 
@@ -772,6 +796,12 @@
 }
 {5}
 
+#ACTION {^The Bottom of the Well{(?: \(Shadowed\))?}}
+{
+	portto 5911
+}
+{5}
+
 #ACTION {^The Central Hall of Heroes{(?: \(Shadowed\))?}}
 {
 	portto 5764
@@ -1068,6 +1098,12 @@
 }
 {5}
 
+#ACTION {^The Lair of Zz'Pzora{(?: \(Shadowed\))?}}
+{
+	portto 24753
+}
+{5}
+
 #ACTION {^The Lights-Belltoll Intersection{(?: \(Shadowed\))?}}
 {
 	portto 6640
@@ -1097,6 +1133,12 @@
 #ACTION {^The Murky Depths{(?: \(Shadowed\))?}}
 {
 	portto 20988
+}
+{5}
+
+#ACTION {^The Narwhal{(?: \(Shadowed\))?}}
+{
+	portto 17421
 }
 {5}
 
@@ -1141,6 +1183,12 @@
 #ACTION {^The Reception Desk at the Uthgardt Inn{(?: \(Shadowed\))?}}
 {
 	portto 3837
+}
+{5}
+
+#ACTION {^The Reception Desk of the Notched Axe Inn{(?: \(Shadowed\))?}}
+{
+	portto 11890
 }
 {5}
 
@@ -1258,6 +1306,12 @@
 }
 {5}
 
+#ACTION {^The Tawdry Nymph{(?: \(Shadowed\))?}}
+{
+	portto 16609
+}
+{5}
+
 #ACTION {^The Temple Dedicated to Ao{(?: \(Shadowed\))?}}
 {
 	portto 2760
@@ -1304,6 +1358,12 @@
 #ACTION {^The Viperstongue Reception{(?: \(Shadowed\))?}}
 {
 	portto 8140
+}
+{5}
+
+#ACTION {^The Wandering Dervish{(?: \(Shadowed\))?}}
+{
+	portto 16604
 }
 {5}
 
@@ -1395,6 +1455,12 @@
 #ACTION {^Top of a Flattened Stalagmite{(?: \(Shadowed\))?}}
 {
 	portto 24336
+}
+{5}
+
+#ACTION {^Traitor Picks{(?: \(Shadowed\))?}}
+{
+	portto 17421
 }
 {5}
 

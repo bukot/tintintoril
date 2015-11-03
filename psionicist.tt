@@ -1,5 +1,32 @@
 #CLASS {psionicist} OPEN
 
+#ACTION {A halfling girl stands here trying to keep out from under foot.}
+{
+	get cookie bag;
+	give cookie halfling;
+	#showme you say got the halfling!;
+	put cookie bag
+}
+{5}
+
+#ACTION {You are hungry.}
+{
+	#if {$psiautotrans}
+	{
+		sust;
+		sit;
+		rest;
+		med
+	}
+}
+{5}
+
+#ACTION {{(.+) looks really dumb.}}
+{
+	#showme {you say %2 is feeble minded!}
+}
+{5}
+
 #ALIAS {adr}
 {
 	adre me
@@ -12,96 +39,33 @@
 }
 {5}
 
+#ALIAS {cat}
+{
+	catf me
+}
+{5}
+
 #ALIAS {cha}
 {
 	chargep crystal
 }
 {5}
 
-#alias {dorift %w %w}
+#ALIAS {dorift %w %w}
 {
 	#if {$psiautotrans}
 	{
 		#class autotrans open;
-		#var {riftcaller} {%2};
-		#line {substitute} {variables} {
-			#act {{You can open a planar rift only to: (.+) planes!}}
-			{
-				t $riftcaller pick a valid plane! &2;
-				killclass autotrans;
-			}{1};
-		};
-			#act {{You open a planar rift to(?: the)? \w+ plane!}}
-			{
-				
-				killclass autotrans;
-			}{1};
+		#variable {riftcaller} {%2};
+		#line {substitute} {variables} {#act {{You can open a planar rift only to: (.+) planes!}}{t $riftcaller pick a valid plane! &2;killclass autotrans;}{1};};
+		#action {{You open a planar rift to(?: the)? \w+ plane!}}{killclass autotrans;}{1};
 		#class autotrans close;
-		#unvar {riftcaller};
+		#unvariable {riftcaller};
 		rift %1;
 		sit;
 		rest;
-		med;
-	};
-}
-
-#ALIAS {{do(?:hole|worm) (\w+) (\w+)}}
-{
-	#if {$psiautotrans}
-	{
-		#class autotrans open;
-		#var {holecaller} {%3};
-		#if {"%2" == "me"}
-		{
-			#var {holetarg} {$holecaller};
-		};
-		#else
-		{
-			#var {holetarg} {%2};
-		};
-		#line {substitute} {variables} {
-			#act {You fail to find your target on this plane.}
-			{
-				#showme {t $holecaller you are not on the same plane I am.};
-				t $holecaller you are not on the same plane I am.;
-				killclass autotrans;
-			}{1};
-			#act {You fail to locate your targets.}
-			{
-				#showme {t $holecaller can't locate that target ($holetarg).};
-				t $holecaller can't locate that target ($holetarg).;
-				killclass autotrans;
-			}{1};
-			#act {Something prevents your projections from completing}
-			{
-				#showme {t $holecaller you are in a !tele area.};
-				t $holecaller you are in a !tele area.;
-				killclass autotrans;
-			}{1};
-			#act {You open a wormhole!}
-			{
-				killclass autotrans;
-				killclass autotransmessages;
-			}{1};
-			#class autotrans close;
-			#class autotransmessages open;
-			#act {No-one by that name here...}
-			{
-				gcc $holecaller you are invis or hidden and your target was messed up!  Dummeh!;
-				killclass autotransmessages;
-			}{1};
-			#act {%i{^you tell .+}}
-			{
-				killclass autotransmessages;
-				#showme $holetarg;
-			}{1};
-		};
-		#class autotransmessages close;
-		hole $holetarg;
-		sit;
-		rest;
-		med;
-	};
+		med
+	}
 }
 {5}
 
@@ -111,9 +75,9 @@
 }
 {5}
 
-#ALIAS {exp}
+#ALIAS {expa}
 {
-	expa me
+	expan me
 }
 {5}
 
@@ -161,6 +125,35 @@
 }
 {5}
 
+#ALIAS {sizeprac}
+{
+	#switch {$resize}
+	{
+		#case {1}
+		{
+			expa
+		};
+		#case {2}
+		{
+			red
+		};
+		#case {3}
+		{
+			red
+		};
+		#case {4}
+		{
+			expa
+		}
+	};
+	#math {resize} {$resize + 1};
+	#if {$resize > 4}
+	{
+		#variable {resize} {1}
+	}
+}
+{5}
+
 #ALIAS {sust}
 {
 	susta me
@@ -173,6 +166,12 @@
 }
 {5}
 
+#ALIAS {ub}
+{
+	ultrabl
+}
+{5}
+
 #ALIAS {{autotrans (on|off)}}
 {
 	#switch {"%2"}
@@ -180,12 +179,18 @@
 		#case {"on"}
 		{
 			#variable psiautotrans {1};
-			#tic {traslive} {pose} {90};
+			#class {psionicist} open;
+			#ticker {translive} {pose;med} {90};
+			#ticker {exp} {sizeprac;sit;rest;cha;med;med} {240};
+			#delay {syn} {#ticker {syn} {syn noble;sit;rest;cha;med;med} {240};} {120};
+			#class {psionicist} close
 		};
 		#default
 		{
 			#variable psiautotrans {0};
-			#untic {traslive};
+			#untic exp;
+			#untic syn;
+			#untic translive
 		}
 	};
 	#if {$psiautotrans}
@@ -199,12 +204,37 @@
 }
 {5}
 
+#ALIAS {{do(?:hole|worm) (\w+) (\w+)}}
+{
+	#if {$psiautotrans}
+	{
+		#class autotrans open;
+		#variable {holecaller} {%3};
+		#if {"%2" == "me"}
+		{
+			#variable {holetarg} {$holecaller}
+		};
+		#else
+		{
+			#variable {holetarg} {%2}
+		};
+		#line {substitute} {variables} {#act {You fail to find your target on this plane.}{#showme {t $holecaller you are not on the same plane I am.};t $holecaller you are not on the same plane I am.;killclass autotrans;}{1};#act {You fail to locate your targets.}{#showme {t $holecaller can't locate that target ($holetarg).};t $holecaller can't locate that target ($holetarg).;killclass autotrans;}{1};#act {Something prevents your projections from completing}{#showme {t $holecaller you are in a !tele area.};t $holecaller you are in a !tele area.;killclass autotrans;}{1};#act {You open a wormhole!}{killclass autotrans;killclass autotransmessages;}{1};#class autotrans close;#class autotransmessages open;#act {No-one by that name here...}{gcc $holecaller you are invis, hidden, or your target is!  Dummeh!;killclass autotransmessages;}{1};#act {%i{^you tell .+}}{killclass autotransmessages;#showme $holetarg;}{1};#class autotransmessages close;};
+		hole $holetarg;
+		sit;
+		rest;
+		cha;
+		med;
+		med
+	}
+}
+{5}
+
 #MACRO {\eOP}
 {
 	shift ix
 }
 
-#VARIABLE         {class} {psionicist}
 #VARIABLE         {psiautotrans}  {0}
+#VARIABLE         {resize}  {1}
 
 #CLASS {psionicist} CLOSE

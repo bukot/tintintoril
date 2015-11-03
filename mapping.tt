@@ -201,23 +201,6 @@
 }
 {5}
 
-#ALIAS {.{[newsudNEWSUD0-9]+}}
-{
-	#variable {isdig} {0};
-	#variable {movestr} {};
-	#parse {%1} {thischar}
-	{
-		#regexp {$thischar} {{[0-9]}} {#if {$isdig}{#var {movestr}{$movestr$thischar}}{#var {movestr} {$movestr;#$thischar};#var {isdig} {1}}};
-		#regexp {$thischar} {{[newsudNEWSUD]}} {#if {$isdig}{#var {movestr} {$movestr $thischar};#var {isdig} {0}}{#var {movestr} {$movestr;$thischar}}}
-	};
-	#showme {$movestr};
-	$movestr;
-	#unvariable {movestr};
-	#unvariable {thischar};
-	#unvariable {isdig}
-}
-{5}
-
 #ALIAS {%i{mdrag set (.*)}}
 {
 	#regexp {%2} {^c(?:l(?:e(?:ar?)?)?)?$} {#var {mapdrag} {}};
@@ -296,7 +279,8 @@
 #ALIAS {%i{mdoor ((?:\w+ (?:[0-9]{0,2}\.)?\w*)|n(?:o(?:r(?:th?)?)?)?|s(?:o(?:u(?:th?)?)?)?|e(?:a(?:st?)?)?|w(?:e(?:st?)?)?|up?|d(?:o(?:wn?)?)?)} %w}
 {
 	#map dig %2;
-	#map exit %2 command {open %3 %2;%2}
+	#map exit %2 command {open %3 %2;%2};
+	mupdate
 }
 {5}
 
@@ -307,7 +291,7 @@
 }
 {5}
 
-#ALIAS {%i{mfind  ?(no(?:te?)?|n(?:a(?:m(?:e)?)?)?|nn) (.*)}}
+#ALIAS {%i{mfind  ?(nn|no?)(?:(?:te?)?|(?:a(?:me?)?)?) (.*)}}
 {
 	#variable {mroomvar} {@mlowercase{%2}};
 	#variable {mroomval} {@mlowercase{%3}};
@@ -396,12 +380,26 @@
 }
 {5}
 
-#ALIAS {%i{mset ?(no(?:te?)?|n(?:a(?:m(?:e)?)?)?) (.*)}}
+#ALIAS {%i{mset ?(no?|d)(?:(?:te?)|(?:a(?:me?)?)|(?:e(?:sc?)?))? (.*)}}
 {
 	#variable {mroomvar} {@mlowercase{%2}};
 	#variable {mroomval} {@mlowercase{%3}};
 	#unvariable {result};
-	#regexp {$mroomvar} {^{no?}} {#switch {"&1"}{#case {"n"}{#variable setfield roomname};#case {"no"}{#variable setfield roomnote}}};
+	#switch {"$mroomvar"}
+	{
+		#case {"d"}
+		{
+			#variable {setfield} {roomdesc}
+		};
+		#case {"n"}
+		{
+			#variable {setfield} {roomname}
+		};
+		#case {"no"}
+		{
+			#variable {setfield} {roomnote}
+		}
+	};
 	#if {"$setfield" != ""}
 	{
 		#map set $setfield {$mroomval}
@@ -466,6 +464,30 @@
 }
 {5}
 
+#ALIAS {.{[newsudNEWSUD0-9]+}}
+{
+	#variable {isdig} {0};
+	#variable {movestr} {};
+	#parse {%1} {thischar}
+	{
+		#regexp {$thischar} {{[0-9]}} {#if {$isdig}{#var {movestr}{$movestr$thischar}}{#var {movestr} {$movestr;#$thischar};#var {isdig} {1}}};
+		#regexp {$thischar} {{[newsudNEWSUD]}} {#if {$isdig}{#var {movestr} {$movestr $thischar};#var {isdig} {0}}{#var {movestr} {$movestr;$thischar}}}
+	};
+	#showme {$movestr};
+	$movestr;
+	#unvariable {movestr};
+	#unvariable {thischar};
+	#unvariable {isdig}
+}
+{5}
+
+#ALIAS {mnums}
+{
+	#map flag asciivnums;
+	mupdate
+}
+{5}
+
 #EVENT {MAP ENTER ROOM}
 {
 	mupdate;
@@ -501,7 +523,7 @@
 #VARIABLE         {mapdrag}  {}
 #VARIABLE         {mapping}  {1}
 #VARIABLE         {mapsave}  {1}
-#VARIABLE         {mapstatic}  {}
+#VARIABLE         {mapstatic}  {1}
 #VARIABLE         {mcolor}  {{bank}{130}{default}{170}{inn}{150}{rd}{230}{shop}{160}{water}{240}}
 
 #CLASS {mapping} CLOSE
