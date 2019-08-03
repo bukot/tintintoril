@@ -173,7 +173,7 @@ post release full refresh
                     combined msetname and msetnote into one alias mset that takes
                     an arguement mset &#60;command&#62; &#60;value&#62; it uses regex so the
                     space between mset and the command is optional for backwards
-                    compatability also it will match the abreviated arguement or 
+                    compatability also it will match the abbreviated arguement or 
                     the whole word mset no, msetno, msetnote, and msetnote are
                     all the same thing this will make it easier to add other map
                     features as needed
